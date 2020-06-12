@@ -1,0 +1,23 @@
+{
+  "$ref": "#/definitions/About",
+  "definitions": {
+    "About": {
+      "type": "object",
+      "properties": {
+        "model_version": {
+          "type": "string",
+          "default": "0.11",
+          "description": "This version isolates the Concept group by itself",
+          "displayName": "Current model version (only Concept)"
+        }
+      },
+      "required": [
+        "model_version"
+      ],
+      "description": "Information about the model",
+      "displayName": "About",
+      "additionalProperties": false
+    }
+  },
+  "$schema": "http://json-schema.org/draft-04/schema#"
+}

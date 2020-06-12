@@ -1,0 +1,74 @@
+{
+  "name": "dapla-metadata-explorer",
+  "version": "0.1.0",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/statisticsnorway/dapla-metadata-explorer"
+  },
+  "dependencies": {
+    "ace-builds": "^1.4.11",
+    "axios": "^0.19.2",
+    "axios-hooks": "^1.10.0",
+    "chart.js": "^2.9.3",
+    "graphql-hooks": "^4.4.4",
+    "react": "^16.13.1",
+    "react-ace": "^9.0.0",
+    "react-chartjs-2": "^2.9.0",
+    "react-dom": "^16.13.1",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "3.4.0",
+    "react-table-6": "^6.11.0",
+    "semantic-ui-css": "^2.4.1",
+    "semantic-ui-react": "^0.88.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "coverage": "react-scripts test --coverage --watchAll=false",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.9.0",
+    "@testing-library/react": "^10.2.1",
+    "@testing-library/user-event": "^11.3.1"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**",
+      "!src/index.js",
+      "!src/**/index.js",
+      "!src/configurations/**",
+      "!src/enums/**",
+      "!src/media/**",
+      "!src/queries/**",
+      "!src/utilities/**",
+      "!src/__tests__/test-data/**",
+      "!src/components/domains/DomainsChart.js"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 75,
+        "functions": 75,
+        "lines": 75,
+        "statements": 75
+      }
+    }
+  }
+}
