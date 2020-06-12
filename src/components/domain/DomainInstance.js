@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import useAxios from 'axios-hooks'
 import AceEditor from 'react-ace'
 import { useParams } from 'react-router-dom'
-import { Divider, Grid, Header, Loader } from 'semantic-ui-react'
+import { Divider, Grid, Header, Loader, Button, Icon } from 'semantic-ui-react'
 import 'ace-builds/src-noconflict/mode-json'
 import 'ace-builds/src-noconflict/theme-textmate'
 
@@ -15,7 +15,7 @@ import {
   getNestedObject,
   SchemasContext
 } from '../../utilities'
-import { API, DOMAIN_PROPERTY_GROUPING, GSIM, infoPopup } from '../../configurations'
+import { API, DOMAIN_PROPERTY_GROUPING, GSIM, infoPopup, SSB_COLORS } from '../../configurations'
 
 function DomainInstance () {
   const { domain, id } = useParams()
@@ -29,6 +29,9 @@ function DomainInstance () {
 
   const [{ data, loading, error }, refetch] =
     useAxios(`${restApi}${API.GET_DOMAIN_INSTANCE_DATA(domain, id)}`, { manual: true })
+
+  const [{ loading: putLoading, error: putError, response }, executePut] =
+    useAxios({ url: `${restApi}${API.PUT_DOMAIN_INSTANCE_DATA(domain, id)}`, method: 'PUT' }, { manual: true })
 
   const properties = Object.entries(getNestedObject(schema, GSIM.PROPERTIES(schema)))
 
@@ -60,6 +63,12 @@ function DomainInstance () {
     }
   }, [data, error, loading, schema])
 
+  // const saveDomain = (json) => {
+  //   console.log(json, "save json")
+  //   executePut({})
+  //
+  // }
+
   return (
     <>
       <Header size='large' content={getDomainDisplayName(schema)} subheader={id} />
@@ -88,19 +97,25 @@ function DomainInstance () {
               )}
             </Grid>
             <Divider hidden />
-            <AceEditor
-              mode='json'
-              width='100%'
-              fontSize={16}
-              theme='textmate'
-              showPrintMargin={false}
-              name='DomainInstanceEdit'
-              value={domainInstanceJson}
-              setOptions={{
-                showLineNumbers: true,
-                tabSize: 2
-              }}
+            <Grid>
+              <AceEditor
+                mode='json'
+                width='90%'
+                fontSize={16}
+                theme='textmate'
+                showPrintMargin={false}
+                name='DomainInstanceEdit'
+                value={domainInstanceJson}
+                onChange={ value => { setDomainInstanceJson(value) }}
+                setOptions={{
+                  showLineNumbers: true,
+                  tabSize: 2,
+                }}
             />
+            <Button onClick={ () => executePut({data: domainInstanceJson} )}>
+              <Icon name={'save'} size={'big'} style={{ color: SSB_COLORS.GREEN }} />
+            </Button>
+            </Grid>
           </>
       }
     </>

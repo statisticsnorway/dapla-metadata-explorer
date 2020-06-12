@@ -7,6 +7,7 @@ export const API = {
   ERROR_STATUS_PATH: ['response', 'statusText'],
   GET_DOMAIN_DATA: (domain) => `/${NAMESPACE}/${domain}`,
   GET_DOMAIN_INSTANCE_DATA: (domain, id) => `/${NAMESPACE}/${domain}/${id}`,
+  PUT_DOMAIN_INSTANCE_DATA: (domain, id) => `/${NAMESPACE}/${domain}/${id}`,
   GET_HEALTH: '/ping',
   GET_SCHEMAS: `/${NAMESPACE}?schema=embed`,
   GRAPHQL: '/graphql'
