@@ -60,7 +60,8 @@
       "!src/queries/**",
       "!src/utilities/**",
       "!src/__tests__/test-data/**",
-      "!src/components/domains/DomainsChart.js"
+      "!src/components/domains/DomainsChart.js",
+      "!src/components/domain/DomainInstanceEdit.js"
     ],
     "coverageThreshold": {
       "global": {

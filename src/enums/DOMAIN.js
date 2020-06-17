@@ -19,6 +19,10 @@ export const DOMAIN = {
     en: 'Reset table headers',
     nb: 'Tilbakestill tabellkolonner'
   },
+  SAVE: {
+    en: 'Save',
+    nb: 'Lagre'
+  },
   UNIQUE_PROPERTIES: {
     en: 'Domain properties unique for this domain',
     nb: 'Domeneattributter som er unike for dette domene'
