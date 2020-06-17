@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import useAxios from 'axios-hooks'
 import AceEditor from 'react-ace'
 import { useParams } from 'react-router-dom'
-import { Divider, Grid, Header, Loader, Button, Icon } from 'semantic-ui-react'
+import { Divider, Grid, Header, Loader, Button, Icon, Container } from 'semantic-ui-react'
 import 'ace-builds/src-noconflict/mode-json'
 import 'ace-builds/src-noconflict/theme-textmate'
 
@@ -30,7 +30,7 @@ function DomainInstance () {
   const [{ data, loading, error }, refetch] =
     useAxios(`${restApi}${API.GET_DOMAIN_INSTANCE_DATA(domain, id)}`, { manual: true })
 
-  const [{ loading: putLoading, error: putError, response }, executePut] =
+  const [{ loading: putLoading, error: putError, response: response }, executePut] =
     useAxios({ url: `${restApi}${API.PUT_DOMAIN_INSTANCE_DATA(domain, id)}`, method: 'PUT' }, { manual: true })
 
   const properties = Object.entries(getNestedObject(schema, GSIM.PROPERTIES(schema)))
@@ -63,11 +63,20 @@ function DomainInstance () {
     }
   }, [data, error, loading, schema])
 
-  // const saveDomain = (json) => {
-  //   console.log(json, "save json")
-  //   executePut({})
-  //
-  // }
+  useEffect( () => {
+    if (!putLoading && putError)  {
+      try {
+        console.log(putError.message, "message")
+        console.log(putError.response, "respons")
+        console.log(putError.response.data, "respons.data")
+        if (response) {
+          console.log(response.data, "data")
+        }
+      } catch (e) {
+        console.log(e)
+      }
+    }
+  }, [putLoading, putError, response])
 
   return (
     <>
@@ -96,8 +105,9 @@ function DomainInstance () {
                 </Grid.Column>
               )}
             </Grid>
-            <Divider hidden />
-            <Grid>
+            {putError ? <ErrorMessage error={putError}/> :
+              <Divider hidden />}
+
               <AceEditor
                 mode='json'
                 width='90%'
@@ -109,13 +119,14 @@ function DomainInstance () {
                 onChange={ value => { setDomainInstanceJson(value) }}
                 setOptions={{
                   showLineNumbers: true,
-                  tabSize: 2,
+                  tabSize: 1,
                 }}
             />
-            <Button onClick={ () => executePut({data: domainInstanceJson} )}>
+              {/*<Container textAlign='left'>*/ }
+              <Button onClick={() => executePut({ data: JSON.parse(domainInstanceJson) })}>
               <Icon name={'save'} size={'big'} style={{ color: SSB_COLORS.GREEN }} />
-            </Button>
-            </Grid>
+              </Button>
+            {/*</Container>*/}
           </>
       }
     </>
