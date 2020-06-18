@@ -39,6 +39,7 @@ function DomainInstanceEdit ({ data, refetch }) {
 
   return (
     <>
+      {putError && <Grid.Row><Grid.Column><ErrorMessage error={putError} /></Grid.Column></Grid.Row>}
       <Grid.Row>
         <Grid.Column>
           <AceEditor
@@ -60,7 +61,6 @@ function DomainInstanceEdit ({ data, refetch }) {
           />
         </Grid.Column>
       </Grid.Row>
-      {putError && <Grid.Row><Grid.Column><ErrorMessage error={putError} /></Grid.Column></Grid.Row>}
       <Grid.Row>
         <Grid.Column />
         <Grid.Column textAlign='right'>
