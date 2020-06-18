@@ -61,10 +61,6 @@ describe('Common mock', () => {
     userEvent.click(getByText(variable))
 
     expect(getAllByText(variable)).toHaveLength(2)
-
-    userEvent.click(getAllByText(variable)[0])
-
-    expect(getAllByText(variable)).toHaveLength(1)
   })
 
   test('Resets table headers correctly', () => {
