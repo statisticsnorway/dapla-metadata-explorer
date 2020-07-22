@@ -9,6 +9,6 @@ export {
   sortSchemas,
   replaceUnkownDomainProperty
 } from './SchemaHandling'
-export { truncateString } from './StringHandling'
+export { convertDateToView, truncateString } from './StringHandling'
 export { mapDataToTable } from './TableDataHandling'
 export { convertDataToView, handleBooleanForView, handleStringForView } from './ViewDataHandling'

@@ -39,7 +39,7 @@ export const mapDataToTable = (data, schema, language) => {
           break
 
         case 'string':
-          accumulator[property] = handleStringForView(item)
+          accumulator[property] = handleStringForView(item, properties[property])
           break
 
         default:

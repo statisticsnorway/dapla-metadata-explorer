@@ -22,6 +22,7 @@ export const GSIM = {
   DEFAULT_TABLE_HEADERS: ['id', 'name', 'description'],
   DESCRIPTION: (schema) => ['definitions', getDomainRef(schema), 'description'],
   DISPLAY_NAME: (schema) => ['definitions', getDomainRef(schema), 'displayName'],
+  FORMAT: 'format',
   GROUPS: {
     BASE: {
       COLOR: '#d1b279',
@@ -178,6 +179,7 @@ export const GSIM = {
       ]
     }
   },
+  ITEMS: 'items',
   LINK_TYPE: '_link_property_',
   LOCALIZED: {
     CODE: 'languageCode',
@@ -203,6 +205,11 @@ export const GSIM_DEFINITIONS = {
     REFERENCE: `${GSIM.SCHEMA.DEFINITIONS}AdministrativeDetails`
   },
   MULTILINGUAL_TEXT: {
+    NAME: 'MultilingualText',
+    PROPERTIES: {
+      LANGUAGE_CODE: 'languageCode',
+      LANGUAGE_TEXT: 'languageText'
+    },
     REFERENCE: `${GSIM.SCHEMA.DEFINITIONS}MultilingualText`,
     LANGUAGE_TEXT: (value, language) => {
       const text = value.find(object => object['languageCode'] === language)
