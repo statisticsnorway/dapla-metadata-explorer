@@ -11,4 +11,10 @@ export {
 } from './SchemaHandling'
 export { convertDateToView, truncateString } from './StringHandling'
 export { mapDataToTable } from './TableDataHandling'
-export { convertDataToView, handleBooleanForView, handleStringForView } from './ViewDataHandling'
+export {
+  convertAdministrativeDetailsToView,
+  convertAgentDetailsToView,
+  convertDataToView,
+  handleBooleanForView,
+  handleStringForView
+} from './ViewDataHandling'

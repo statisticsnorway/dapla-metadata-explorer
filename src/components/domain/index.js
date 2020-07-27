@@ -1,5 +1,6 @@
 export { default as Domain } from './Domain'
 export { default as DomainInstance } from './DomainInstance'
 export { default as DomainInstanceEdit } from './DomainInstanceEdit'
+export { default as DomainLinkResolve } from './DomainLinkResolve'
 export { default as DomainTable } from './DomainTable'
 export { default as DomainTableHeaders } from './DomainTableHeaders'

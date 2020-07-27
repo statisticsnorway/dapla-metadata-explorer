@@ -1,9 +1,9 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import { Icon, List } from 'semantic-ui-react'
 
+import { DomainLinkResolve } from '../components/domain'
 import { convertDateToView, getDomainRef, getNestedObject, replaceUnkownDomainProperty } from './'
-import { GSIM, GSIM_DEFINITIONS, ROUTING, SSB_COLORS } from '../configurations'
+import { GSIM, GSIM_DEFINITIONS, SSB_COLORS } from '../configurations'
 
 const NOT_FINISHED = '...'
 
@@ -23,18 +23,81 @@ const convertMultilingualToView = value =>
     )}
   </List>
 
-// TODO: Handle other types of arrays
+export const convertAgentDetailsToView = (value, property) =>
+  <List relaxed>
+    {value.map((element, index) =>
+      <List.Item key={index}>
+        <List.Content>
+          <List.Header style={{ lineHeight: '1.4285em', fontStyle: 'italic' }}>
+            {element[GSIM_DEFINITIONS.AGENT_DETAILS.PROPERTIES.AGENT_DETAIL_TYPE]}
+          </List.Header>
+          <List.Description>
+            <List.List>
+              {element[GSIM_DEFINITIONS.AGENT_DETAILS.PROPERTIES.VALUES].map(innerElement =>
+                <List.Item>
+                  {handleStringForView(innerElement, property)}
+                </List.Item>
+              )}
+            </List.List>
+          </List.Description>
+        </List.Content>
+      </List.Item>
+    )}
+  </List>
+
+export const convertAdministrativeDetailsToView = (value, property) =>
+  <List relaxed>
+    {value.map((element, index) =>
+      <List.Item key={index}>
+        <List.Content>
+          <List.Header style={{ lineHeight: '1.4285em', fontStyle: 'italic' }}>
+            {element[GSIM_DEFINITIONS.ADMINISTRATIVE_DETAILS.PROPERTIES.ADMINISTRATIVE_DETAIL_TYPE]}
+          </List.Header>
+          <List.Description>
+            <List.List>
+              {element[GSIM_DEFINITIONS.ADMINISTRATIVE_DETAILS.PROPERTIES.VALUES].map(innerElement =>
+                <List.Item>
+                  {handleStringForView(innerElement, property)}
+                </List.Item>
+              )}
+            </List.List>
+          </List.Description>
+        </List.Content>
+      </List.Item>
+    )}
+  </List>
+
 export const handleArrayForView = (value, property) => {
   if (property.hasOwnProperty(GSIM.ITEMS)) {
-    const item = getDomainRef(property[GSIM.ITEMS])
+    if (property[GSIM.ITEMS].hasOwnProperty(GSIM.SCHEMA.REF)) {
+      const item = getDomainRef(property[GSIM.ITEMS])
 
-    switch (item) {
-      case GSIM_DEFINITIONS.MULTILINGUAL_TEXT.NAME:
-        return convertMultilingualToView(value)
+      switch (item) {
+        case GSIM_DEFINITIONS.MULTILINGUAL_TEXT.NAME:
+          return convertMultilingualToView(value)
 
-      default:
-        return NOT_FINISHED
+        case GSIM_DEFINITIONS.ADMINISTRATIVE_DETAILS.NAME:
+          return convertAdministrativeDetailsToView(value, property)
+
+        case GSIM_DEFINITIONS.AGENT_DETAILS.NAME:
+          return convertAgentDetailsToView(value, property)
+
+        default:
+          return NOT_FINISHED
+      }
+    } else {
+      return (
+        <List>
+          {value.map((element, index) =>
+            <List.Item key={index}>
+              {handleStringForView(element, property)}
+            </List.Item>
+          )}
+        </List>
+      )
     }
+  } else {
+    return NOT_FINISHED
   }
 }
 
@@ -59,14 +122,15 @@ export const handleStringForView = (value, property) => {
     }
   } else {
     if (value.startsWith('/')) {
-      return <Link to={`${ROUTING.DOMAIN_BASE}${value.substr(1)}`}>{value}</Link>
+      return <DomainLinkResolve link={value} />
+    } else if (value.startsWith('http')) {
+      return <a target='_blank' rel='noopener noreferrer' href={value}>{value}</a>
     } else {
       return value
     }
   }
 }
 
-// TODO: This needs to handle all types and variations of types
 export const convertDataToView = (data, schema) => {
   const properties = getNestedObject(schema, GSIM.PROPERTIES(schema))
 
@@ -97,7 +161,7 @@ export const convertDataToView = (data, schema) => {
             break
 
           default:
-            newProperty.value = NOT_FINISHED
+            newProperty.value = `${data[property].toString()} (${NOT_FINISHED})`
         }
       }
 

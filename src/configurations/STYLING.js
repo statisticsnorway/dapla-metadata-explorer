@@ -11,6 +11,7 @@ export const SSB_COLORS = {
   BACKGROUND: '#f0f8f9',
   BLUE: '#3396D2',
   GREEN: '#00824D',
+  GREY: '#909090',
   PURPLE: '#9272FC',
   RED: '#ED5935',
   YELLOW: '#C78800'

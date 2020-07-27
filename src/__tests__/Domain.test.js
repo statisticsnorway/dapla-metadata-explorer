@@ -26,6 +26,7 @@ jest.mock('react-router-dom', () => ({
     domain: 'RepresentedVariable'
   })
 }))
+jest.mock('../components/domain/DomainLinkResolve', () => () => null)
 
 const { errorString, language } = TEST_CONFIGURATIONS
 const apiContext = TEST_CONFIGURATIONS.apiContext(jest.fn())
