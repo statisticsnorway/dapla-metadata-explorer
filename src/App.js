@@ -2,8 +2,9 @@ import React, { useContext, useEffect, useState } from 'react'
 import useAxios from 'axios-hooks'
 import { Route, Switch } from 'react-router-dom'
 import { Divider, Loader, Segment } from 'semantic-ui-react'
+import { ErrorMessage } from '@statisticsnorway/dapla-js-utilities'
 
-import { AppHome, AppMenu, AppSettings, Domain, DomainInstance, ErrorMessage } from './components'
+import { AppHome, AppMenu, AppSettings, Domain, DomainInstance } from './components'
 import { ApiContext, LanguageContext, SchemasContext, sortSchemas } from './utilities'
 import { API, ROUTING } from './configurations'
 import { UI } from './enums'
@@ -38,7 +39,7 @@ function App () {
       <Divider />
       <Segment basic>
         {loading ? <Loader active inline='centered' /> :
-          error ? <ErrorMessage error={UI.API_ERROR_MESSAGE[language]} /> : apiReady &&
+          error ? <ErrorMessage error={UI.API_ERROR_MESSAGE[language]} language={language} /> : apiReady &&
             <Switch>
               <Route path={ROUTING.DOMAIN_INSTANCE}>
                 <DomainInstance />

@@ -2,8 +2,8 @@ import React, { useContext, useEffect, useState } from 'react'
 import useAxios from 'axios-hooks'
 import { useParams } from 'react-router-dom'
 import { Divider, Grid, Header, Icon, Loader } from 'semantic-ui-react'
+import { ErrorMessage, InfoPopup, SSB_COLORS } from '@statisticsnorway/dapla-js-utilities'
 
-import { ErrorMessage } from '../'
 import { DomainTable, DomainTableHeaders } from './'
 import {
   ApiContext,
@@ -14,7 +14,7 @@ import {
   mapDataToTable,
   SchemasContext
 } from '../../utilities'
-import { API, GSIM, infoPopup, SSB_COLORS, TABLE_HEADERS } from '../../configurations'
+import { API, GSIM, TABLE_HEADERS } from '../../configurations'
 import { DOMAIN } from '../../enums'
 
 function Domain () {
@@ -65,19 +65,21 @@ function Domain () {
           <Header size='large' content={getDomainDisplayName(schema)} subheader={getDomainDescription(schema)} />
         </Grid.Column>
         <Grid.Column textAlign='right' verticalAlign='middle'>
-          {infoPopup(
-            DOMAIN.REFRESH_DOMAIN_LIST[language],
-            <Icon
-              link
-              name='sync'
-              size='large'
-              onClick={refetch}
-              loading={loading}
-              disabled={loading}
-              style={{ color: SSB_COLORS.BLUE }}
-            />,
-            'left center'
-          )}
+          <InfoPopup
+            position='left center'
+            text={DOMAIN.REFRESH_DOMAIN_LIST[language]}
+            trigger={
+              <Icon
+                link
+                name='sync'
+                size='large'
+                onClick={refetch}
+                loading={loading}
+                disabled={loading}
+                style={{ color: SSB_COLORS.BLUE }}
+              />
+            }
+          />
           {loading ? '-' : `(${tableData.length})`}
         </Grid.Column>
       </Grid>
@@ -89,7 +91,8 @@ function Domain () {
         setTrunc={setTruncationLength}
       />
       {loading ? <Loader active inline='centered' /> :
-        error ? <ErrorMessage error={error} /> : <DomainTable data={tableData} columns={tableColumns} />
+        error ? <ErrorMessage error={error} language={language} /> :
+          <DomainTable data={tableData} columns={tableColumns} />
       }
     </>
   )

@@ -3,8 +3,6 @@ import { getDomainRef } from '../utilities'
 const NAMESPACE = 'ns'
 
 export const API = {
-  ERROR_PATH: ['response', 'data'],
-  ERROR_STATUS_PATH: ['response', 'statusText'],
   GET_DOMAIN_DATA: (domain) => `/${NAMESPACE}/${domain}`,
   GET_DOMAIN_INSTANCE_DATA: (domain, id) => `/${NAMESPACE}/${domain}/${id}`,
   PUT_DOMAIN_INSTANCE_DATA: (domain, id) => `/${NAMESPACE}/${domain}/${id}`,

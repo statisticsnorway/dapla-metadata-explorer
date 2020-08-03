@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { ClientContext, GraphQLClient } from 'graphql-hooks'
+import { LANGUAGE } from '@statisticsnorway/dapla-js-utilities'
 
 import { API } from '../configurations'
-import { LANGUAGE } from '../enums'
 
 export const ApiContext = React.createContext({
   graphqlApi: `${process.env.REACT_APP_API}${API.GRAPHQL}`,

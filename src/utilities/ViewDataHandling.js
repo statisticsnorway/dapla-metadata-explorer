@@ -1,9 +1,10 @@
 import React from 'react'
 import { Icon, List } from 'semantic-ui-react'
+import { getNestedObject, SSB_COLORS } from '@statisticsnorway/dapla-js-utilities'
 
 import { DomainLinkResolve } from '../components/domain'
-import { convertDateToView, getDomainRef, getNestedObject, replaceUnkownDomainProperty } from './'
-import { GSIM, GSIM_DEFINITIONS, SSB_COLORS } from '../configurations'
+import { convertDateToView, getDomainRef, replaceUnkownDomainProperty } from './'
+import { GSIM, GSIM_DEFINITIONS } from '../configurations'
 
 const NOT_FINISHED = '...'
 

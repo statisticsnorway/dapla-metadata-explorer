@@ -2,9 +2,10 @@ import React from 'react'
 import useAxios from 'axios-hooks'
 import { MemoryRouter } from 'react-router-dom'
 import { render } from '@testing-library/react'
+import { getLocalizedGsimObjectText } from '@statisticsnorway/dapla-js-utilities'
 
 import { DomainLinkResolve } from '../components/domain'
-import { ApiContext, getDomainRef, getLocalizedGsimObjectText, LanguageContext } from '../utilities'
+import { ApiContext, getDomainRef, LanguageContext } from '../utilities'
 import { API, TEST_CONFIGURATIONS } from '../configurations'
 
 import RepresentedVariable from './test-data/RepresentedVariable.json'

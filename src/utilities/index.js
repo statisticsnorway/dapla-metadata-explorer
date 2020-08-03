@@ -1,5 +1,4 @@
 export { ApiContext, AppContextProvider, LanguageContext, SchemasContext } from './ContextHandling'
-export { getLocalizedGsimObjectText, getNestedObject } from './ObjectHandling'
 export {
   getDomainDescription,
   getDomainDisplayName,
@@ -9,7 +8,7 @@ export {
   sortSchemas,
   replaceUnkownDomainProperty
 } from './SchemaHandling'
-export { convertDateToView, truncateString } from './StringHandling'
+export { convertDateToView } from './StringHandling'
 export { mapDataToTable } from './TableDataHandling'
 export {
   convertAdministrativeDetailsToView,

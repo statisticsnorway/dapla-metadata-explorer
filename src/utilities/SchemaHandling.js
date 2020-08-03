@@ -1,4 +1,5 @@
-import { getNestedObject } from './ObjectHandling'
+import { getNestedObject } from '@statisticsnorway/dapla-js-utilities'
+
 import { GSIM } from '../configurations'
 import { UI } from '../enums'
 

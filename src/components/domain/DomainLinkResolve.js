@@ -2,9 +2,10 @@ import React, { useContext, useEffect, useState } from 'react'
 import useAxios from 'axios-hooks'
 import { Link } from 'react-router-dom'
 import { Icon, Loader } from 'semantic-ui-react'
+import { SSB_COLORS } from '@statisticsnorway/dapla-js-utilities'
 
 import { ApiContext, LanguageContext } from '../../utilities'
-import { API, GSIM_DEFINITIONS, ROUTING, SSB_COLORS } from '../../configurations'
+import { API, GSIM_DEFINITIONS, ROUTING } from '../../configurations'
 
 function DomainLinkResolve ({ link }) {
   const { restApi } = useContext(ApiContext)

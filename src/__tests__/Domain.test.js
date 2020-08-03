@@ -53,7 +53,7 @@ const setup = () => {
 describe('Common mock', () => {
   useAxios.mockReturnValue([{ data: [], loading: false, error: null }, refetch])
 
-  test('Adjusts table headers correctly', () => {
+  test('Adds table headers correctly', () => {
     const { getByText, getAllByText } = setup()
 
     expect(getAllByText(variable)).toHaveLength(1)
@@ -62,6 +62,17 @@ describe('Common mock', () => {
     userEvent.click(getByText(variable))
 
     expect(getAllByText(variable)).toHaveLength(2)
+  })
+
+  test('Removes table headers correctly', () => {
+    const { getByText, getAllByText } = setup()
+
+    expect(getAllByText('Name')).toHaveLength(2)
+
+    userEvent.click(getByText(DOMAIN.ADJUST_TABLE_HEADERS[language]))
+    userEvent.click(getAllByText('Name')[0])
+
+    expect(getAllByText('Name')).toHaveLength(1)
   })
 
   test('Resets table headers correctly', () => {

@@ -3,10 +3,6 @@ export const UI = {
     en: 'Something went wrong, check settings',
     nb: 'Noe gikk galt, sjekk innstillingene'
   },
-  ERROR: {
-    en: 'Error',
-    nb: 'Problem'
-  },
   EXTERNAL_GRAPHIQL: {
     en: 'Access GraphiQL directly',
     nb: 'Skriv Graphql spørringer direkte mot tjenesten'

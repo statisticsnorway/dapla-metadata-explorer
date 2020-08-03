@@ -1,15 +1,8 @@
 import React, { useContext } from 'react'
 import ReactTable from 'react-table-6'
+import { REACT_TABLE_TEXT, reactTableCustomFilterMethod } from '@statisticsnorway/dapla-js-utilities'
 
 import { LanguageContext } from '../../utilities'
-import { DOMAIN_TABLE } from '../../enums'
-
-const filterMethod = (filter, row) => {
-  const id = filter.pivotId || filter.id
-
-  return row[id] !== undefined && typeof row[id] === 'string' ?
-    String(row[id].toLowerCase()).includes(filter.value.toLowerCase()) : true
-}
 
 function DomainTable ({ columns, data, loading }) {
   const { language } = useContext(LanguageContext)
@@ -24,14 +17,14 @@ function DomainTable ({ columns, data, loading }) {
       loading={loading}
       defaultPageSize={20}
       className='-highlight'
-      defaultFilterMethod={filterMethod}
-      ofText={DOMAIN_TABLE.OF[language]}
-      nextText={DOMAIN_TABLE.NEXT[language]}
-      pageText={DOMAIN_TABLE.PAGE[language]}
-      rowsText={DOMAIN_TABLE.ROWS[language]}
-      loadingText={DOMAIN_TABLE.LOADING[language]}
-      previousText={DOMAIN_TABLE.PREVIOUS[language]}
-      noDataText={DOMAIN_TABLE.NOTHING_FOUND[language]}
+      defaultFilterMethod={reactTableCustomFilterMethod}
+      ofText={REACT_TABLE_TEXT.OF[language]}
+      nextText={REACT_TABLE_TEXT.NEXT[language]}
+      pageText={REACT_TABLE_TEXT.PAGE[language]}
+      rowsText={REACT_TABLE_TEXT.ROWS[language]}
+      loadingText={REACT_TABLE_TEXT.LOADING[language]}
+      previousText={REACT_TABLE_TEXT.PREVIOUS[language]}
+      noDataText={REACT_TABLE_TEXT.NOTHING_FOUND[language]}
     />
   )
 }

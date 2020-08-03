@@ -1,15 +1,15 @@
 import React from 'react'
 import { Icon, List, Popup } from 'semantic-ui-react'
+import { getNestedObject, SSB_COLORS } from '@statisticsnorway/dapla-js-utilities'
 
 import {
   convertAdministrativeDetailsToView,
   convertAgentDetailsToView,
   getDomainRef,
-  getNestedObject,
   handleBooleanForView,
   handleStringForView
 } from './'
-import { GSIM, GSIM_DEFINITIONS, SSB_COLORS } from '../configurations'
+import { GSIM, GSIM_DEFINITIONS } from '../configurations'
 
 const NOT_FINISHED = '...'
 
