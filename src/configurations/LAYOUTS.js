@@ -1,9 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Icon, Input, Popup } from 'semantic-ui-react'
+import { SSB_COLORS, truncateString } from '@statisticsnorway/dapla-js-utilities'
 
-import { getDomainPropertyDisplayName, getDomainRef, truncateString } from '../utilities'
-import { GSIM, ROUTING, SSB_COLORS } from './'
+import { getDomainPropertyDisplayName, getDomainRef } from '../utilities'
+import { GSIM, ROUTING } from './'
 import { DOMAIN, UI } from '../enums'
 
 export const DOMAIN_PROPERTY_GROUPING = [
@@ -25,11 +26,6 @@ export const DOMAIN_PROPERTY_GROUPING = [
     test: (property) => GSIM.PROPERTIES_GROUPING.AUTOFILLED.includes(property)
   }
 ]
-
-export const infoText = text => <><Icon name='info circle' style={{ color: SSB_COLORS.BLUE }} />{text}</>
-
-export const infoPopup = (text, trigger, position = 'top left', key = 'key') =>
-  <Popup key={key} basic flowing trigger={trigger} position={position} size='large'>{infoText(text)}</Popup>
 
 export const SEARCH_LAYOUT = {
   categoryLayoutRenderer: ({ categoryContent, resultsContent }) => {

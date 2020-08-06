@@ -1,12 +1,13 @@
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { Divider, Dropdown, Header, Image, Menu } from 'semantic-ui-react'
+import { LANGUAGE, SSB_COLORS } from '@statisticsnorway/dapla-js-utilities'
 
-import { AppSearch } from './'
 import SSBLogo from '../media/ssb-logo-rgb.svg'
+import { AppSearch } from './'
 import { LanguageContext } from '../utilities'
-import { ROUTING, SSB_COLORS } from '../configurations'
-import { LANGUAGE, TEST_IDS, UI } from '../enums'
+import { ROUTING } from '../configurations'
+import { TEST_IDS, UI } from '../enums'
 
 function AppMenu ({ setSettingsOpen, ready }) {
   const { language, setLanguage } = useContext(LanguageContext)

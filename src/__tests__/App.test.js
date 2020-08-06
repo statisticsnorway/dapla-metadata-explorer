@@ -3,11 +3,12 @@ import { MemoryRouter } from 'react-router-dom'
 import { render } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import useAxios from 'axios-hooks'
+import { LANGUAGE } from '@statisticsnorway/dapla-js-utilities'
 
 import App from '../App'
 import { AppContextProvider } from '../utilities'
 import { API, TEST_CONFIGURATIONS } from '../configurations'
-import { LANGUAGE, SETTINGS, TEST_IDS, UI } from '../enums'
+import { SETTINGS, TEST_IDS, UI } from '../enums'
 
 jest.mock('../components/AppHome', () => () => null)
 jest.mock('../components/domain/Domain', () => () => null)

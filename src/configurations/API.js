@@ -3,11 +3,10 @@ import { getDomainRef } from '../utilities'
 const NAMESPACE = 'ns'
 
 export const API = {
-  ERROR_PATH: ['response', 'data'],
-  ERROR_STATUS_PATH: ['response', 'statusText'],
   GET_DOMAIN_DATA: (domain) => `/${NAMESPACE}/${domain}`,
   GET_DOMAIN_INSTANCE_DATA: (domain, id) => `/${NAMESPACE}/${domain}/${id}`,
   PUT_DOMAIN_INSTANCE_DATA: (domain, id) => `/${NAMESPACE}/${domain}/${id}`,
+  GET_DOMAIN_INSTANCE_NAME: (link) => `/${NAMESPACE}${link}/name`,
   GET_HEALTH: '/ping',
   GET_SCHEMAS: `/${NAMESPACE}?schema=embed`,
   GRAPHQL: '/graphql'
@@ -22,6 +21,7 @@ export const GSIM = {
   DEFAULT_TABLE_HEADERS: ['id', 'name', 'description'],
   DESCRIPTION: (schema) => ['definitions', getDomainRef(schema), 'description'],
   DISPLAY_NAME: (schema) => ['definitions', getDomainRef(schema), 'displayName'],
+  FORMAT: 'format',
   GROUPS: {
     BASE: {
       COLOR: '#d1b279',
@@ -178,6 +178,7 @@ export const GSIM = {
       ]
     }
   },
+  ITEMS: 'items',
   LINK_TYPE: '_link_property_',
   LOCALIZED: {
     CODE: 'languageCode',
@@ -200,9 +201,27 @@ export const GSIM = {
 
 export const GSIM_DEFINITIONS = {
   ADMINISTRATIVE_DETAILS: {
+    NAME: 'AdministrativeDetails',
+    PROPERTIES: {
+      ADMINISTRATIVE_DETAIL_TYPE: 'administrativeDetailType',
+      VALUES: 'values'
+    },
     REFERENCE: `${GSIM.SCHEMA.DEFINITIONS}AdministrativeDetails`
   },
+  AGENT_DETAILS: {
+    NAME: 'AgentDetails',
+    PROPERTIES: {
+      AGENT_DETAIL_TYPE: 'agentDetailType',
+      VALUES: 'values'
+    },
+    REFERENCE: `${GSIM.SCHEMA.DEFINITIONS}AgentDetails`
+  },
   MULTILINGUAL_TEXT: {
+    NAME: 'MultilingualText',
+    PROPERTIES: {
+      LANGUAGE_CODE: 'languageCode',
+      LANGUAGE_TEXT: 'languageText'
+    },
     REFERENCE: `${GSIM.SCHEMA.DEFINITIONS}MultilingualText`,
     LANGUAGE_TEXT: (value, language) => {
       const text = value.find(object => object['languageCode'] === language)

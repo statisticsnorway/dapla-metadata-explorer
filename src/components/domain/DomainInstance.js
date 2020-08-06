@@ -2,23 +2,24 @@ import React, { useContext, useEffect, useState } from 'react'
 import useAxios from 'axios-hooks'
 import { useParams } from 'react-router-dom'
 import { Grid, Header, Loader } from 'semantic-ui-react'
+import { ErrorMessage, getNestedObject, InfoPopup } from '@statisticsnorway/dapla-js-utilities'
 
-import { ErrorMessage } from '../'
 import { DomainInstanceEdit } from './'
 import {
   ApiContext,
   convertDataToView,
   getDomainDisplayName,
   getDomainSchema,
-  getNestedObject,
+  LanguageContext,
   SchemasContext
 } from '../../utilities'
-import { API, DOMAIN_PROPERTY_GROUPING, GSIM, infoPopup } from '../../configurations'
+import { API, DOMAIN_PROPERTY_GROUPING, GSIM } from '../../configurations'
 
 function DomainInstance () {
   const { domain, id } = useParams()
   const { restApi } = useContext(ApiContext)
   const { schemas } = useContext(SchemasContext)
+  const { language } = useContext(LanguageContext)
 
   const [ready, setReady] = useState(false)
   const [schema, setSchema] = useState(getDomainSchema(domain, schemas))
@@ -60,24 +61,24 @@ function DomainInstance () {
     <>
       <Header size='large' content={getDomainDisplayName(schema)} subheader={id} />
       {loading ? <Loader active inline='centered' /> :
-        error ? <ErrorMessage error={error} /> : ready &&
+        error ? <ErrorMessage error={error} language={language} /> : ready &&
           <Grid columns='equal' divided>
             <Grid.Row>
               {DOMAIN_PROPERTY_GROUPING.map(({ name, test }) =>
                 <Grid.Column key={name}>
                   <Grid>
                     {ready && properties.filter(([property]) => test(property)).map(([property]) => {
-                        const { description, name, value } = domainInstanceData[property]
+                      const { description, name, value } = domainInstanceData[property]
 
-                        return (
-                          <Grid.Row key={property}>
-                            <Grid.Column textAlign='right' width={5}>
-                              {infoPopup(description, <b>{name}</b>)}
-                            </Grid.Column>
-                            <Grid.Column width={11}>{value}</Grid.Column>
-                          </Grid.Row>
-                        )
-                      }
+                      return (
+                        <Grid.Row key={property}>
+                          <Grid.Column textAlign='right' width={5}>
+                            <InfoPopup text={description} trigger={<b>{name}</b>} />
+                          </Grid.Column>
+                          <Grid.Column width={11}>{value}</Grid.Column>
+                        </Grid.Row>
+                      )
+                    }
                     )}
                   </Grid>
                 </Grid.Column>

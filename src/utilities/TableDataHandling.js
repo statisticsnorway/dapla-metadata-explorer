@@ -1,25 +1,64 @@
-import { getNestedObject, handleBooleanForView, handleStringForView } from './'
+import React from 'react'
+import { Icon, List, Popup } from 'semantic-ui-react'
+import { getNestedObject, SSB_COLORS } from '@statisticsnorway/dapla-js-utilities'
+
+import {
+  convertAdministrativeDetailsToView,
+  convertAgentDetailsToView,
+  getDomainRef,
+  handleBooleanForView,
+  handleStringForView
+} from './'
 import { GSIM, GSIM_DEFINITIONS } from '../configurations'
 
 const NOT_FINISHED = '...'
 
-// TODO: This needs to handle all types of definitions
 const handleArrayPropertyForTable = (property, value, language) => {
-  const definitionRef = getNestedObject(property, GSIM_DEFINITIONS.PATH)
+  if (property.hasOwnProperty(GSIM.ITEMS)) {
+    if (property[GSIM.ITEMS].hasOwnProperty(GSIM.SCHEMA.REF)) {
+      const item = getDomainRef(property[GSIM.ITEMS])
 
-  switch (definitionRef) {
-    case GSIM_DEFINITIONS.MULTILINGUAL_TEXT.REFERENCE:
-      return GSIM_DEFINITIONS.MULTILINGUAL_TEXT.LANGUAGE_TEXT(value, language)
+      switch (item) {
+        case GSIM_DEFINITIONS.MULTILINGUAL_TEXT.NAME:
+          return GSIM_DEFINITIONS.MULTILINGUAL_TEXT.LANGUAGE_TEXT(value, language)
 
-    case GSIM_DEFINITIONS.ADMINISTRATIVE_DETAILS.REFERENCE:
-      return NOT_FINISHED
+        case GSIM_DEFINITIONS.ADMINISTRATIVE_DETAILS.NAME:
+          return (
+            <Popup basic flowing hoverable
+                   trigger={<Icon name='talk' size='large' style={{ color: SSB_COLORS.GREY }} />}>
+              {convertAdministrativeDetailsToView(value, property)}
+            </Popup>
+          )
 
-    default:
-      return NOT_FINISHED
+        case GSIM_DEFINITIONS.AGENT_DETAILS.NAME:
+          return (
+            <Popup basic flowing hoverable
+                   trigger={<Icon name='talk' size='large' style={{ color: SSB_COLORS.GREY }} />}>
+              {convertAgentDetailsToView(value, property)}
+            </Popup>
+          )
+
+        default:
+          return NOT_FINISHED
+      }
+    } else {
+      return (
+        <Popup basic flowing hoverable trigger={<Icon name='talk' size='large' style={{ color: SSB_COLORS.GREY }} />}>
+          <List>
+            {value.map((element, index) =>
+              <List.Item key={index}>
+                {handleStringForView(element, property)}
+              </List.Item>
+            )}
+          </List>
+        </Popup>
+      )
+    }
+  } else {
+    return NOT_FINISHED
   }
 }
 
-// TODO: This needs to handle all types and variations of types
 export const mapDataToTable = (data, schema, language) => {
   const properties = getNestedObject(schema, GSIM.PROPERTIES(schema))
 
@@ -39,11 +78,11 @@ export const mapDataToTable = (data, schema, language) => {
           break
 
         case 'string':
-          accumulator[property] = handleStringForView(item)
+          accumulator[property] = handleStringForView(item, properties[property])
           break
 
         default:
-          accumulator[property] = NOT_FINISHED
+          accumulator[property] = `${item.toString()} (${NOT_FINISHED})`
       }
 
       return accumulator

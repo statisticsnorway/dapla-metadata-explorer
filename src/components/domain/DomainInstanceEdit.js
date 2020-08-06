@@ -3,10 +3,10 @@ import useAxios from 'axios-hooks'
 import AceEditor from 'react-ace'
 import { useParams } from 'react-router-dom'
 import { Button, Grid, Icon } from 'semantic-ui-react'
+import { ErrorMessage } from '@statisticsnorway/dapla-js-utilities'
 import 'ace-builds/src-noconflict/mode-json'
 import 'ace-builds/src-noconflict/theme-textmate'
 
-import { ErrorMessage } from '../'
 import { ApiContext, LanguageContext } from '../../utilities'
 import { API } from '../../configurations'
 import { DOMAIN } from '../../enums'
@@ -39,7 +39,13 @@ function DomainInstanceEdit ({ data, refetch }) {
 
   return (
     <>
-      {putError && <Grid.Row><Grid.Column><ErrorMessage error={putError} /></Grid.Column></Grid.Row>}
+      {putError &&
+      <Grid.Row>
+        <Grid.Column>
+          <ErrorMessage error={putError} language={language} />
+        </Grid.Column>
+      </Grid.Row>
+      }
       <Grid.Row>
         <Grid.Column>
           <AceEditor

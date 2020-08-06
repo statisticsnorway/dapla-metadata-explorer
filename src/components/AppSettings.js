@@ -1,9 +1,9 @@
 import React, { useContext, useState } from 'react'
 import { Button, Container, Divider, Form, Grid, Header, Icon, List, Modal, Segment } from 'semantic-ui-react'
+import { ErrorMessage, InfoPopup, InfoText, SSB_COLORS, SSB_STYLE } from '@statisticsnorway/dapla-js-utilities'
 
-import { ErrorMessage } from './'
 import { ApiContext, LanguageContext } from '../utilities'
-import { API, infoPopup, infoText, SSB_COLORS, SSB_STYLE } from '../configurations'
+import { API } from '../configurations'
 import { SETTINGS, TEST_IDS } from '../enums'
 
 function AppSettings ({ error, loading, open, setSettingsOpen }) {
@@ -42,7 +42,7 @@ function AppSettings ({ error, loading, open, setSettingsOpen }) {
         </Form>
         {!loading && !settingsEdited && error && <ErrorMessage error={error} />}
         <Container style={{ marginTop: '1em' }}>
-          {settingsEdited && infoText(SETTINGS.EDITED_VALUES[language])}
+          {settingsEdited && <InfoText text={SETTINGS.EDITED_VALUES[language]} />}
           <Divider hidden />
           <Grid columns='equal'>
             <Grid.Column>
@@ -61,19 +61,21 @@ function AppSettings ({ error, loading, open, setSettingsOpen }) {
               </Button>
             </Grid.Column>
             <Grid.Column textAlign='right'>
-              {infoPopup(
-                SETTINGS.RESET_SETTINGS[language],
-                <Icon
-                  link
-                  fitted
-                  name='undo'
-                  size='large'
-                  onClick={() => setDefaults()}
-                  style={{ color: SSB_COLORS.BLUE }}
-                  data-testid={TEST_IDS.DEFAULT_SETTINGS_BUTTON}
-                />,
-                'left center'
-              )}
+              <InfoPopup
+                position='left center'
+                text={SETTINGS.RESET_SETTINGS[language]}
+                trigger={
+                  <Icon
+                    link
+                    fitted
+                    name='undo'
+                    size='large'
+                    onClick={() => setDefaults()}
+                    style={{ color: SSB_COLORS.BLUE }}
+                    data-testid={TEST_IDS.DEFAULT_SETTINGS_BUTTON}
+                  />
+                }
+              />
             </Grid.Column>
           </Grid>
         </Container>

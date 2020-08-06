@@ -25,6 +25,7 @@ jest.mock('react-router-dom', () => ({
     id: '8a0e6412-0fb0-46ed-b2e9-e3294b05fa59'
   })
 }))
+jest.mock('../components/domain/DomainLinkResolve', () => () => null)
 jest.mock('../components/domain/DomainInstanceEdit', () => () => null)
 
 const { errorString, language } = TEST_CONFIGURATIONS
