@@ -55,12 +55,7 @@ function AppSettings ({ error, loading, open, setSettingsOpen }) {
           <Divider hidden />
           <Grid columns='equal'>
             <Grid.Column>
-              <Button
-                primary
-                size='large'
-                disabled={loading}
-                onClick={() => applySettings()}
-              >
+              <Button primary size='large' disabled={loading} onClick={() => applySettings()}>
                 <Icon name='sync' style={{ paddingRight: '0.5rem' }} />
                 {SETTINGS.APPLY[language]}
               </Button>
