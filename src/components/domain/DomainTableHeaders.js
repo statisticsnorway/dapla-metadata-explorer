@@ -75,7 +75,7 @@ function DomainTableHeaders ({ headers, schema, setHeaders, setTrunc }) {
                             key={property}
                             checked={includes}
                             label={object.displayName !== '' ? object.displayName : property}
-                            style={{ marginRight: '0.5em' }}
+                            style={{ marginRight: '0.5rem' }}
                             onClick={() => handleCheckbox(includes, property)}
                           />
                         }

@@ -21,7 +21,7 @@ function AppMenu ({ setSettingsOpen, ready }) {
   )
 
   return (
-    <Menu secondary size='huge' style={{ padding: '1em', paddingTop: '2em' }}>
+    <Menu secondary size='huge' style={{ padding: '1rem', paddingTop: '2rem' }}>
       <Menu.Item as={Link} to={ROUTING.BASE}><Image size='medium' src={SSBLogo} /></Menu.Item>
       <Menu.Item><Header size='huge' content={UI.HEADER[language]} /></Menu.Item>
       <Menu.Menu position='right'>

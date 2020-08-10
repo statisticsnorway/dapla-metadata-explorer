@@ -62,7 +62,7 @@ test('Does not crash', () => {
   useAxios.mockReturnValue([{ data: undefined, loading: true, error: null }])
   setup()
 
-  expect(useAxios).toHaveBeenCalledWith(`${process.env.REACT_APP_API}${API.GET_SCHEMAS}`)
+  expect(useAxios).toHaveBeenCalledWith(`${process.env.REACT_APP_API}${API.GET_SCHEMAS}`, { useCache: false })
 })
 
 test('Does not crash on sortSchema problems', () => {

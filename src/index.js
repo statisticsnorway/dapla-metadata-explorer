@@ -4,7 +4,7 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import 'semantic-ui-css/semantic.min.css'
 import 'react-table-6/react-table.css'
 
-import './App.css'
+import './index.css'
 import { AppContextProvider } from './utilities'
 import App from './App'
 

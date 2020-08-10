@@ -15,7 +15,6 @@
       "url": "http://www.apache.org/licenses/LICENSE-2.0"
     }
   ],
-  "homepage": "https://github.com/statisticsnorway/dapla-metadata-explorer",
   "dependencies": {
     "@statisticsnorway/dapla-js-utilities": "^0.1.1",
     "ace-builds": "^1.4.11",
