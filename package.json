@@ -5,7 +5,7 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/statisticsnorway/dapla-metadata-explorer.git"
+    "url": "https://github.com/statisticsnorway/dapla-metadata-explorer"
   },
   "author": "Statistics Norway",
   "license": "Apache-2.0",
