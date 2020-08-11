@@ -159,6 +159,14 @@
           "description": "Administrative details (e.g. default language, documentation, localID, ...).",
           "displayName": "Administrative details"
         },
+        "agentInRoles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "displayName": "Agent in roles",
+          "description": "Agent(s) acting in the Role(s) for this information object."
+        },
         "variable": {
           "type": "string",
           "displayName": "Variable"
@@ -170,6 +178,14 @@
         "substantiveValueDomain": {
           "type": "string",
           "displayName": "Substantive value domain"
+        },
+        "_link_property_agentInRoles": {
+          "type": "object",
+          "properties": {
+            "AgentInRole": {
+              "type": "null"
+            }
+          }
         },
         "_link_property_variable": {
           "type": "object",

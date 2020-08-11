@@ -63,12 +63,11 @@
     "collectCoverageFrom": [
       "src/**",
       "!src/index.js",
+      "!src/setupTests.js",
+      "!src/ssb-logo-rgb.svg",
       "!src/**/index.js",
       "!src/configurations/**",
       "!src/enums/**",
-      "!src/media/**",
-      "!src/queries/**",
-      "!src/utilities/**",
       "!src/__tests__/test-data/**",
       "!src/components/domains/DomainsChart.js",
       "!src/components/domain/DomainInstanceEdit.js"
