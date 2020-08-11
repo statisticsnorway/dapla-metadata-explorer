@@ -63,7 +63,6 @@
     "collectCoverageFrom": [
       "src/**",
       "!src/index.js",
-      "!src/setupTests.js",
       "!src/ssb-logo-rgb.svg",
       "!src/**/index.js",
       "!src/configurations/**",
