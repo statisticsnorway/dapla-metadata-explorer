@@ -1,6 +1,6 @@
 import React from 'react'
-import { render } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { render } from '@testing-library/react'
 
 import { AppSettings } from '../components'
 import { ApiContext, LanguageContext } from '../utilities'

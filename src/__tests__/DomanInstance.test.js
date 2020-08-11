@@ -1,7 +1,7 @@
 import React from 'react'
 import useAxios from 'axios-hooks'
-import { MemoryRouter } from 'react-router-dom'
 import { render } from '@testing-library/react'
+import { MemoryRouter } from 'react-router-dom'
 
 import { DomainInstance } from '../components/domain'
 import {

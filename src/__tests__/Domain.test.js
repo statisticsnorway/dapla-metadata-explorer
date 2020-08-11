@@ -1,8 +1,8 @@
 import React from 'react'
 import useAxios from 'axios-hooks'
-import { MemoryRouter } from 'react-router-dom'
-import { render } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { render } from '@testing-library/react'
+import { MemoryRouter } from 'react-router-dom'
 
 import { Domain } from '../components/domain'
 import {

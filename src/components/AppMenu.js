@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { Divider, Dropdown, Header, Image, Menu } from 'semantic-ui-react'
 import { LANGUAGE, SSB_COLORS } from '@statisticsnorway/dapla-js-utilities'
 
-import SSBLogo from '../media/ssb-logo-rgb.svg'
+import SSBLogo from '../ssb-logo-rgb.svg'
 import { AppSearch } from './'
 import { LanguageContext } from '../utilities'
 import { ROUTING } from '../configurations'

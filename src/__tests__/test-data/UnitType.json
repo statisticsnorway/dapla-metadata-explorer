@@ -159,6 +159,14 @@
           "description": "Administrative details (e.g. default language, documentation, localID, ...).",
           "displayName": "Administrative details"
         },
+        "agentInRoles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "displayName": "Agent in roles",
+          "description": "Agent(s) acting in the Role(s) for this information object."
+        },
         "subjectFields": {
           "type": "array",
           "items": {
@@ -192,6 +200,14 @@
             "type": "string"
           },
           "displayName": "Parent unit types"
+        },
+        "_link_property_agentInRoles": {
+          "type": "object",
+          "properties": {
+            "AgentInRole": {
+              "type": "null"
+            }
+          }
         },
         "_link_property_subjectFields": {
           "type": "object",

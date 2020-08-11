@@ -10,6 +10,7 @@ import {
   handleStringForView
 } from './'
 import { GSIM, GSIM_DEFINITIONS } from '../configurations'
+import { TEST_IDS } from '../enums'
 
 const NOT_FINISHED = '...'
 
@@ -24,16 +25,28 @@ const handleArrayPropertyForTable = (property, value, language) => {
 
         case GSIM_DEFINITIONS.ADMINISTRATIVE_DETAILS.NAME:
           return (
-            <Popup basic flowing hoverable
-                   trigger={<Icon name='talk' size='large' style={{ color: SSB_COLORS.GREY }} />}>
+            <Popup
+              basic
+              flowing
+              hoverable
+              trigger={
+                <Icon name='talk' size='large' data-testid={TEST_IDS.TABLE_HOVER} style={{ color: SSB_COLORS.GREY }} />
+              }
+            >
               {convertAdministrativeDetailsToView(value, property)}
             </Popup>
           )
 
         case GSIM_DEFINITIONS.AGENT_DETAILS.NAME:
           return (
-            <Popup basic flowing hoverable
-                   trigger={<Icon name='talk' size='large' style={{ color: SSB_COLORS.GREY }} />}>
+            <Popup
+              basic
+              flowing
+              hoverable
+              trigger={
+                <Icon name='talk' size='large' data-testid={TEST_IDS.TABLE_HOVER} style={{ color: SSB_COLORS.GREY }} />
+              }
+            >
               {convertAgentDetailsToView(value, property)}
             </Popup>
           )

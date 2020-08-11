@@ -35,7 +35,7 @@ export const convertAgentDetailsToView = (value, property) =>
           <List.Description>
             <List.List>
               {element[GSIM_DEFINITIONS.AGENT_DETAILS.PROPERTIES.VALUES].map(innerElement =>
-                <List.Item>
+                <List.Item key={innerElement}>
                   {handleStringForView(innerElement, property)}
                 </List.Item>
               )}
@@ -57,7 +57,7 @@ export const convertAdministrativeDetailsToView = (value, property) =>
           <List.Description>
             <List.List>
               {element[GSIM_DEFINITIONS.ADMINISTRATIVE_DETAILS.PROPERTIES.VALUES].map(innerElement =>
-                <List.Item>
+                <List.Item key={innerElement}>
                   {handleStringForView(innerElement, property)}
                 </List.Item>
               )}
