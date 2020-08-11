@@ -17,7 +17,7 @@ function App () {
   const [apiReady, setApiReady] = useState(false)
   const [settingsOpen, setSettingsOpen] = useState(false)
 
-  const [{ data, loading, error }] = useAxios(`${restApi}${API.GET_SCHEMAS}`)
+  const [{ data, loading, error }] = useAxios(`${restApi}${API.GET_SCHEMAS}`, { useCache: false })
 
   useEffect(() => {
     if (!loading && !error && data !== undefined) {

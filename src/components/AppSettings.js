@@ -8,21 +8,33 @@ import { SETTINGS, TEST_IDS } from '../enums'
 
 function AppSettings ({ error, loading, open, setSettingsOpen }) {
   const { language } = useContext(LanguageContext)
-  const { restApi, setRestApi, setGraphqlApi } = useContext(ApiContext)
+  const { restApi, setRestApi, graphqlApi, setGraphqlApi } = useContext(ApiContext)
 
   const [apiUrl, setApiUrl] = useState(restApi)
+  const [graphqlApiUrl, setGraphqlApiUrl] = useState(graphqlApi)
   const [settingsEdited, setSettingsEdited] = useState(false)
 
-  const setDefaults = () => {
-    setApiUrl(process.env.REACT_APP_API)
-    setRestApi(process.env.REACT_APP_API)
-    setGraphqlApi(`${process.env.REACT_APP_API}${API.GRAPHQL}`)
+  const applySettings = () => {
+    setRestApi(apiUrl)
+    setGraphqlApi(graphqlApiUrl)
     setSettingsEdited(false)
+  }
+
+  const changeSettings = (value) => {
+    setApiUrl(value)
+    setGraphqlApiUrl(`${value}${API.GRAPHQL}`)
+    setSettingsEdited(true)
+  }
+
+  const setDefaults = () => {
+    setSettingsEdited(true)
+    setApiUrl(process.env.REACT_APP_API)
+    setGraphqlApiUrl(`${process.env.REACT_APP_API}${API.GRAPHQL}`)
   }
 
   return (
     <Modal open={open} onClose={() => setSettingsOpen(false)} style={SSB_STYLE}>
-      <Header as='h2' style={SSB_STYLE}>
+      <Header size='large' style={SSB_STYLE}>
         <Icon name='cog' style={{ color: SSB_COLORS.GREEN }} />
         {SETTINGS.HEADER[language]}
       </Header>
@@ -34,29 +46,17 @@ function AppSettings ({ error, loading, open, setSettingsOpen }) {
             label={SETTINGS.API[language]}
             error={!!error && !settingsEdited}
             placeholder={SETTINGS.API[language]}
-            onChange={(event, { value }) => {
-              setApiUrl(value)
-              setSettingsEdited(true)
-            }}
+            onChange={(event, { value }) => changeSettings(value)}
           />
         </Form>
         {!loading && !settingsEdited && error && <ErrorMessage error={error} />}
-        <Container style={{ marginTop: '1em' }}>
+        <Container style={{ marginTop: '1rem' }}>
           {settingsEdited && <InfoText text={SETTINGS.EDITED_VALUES[language]} />}
           <Divider hidden />
           <Grid columns='equal'>
             <Grid.Column>
-              <Button
-                primary
-                size='large'
-                disabled={loading}
-                onClick={() => {
-                  setRestApi(apiUrl)
-                  setGraphqlApi(`${apiUrl}${API.GRAPHQL}`)
-                  setSettingsEdited(false)
-                }}
-              >
-                <Icon name='sync' style={{ paddingRight: '0.5em' }} />
+              <Button primary size='large' disabled={loading} onClick={() => applySettings()}>
+                <Icon name='sync' style={{ paddingRight: '0.5rem' }} />
                 {SETTINGS.APPLY[language]}
               </Button>
             </Grid.Column>
@@ -82,7 +82,7 @@ function AppSettings ({ error, loading, open, setSettingsOpen }) {
       </Modal.Content>
       <Container fluid textAlign='center'>
         <Divider />
-        <List horizontal divided link size='small' style={{ marginTop: '3em', marginBottom: '3em' }}>
+        <List horizontal divided link size='small' style={{ marginTop: '3rem', marginBottom: '3rem' }}>
           <List.Item as='a' href={`${process.env.REACT_APP_SOURCE_URL}`} icon={{ fitted: true, name: 'github' }} />
           <List.Item content={`${SETTINGS.APP_VERSION[language]}: ${process.env.REACT_APP_VERSION}`} />
         </List>

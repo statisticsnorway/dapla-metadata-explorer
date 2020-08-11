@@ -7,7 +7,7 @@ export const API = {
   GET_DOMAIN_INSTANCE_DATA: (domain, id) => `/${NAMESPACE}/${domain}/${id}`,
   PUT_DOMAIN_INSTANCE_DATA: (domain, id) => `/${NAMESPACE}/${domain}/${id}`,
   GET_DOMAIN_INSTANCE_NAME: (link) => `/${NAMESPACE}${link}/name`,
-  GET_HEALTH: '/ping',
+  GET_HEALTH: '/health/ready',
   GET_SCHEMAS: `/${NAMESPACE}?schema=embed`,
   GRAPHQL: '/graphql'
 }

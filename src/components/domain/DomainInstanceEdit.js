@@ -76,7 +76,7 @@ function DomainInstanceEdit ({ data, refetch }) {
             disabled={putLoading || !madeChanges}
             onClick={() => executePut({ data: JSON.parse(domainInstanceJson) })}
           >
-            <Icon name='save' size='large' style={{ paddingRight: '0.5em' }} />
+            <Icon name='save' size='large' style={{ paddingRight: '0.5rem' }} />
             {DOMAIN.SAVE[language]}
           </Button>
         </Grid.Column>

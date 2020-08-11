@@ -49,6 +49,4 @@ test('Resetting to default values works correctly', async () => {
   userEvent.click(getByTestId(TEST_IDS.DEFAULT_SETTINGS_BUTTON))
 
   expect(getByPlaceholderText(SETTINGS.API[language])).toHaveValue(apiContext.restApi)
-  expect(apiContext.setRestApi).toHaveBeenCalledWith(apiContext.restApi)
-  expect(apiContext.setGraphqlApi).toHaveBeenCalledWith(`${apiContext.restApi}${API.GRAPHQL}`)
 })
