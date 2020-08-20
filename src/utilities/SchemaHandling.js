@@ -9,6 +9,8 @@ const replaceUnknownDomain = (name, schema) => name === undefined || name === ''
 
 export const replaceUnkownDomainProperty = (name, property) => name === undefined || name === '' ? property : name
 
+export const getDomainRef = schema => getNestedObject(schema, [GSIM.SCHEMA.REF]).replace(GSIM.SCHEMA.DEFINITIONS, '')
+
 const sortGroups = schemas => {
   const groups = {}
   let flatGroups = []
@@ -39,8 +41,6 @@ export const getDomainDisplayName = schema =>
 
 export const getDomainPropertyDisplayName = (schema, domain, property) =>
   replaceUnkownDomainProperty(getNestedObject(schema, GSIM.PROPERTIES_DISPLAY_NAME(domain, property)), property)
-
-export const getDomainRef = schema => getNestedObject(schema, [GSIM.SCHEMA.REF]).replace(GSIM.SCHEMA.DEFINITIONS, '')
 
 export const getDomainSchema = (domain, schemas) => Object.entries(schemas.groups).reduce((accumulator, group) => {
   const getSchema = group[1].reduce((accumulator, schema) => {

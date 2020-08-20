@@ -8,6 +8,26 @@ import { GSIM, GSIM_DEFINITIONS } from '../configurations'
 
 const NOT_FINISHED = '...'
 
+export const handleStringForView = (value, property) => {
+  if (property.hasOwnProperty(GSIM.FORMAT)) {
+    if (property[GSIM.FORMAT] === 'date-time') {
+      return convertDateToView(value)
+    } else {
+      return value
+    }
+  } else {
+    if (value.startsWith('/')) {
+      return <DomainLinkResolve link={value} />
+    } else if (value.startsWith('http')) {
+      return <a target='_blank' rel='noopener noreferrer' href={value}>{value}</a>
+    } else if (property.hasOwnProperty(GSIM.ENUM)) {
+      return value
+    } else {
+      return value
+    }
+  }
+}
+
 const convertMultilingualToView = value =>
   <List>
     {value.map((element, index) =>
@@ -111,27 +131,6 @@ export const handleBooleanForView = value =>
     style={{ color: value ? SSB_COLORS.GREEN : SSB_COLORS.RED }}
   />
 
-// TODO: Maybe handle 'number' and ENUM
-export const handleStringForView = (value, property) => {
-  if (property.hasOwnProperty(GSIM.FORMAT)) {
-    switch (property[GSIM.FORMAT]) {
-      case 'date-time':
-        return convertDateToView(value)
-
-      default:
-        return value
-    }
-  } else {
-    if (value.startsWith('/')) {
-      return <DomainLinkResolve link={value} />
-    } else if (value.startsWith('http')) {
-      return <a target='_blank' rel='noopener noreferrer' href={value}>{value}</a>
-    } else {
-      return value
-    }
-  }
-}
-
 export const convertDataToView = (data, schema) => {
   const properties = getNestedObject(schema, GSIM.PROPERTIES(schema))
 
@@ -151,6 +150,10 @@ export const convertDataToView = (data, schema) => {
 
           case 'boolean':
             newProperty.value = handleBooleanForView(data[property])
+            break
+
+          case 'number':
+            newProperty.value = data[property]
             break
 
           case 'object':
