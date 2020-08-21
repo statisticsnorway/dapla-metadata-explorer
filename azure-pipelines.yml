@@ -28,7 +28,6 @@ jobs:
           CI=true yarn coverage
           CI=true yarn build
       - task: SonarQubePrepare@4
-      - task: SonarQubePublish@4
         inputs:
           SonarQube: 'bipSonarQube'
           scannerMode: 'CLI'
@@ -37,6 +36,7 @@ jobs:
           cliProjectName: '$(Build.Repository.Name)'
           cliSources: '.'
       - task: SonarQubeAnalyze@4
+      - task: SonarQubePublish@4
       - task: Docker@2
         displayName: 'Login to GCR'
         inputs:
