@@ -28,6 +28,7 @@ jobs:
           CI=true yarn coverage
           CI=true yarn build
       - task: SonarQubePrepare@4
+      - task: SonarQubePublish@4
         inputs:
           SonarQube: 'bipSonarQube'
           scannerMode: 'CLI'
