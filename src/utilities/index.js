@@ -5,9 +5,9 @@ export {
   getDomainPropertyDisplayName,
   getDomainRef,
   getDomainSchema,
-  sortSchemas,
   replaceUnkownDomainProperty
-} from './SchemaHandling'
+} from './SchemaExtraction'
+export { createEmptyDataObject, sortSchemas } from './SchemaHandling'
 export { convertDateToView } from './StringHandling'
 export { mapDataToTable } from './TableDataHandling'
 export {

@@ -3,7 +3,7 @@ import useAxios from 'axios-hooks'
 import AceEditor from 'react-ace'
 import { useParams } from 'react-router-dom'
 import { Button, Grid, Icon } from 'semantic-ui-react'
-import { ErrorMessage } from '@statisticsnorway/dapla-js-utilities'
+import { ErrorMessage, SSB_COLORS } from '@statisticsnorway/dapla-js-utilities'
 import 'ace-builds/src-noconflict/mode-json'
 import 'ace-builds/src-noconflict/theme-textmate'
 
@@ -71,12 +71,12 @@ function DomainInstanceEdit ({ data, refetch }) {
         <Grid.Column />
         <Grid.Column textAlign='right'>
           <Button
-            primary
             size='large'
             disabled={putLoading || !madeChanges}
+            style={{ backgroundColor: SSB_COLORS.BLUE }}
             onClick={() => executePut({ data: JSON.parse(domainInstanceJson) })}
           >
-            <Icon name='save' size='large' style={{ paddingRight: '0.5rem' }} />
+            <Icon name='save' style={{ paddingRight: '0.5rem' }} />
             {DOMAIN.SAVE[language]}
           </Button>
         </Grid.Column>
