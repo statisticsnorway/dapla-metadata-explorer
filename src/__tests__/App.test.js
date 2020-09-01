@@ -13,6 +13,7 @@ import { SETTINGS, TEST_IDS, UI } from '../enums'
 jest.mock('../components/AppHome', () => () => null)
 jest.mock('../components/domain/Domain', () => () => null)
 jest.mock('../components/domain/DomainInstance', () => () => null)
+jest.mock('../components/domain/DomainInstanceNew', () => () => null)
 
 global.console = {
   log: jest.fn()

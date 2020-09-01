@@ -1,8 +1,10 @@
 # dapla-metadata-explorer
 [![Build Status](https://dev.azure.com/statisticsnorway/Dapla/_apis/build/status/Frontends/statisticsnorway.dapla-metadata-explorer?branchName=master)](https://dev.azure.com/statisticsnorway/Dapla/_build/latest?definitionId=21&branchName=master)
 
-This application is built for in-house use in SSB and it aims to create a user interface against various metadata 
-exploration services such as [exploration-lds](https://github.com/statisticsnorway/dapla-project/blob/master/localstack/docker-compose-exploration.yml).
+This application is built for in-house use in Statistics Norway and it aims to create a user interface against various 
+metadata exploration services such as 
+[exploration-lds](https://github.com/statisticsnorway/dapla-project/blob/master/localstack/docker-compose-exploration.yml).
+Its eventual goal is to replace [linked-data-store-client](https://github.com/statisticsnorway/linked-data-store-client).
 
 Functionality includes:
 * Listing, browsing and exploring metadata
