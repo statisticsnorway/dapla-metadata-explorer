@@ -21,6 +21,9 @@
     "validFrom": "2015-01-01T15:00:00.000Z",
     "createdDate": "2015-01-01T15:00:00.000Z",
     "createdBy": "OHV",
+    "parentAgents": [
+      "/Agent/316ce68d-9154-43d3-ae4f-90b4668d2fd7"
+    ],
     "agentDetails": [
       {
         "agentDetailType": "CONTACT_EMAIL",
