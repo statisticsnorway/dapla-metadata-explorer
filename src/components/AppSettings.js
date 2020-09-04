@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
-import { Button, Container, Divider, Form, Grid, Header, Icon, List, Modal, Segment } from 'semantic-ui-react'
-import { ErrorMessage, InfoPopup, InfoText, SSB_COLORS, SSB_STYLE } from '@statisticsnorway/dapla-js-utilities'
+import { Button, Container, Divider, Form, Grid, Header, Icon, Modal, Segment } from 'semantic-ui-react'
+import { ErrorMessage, InfoPopup, InfoText, SimpleFooter, SSB_COLORS, SSB_STYLE } from '@statisticsnorway/dapla-js-utilities'
 
 import { ApiContext, LanguageContext } from '../utilities'
 import { API } from '../configurations'
@@ -80,13 +80,13 @@ function AppSettings ({ error, loading, open, setSettingsOpen }) {
           </Grid>
         </Container>
       </Modal.Content>
-      <Container fluid textAlign='center'>
-        <Divider />
-        <List horizontal divided link size='small' style={{ marginTop: '3rem', marginBottom: '3rem' }}>
-          <List.Item as='a' href={`${process.env.REACT_APP_SOURCE_URL}`} icon={{ fitted: true, name: 'github' }} />
-          <List.Item content={`${SETTINGS.APP_VERSION[language]}: ${process.env.REACT_APP_VERSION}`} />
-        </List>
-      </Container>
+      <Segment basic>
+        <SimpleFooter
+          language={language}
+          appVersion={process.env.REACT_APP_VERSION}
+          sourceUrl={process.env.REACT_APP_SOURCE_URL}
+        />
+      </Segment>
     </Modal>
   )
 }

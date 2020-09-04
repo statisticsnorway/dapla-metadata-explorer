@@ -86,10 +86,6 @@ export const mapDataToTable = (data, schema, language) => {
           accumulator[property] = handleBooleanForView(item)
           break
 
-        case 'object':
-          accumulator[property] = NOT_FINISHED
-          break
-
         case 'string':
           accumulator[property] = handleStringForView(item, properties[property])
           break

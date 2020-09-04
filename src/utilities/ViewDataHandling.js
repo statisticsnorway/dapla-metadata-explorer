@@ -156,10 +156,6 @@ export const convertDataToView = (data, schema) => {
             newProperty.value = data[property]
             break
 
-          case 'object':
-            newProperty.value = NOT_FINISHED
-            break
-
           case 'string':
             newProperty.value = handleStringForView(data[property], properties[property])
             break

@@ -20,10 +20,6 @@ export const createEmptyDataObject = (schema, id) => {
             data[property] = null
             break
 
-          case 'object':
-            data[property] = {}
-            break
-
           default:
             data[property] = ''
         }

@@ -5,11 +5,11 @@ import { UI } from '../enums'
 
 const checkUnkown = string => string !== undefined ? string : UI.UNKOWN
 
+export const getDomainRef = schema => getNestedObject(schema, [GSIM.SCHEMA.REF]).replace(GSIM.SCHEMA.DEFINITIONS, '')
+
 const replaceUnknownDomain = (name, schema) => name === undefined || name === '' ? getDomainRef(schema) : name
 
 export const replaceUnkownDomainProperty = (name, property) => name === undefined || name === '' ? property : name
-
-export const getDomainRef = schema => getNestedObject(schema, [GSIM.SCHEMA.REF]).replace(GSIM.SCHEMA.DEFINITIONS, '')
 
 export const getDomainDescription = schema => {
   const description = getNestedObject(schema, GSIM.DESCRIPTION(schema))
