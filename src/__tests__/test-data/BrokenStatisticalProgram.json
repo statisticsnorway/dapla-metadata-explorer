@@ -1,5 +1,5 @@
 {
-  "$ref": "#/definitions/Agent",
+  "$ref": "#/definitions/StatisticalProgram",
   "definitions": {
     "MultilingualText": {
       "type": "object",
@@ -58,36 +58,7 @@
       ],
       "additionalProperties": false
     },
-    "AgentDetails": {
-      "type": "object",
-      "properties": {
-        "agentDetailType": {
-          "type": "string",
-          "description": "The type (key) of the AgentDetails-attribute.",
-          "displayName": "Agent detail type",
-          "enum": [
-            "CONTACT_EMAIL",
-            "CONTACT_MOBILE",
-            "CONTACT_PHONE",
-            "CONTACT_ADDRESS"
-          ]
-        },
-        "values": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "description": "One or more values (a list) for this agentDetailType.",
-          "displayName": "Values"
-        }
-      },
-      "required": [
-        "agentDetailType",
-        "values"
-      ],
-      "additionalProperties": false
-    },
-    "Agent": {
+    "StatisticalProgram": {
       "type": "object",
       "properties": {
         "id": {
@@ -138,11 +109,7 @@
           "description": "Information object created by.",
           "displayName": "Created by"
         },
-        "version": {
-          "type": "string",
-          "description": "Formal versioning of the information object. The version designator of the information object assigned by the owner agency. \"major.minor.patch\", e.g. \"1.12.5\".",
-          "displayName": "Version"
-        },
+        "version": {},
         "versionValidFrom": {
           "type": "string",
           "format": "date-time",
@@ -176,7 +143,7 @@
         },
         "validUntil": {
           "type": "string",
-          "format": "date-time",
+          "format": "",
           "description": "The date on which the information object is no longer effective or valid.",
           "displayName": "Valid until"
         },
@@ -196,36 +163,90 @@
           "displayName": "Agent in roles",
           "description": "Agent(s) acting in the Role(s) for this information object."
         },
-        "agentType": {
-          "type": "string",
-          "description": "The type of agent.",
-          "displayName": "Agent type",
-          "enum": [
-            "INDIVIDUAL",
-            "ORGANIZATION",
-            "SYSTEM"
-          ]
-        },
-        "parentAgents": {
+        "parentStatisticalPrograms": {
           "type": "array",
           "items": {
             "type": "string"
           },
-          "displayName": "Parent agents"
+          "displayName": "Parent statistical programs"
         },
-        "isExternal": {
-          "type": "boolean",
-          "default": false,
-          "description": "Is this an external agent?",
-          "displayName": "Is external"
+        "statisticalProgramDesign": {
+          "type": "string",
+          "displayName": "Statistical program design"
         },
-        "agentDetails": {
+        "statisticalProgramCycles": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/AgentDetails"
+            "type": "string"
           },
-          "description": "Agent details (e.g. contackt adress, email, phone, mobile ...).",
-          "displayName": "Agent details"
+          "displayName": "Statistical program cycles"
+        },
+        "dateInitiated": {
+          "type": "string",
+          "format": "date-time",
+          "description": "First date of validity",
+          "displayName": "Date initiated"
+        },
+        "dateEnded": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last date of validity",
+          "displayName": "Date ended"
+        },
+        "statisticalProgramStatus": {
+          "type": "string",
+          "description": "The current condition of the program",
+          "displayName": "Statistical program status",
+          "enum": [
+            "NEW",
+            "UNDER_DEVELOPMENT",
+            "CURRENT",
+            "COMPLETED",
+            "CANCELLED",
+            "TRANSFERRED"
+          ]
+        },
+        "history": {
+          "type": "array",
+          "description": "A description of the precursors of the program within the organisation",
+          "displayName": "History"
+        },
+        "subjectMatterDomains": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MultilingualText"
+          },
+          "description": "A description of the subject matters",
+          "displayName": "Subject matter domains"
+        },
+        "sourceOfFunding": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MultilingualText"
+          },
+          "description": "A description of the source of funding",
+          "displayName": "Source of funding"
+        },
+        "budget": {
+          "type": "number",
+          "description": "Budget",
+          "displayName": "Budget"
+        },
+        "legislativeReferences": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MultilingualText"
+          },
+          "description": "Any legislative materials, eg parliamentary tabling documents",
+          "displayName": "Legislative references"
+        },
+        "legalFrameworks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MultilingualText"
+          },
+          "description": "Description of the legal framework",
+          "displayName": "Legal frameworks"
         },
         "_link_property_agentInRoles": {
           "type": "object",
@@ -235,10 +256,26 @@
             }
           }
         },
-        "_link_property_parentAgents": {
+        "_link_property_parentStatisticalPrograms": {
           "type": "object",
           "properties": {
-            "Agent": {
+            "StatisticalProgram": {
+              "type": "null"
+            }
+          }
+        },
+        "_link_property_statisticalProgramDesign": {
+          "type": "object",
+          "properties": {
+            "StatisticalProgramDesign": {
+              "type": "null"
+            }
+          }
+        },
+        "_link_property_statisticalProgramCycles": {
+          "type": "object",
+          "properties": {
+            "StatisticalProgramCycle": {
               "type": "null"
             }
           }
@@ -251,11 +288,12 @@
         "createdBy",
         "versionValidFrom",
         "validFrom",
-        "agentType",
-        "isExternal"
+        "statisticalProgramStatus",
+        "history",
+        "subjectMatterDomains"
       ],
-      "description": "An actor that performs a role in relation to the statistical Business Process.",
-      "displayName": "Agent",
+      "description": "A set of activities, which may be repeated, to investigate characteristics of a given Population. It describes the purpose and context of a set of Business Process within the context of the relevant Statistical Program Cycles.",
+      "displayName": "Statistical program",
       "additionalProperties": false
     }
   },

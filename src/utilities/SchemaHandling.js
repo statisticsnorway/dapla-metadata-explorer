@@ -10,21 +10,17 @@ export const createEmptyDataObject = (schema, id) => {
 
   Object.keys(properties).forEach(property => {
     if (!property.startsWith(GSIM.LINK_TYPE)) {
-      if (properties[property].hasOwnProperty(GSIM.TYPE)) {
-        switch (properties[property][GSIM.TYPE]) {
-          case 'array':
-            data[property] = ['']
-            break
+      switch (properties[property][GSIM.TYPE]) {
+        case 'array':
+          data[property] = ['']
+          break
 
-          case 'boolean':
-            data[property] = null
-            break
+        case 'boolean':
+          data[property] = null
+          break
 
-          default:
-            data[property] = ''
-        }
-      } else {
-        data[property] = ''
+        default:
+          data[property] = ''
       }
     }
   })
