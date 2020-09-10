@@ -88,7 +88,7 @@ export const convertAdministrativeDetailsToView = (value, property) =>
     )}
   </List>
 
-export const handleArrayForView = (value, property) => {
+const handleArrayForView = (value, property) => {
   if (property.hasOwnProperty(GSIM.ITEMS)) {
     if (property[GSIM.ITEMS].hasOwnProperty(GSIM.SCHEMA.REF)) {
       const item = getDomainRef(property[GSIM.ITEMS])
