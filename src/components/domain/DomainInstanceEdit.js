@@ -7,7 +7,7 @@ import { ErrorMessage, SSB_COLORS } from '@statisticsnorway/dapla-js-utilities'
 import 'ace-builds/src-noconflict/mode-json'
 import 'ace-builds/src-noconflict/theme-textmate'
 
-import { ApiContext, LanguageContext } from '../../utilities'
+import { ApiContext, LanguageContext } from '../../context/AppContext'
 import { API } from '../../configurations'
 import { DOMAIN } from '../../enums'
 

@@ -1,8 +1,15 @@
 import React, { useContext, useState } from 'react'
 import { Button, Container, Divider, Form, Grid, Header, Icon, Modal, Segment } from 'semantic-ui-react'
-import { ErrorMessage, InfoPopup, InfoText, SimpleFooter, SSB_COLORS, SSB_STYLE } from '@statisticsnorway/dapla-js-utilities'
+import {
+  ErrorMessage,
+  InfoPopup,
+  InfoText,
+  SimpleFooter,
+  SSB_COLORS,
+  SSB_STYLE
+} from '@statisticsnorway/dapla-js-utilities'
 
-import { ApiContext, LanguageContext } from '../utilities'
+import { ApiContext, LanguageContext } from '../context/AppContext'
 import { API } from '../configurations'
 import { SETTINGS, TEST_IDS } from '../enums'
 
@@ -28,8 +35,8 @@ function AppSettings ({ error, loading, open, setSettingsOpen }) {
 
   const setDefaults = () => {
     setSettingsEdited(true)
-    setApiUrl(process.env.REACT_APP_API)
-    setGraphqlApiUrl(`${process.env.REACT_APP_API}${API.GRAPHQL}`)
+    setApiUrl(window._env.REACT_APP_API)
+    setGraphqlApiUrl(`${window._env.REACT_APP_API}${API.GRAPHQL}`)
   }
 
   return (
@@ -38,20 +45,28 @@ function AppSettings ({ error, loading, open, setSettingsOpen }) {
         <Icon name='cog' style={{ color: SSB_COLORS.GREEN }} />
         {SETTINGS.HEADER[language]}
       </Header>
-      <Modal.Content as={Segment} basic loading={loading} style={SSB_STYLE}>
+      <Modal.Content as={Segment} basic style={SSB_STYLE}>
         <Form size='large'>
           <Form.Input
             value={apiUrl}
-            disabled={loading}
+            loading={loading}
             label={SETTINGS.API[language]}
             error={!!error && !settingsEdited}
             placeholder={SETTINGS.API[language]}
             onChange={(event, { value }) => changeSettings(value)}
+            onKeyPress={({ key }) => key === 'Enter' && applySettings()}
+            icon={!loading && !settingsEdited && !error ?
+              <Icon name='check' style={{ color: SSB_COLORS.GREEN }} /> : null
+            }
           />
         </Form>
-        {!loading && !settingsEdited && error && <ErrorMessage error={error} />}
+        {!loading && !settingsEdited && error && <ErrorMessage error={error} language={language} />}
+        {!loading && settingsEdited &&
+        <Container style={{ marginTop: '0.5rem' }}>
+          <InfoText text={SETTINGS.EDITED_VALUES[language]} />
+        </Container>
+        }
         <Container style={{ marginTop: '1rem' }}>
-          {settingsEdited && <InfoText text={SETTINGS.EDITED_VALUES[language]} />}
           <Divider hidden />
           <Grid columns='equal'>
             <Grid.Column>

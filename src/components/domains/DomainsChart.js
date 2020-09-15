@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { Pie } from 'react-chartjs-2'
 
-import { SchemasContext } from '../../utilities'
+import { SchemasContext } from '../../context/AppContext'
 import { GSIM, PIE_CHART_OPTIONS } from '../../configurations'
 
 function DomainsChart () {

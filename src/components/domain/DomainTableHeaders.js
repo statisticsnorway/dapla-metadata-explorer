@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import { Accordion, Checkbox, Divider, Grid, Header, Icon, Label, Segment } from 'semantic-ui-react'
 import { getNestedObject, InfoPopup, SSB_COLORS } from '@statisticsnorway/dapla-js-utilities'
 
-import { LanguageContext } from '../../utilities'
+import { LanguageContext } from '../../context/AppContext'
 import { DOMAIN_PROPERTY_GROUPING, GSIM } from '../../configurations'
 import { DOMAIN, TEST_IDS } from '../../enums'
 

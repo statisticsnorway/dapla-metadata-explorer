@@ -4,7 +4,8 @@ import { render } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 
 import { DomainsList } from '../components/domains'
-import { getDomainDescription, LanguageContext, SchemasContext, sortSchemas } from '../utilities'
+import { LanguageContext, SchemasContext } from '../context/AppContext'
+import { getDomainDescription, sortSchemas } from '../utilities'
 import { TEST_CONFIGURATIONS } from '../configurations'
 
 import RepresentedVariable from './test-data/RepresentedVariable.json'

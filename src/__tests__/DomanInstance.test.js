@@ -4,14 +4,8 @@ import { render } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 
 import { DomainInstance } from '../components/domain'
-import {
-  ApiContext,
-  getDomainDisplayName,
-  getDomainRef,
-  LanguageContext,
-  SchemasContext,
-  sortSchemas
-} from '../utilities'
+import { ApiContext, LanguageContext, SchemasContext } from '../context/AppContext'
+import { getDomainDisplayName, getDomainRef, sortSchemas } from '../utilities'
 import { API, ROUTING, TEST_CONFIGURATIONS } from '../configurations'
 
 import RepresentedVariable from './test-data/RepresentedVariable.json'

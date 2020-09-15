@@ -8,14 +8,8 @@ import { ErrorMessage, SSB_COLORS } from '@statisticsnorway/dapla-js-utilities'
 import 'ace-builds/src-noconflict/mode-json'
 import 'ace-builds/src-noconflict/theme-textmate'
 
-import {
-  ApiContext,
-  createEmptyDataObject,
-  getDomainDisplayName,
-  getDomainSchema,
-  LanguageContext,
-  SchemasContext
-} from '../../utilities'
+import { ApiContext, LanguageContext, SchemasContext } from '../../context/AppContext'
+import { createEmptyDataObject, getDomainDisplayName, getDomainSchema } from '../../utilities'
 import { DOMAIN } from '../../enums'
 import useAxios from 'axios-hooks'
 import { API } from '../../configurations'

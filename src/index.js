@@ -5,7 +5,7 @@ import 'semantic-ui-css/semantic.min.css'
 import 'react-table-6/react-table.css'
 
 import './index.css'
-import { AppContextProvider } from './utilities'
+import { AppContextProvider } from './context/AppContext'
 import App from './App'
 
 ReactDOM.render(

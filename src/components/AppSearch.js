@@ -1,7 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Search } from 'semantic-ui-react'
 
-import { getDomainDescription, getDomainDisplayName, getDomainRef, LanguageContext, SchemasContext } from '../utilities'
+import { LanguageContext, SchemasContext } from '../context/AppContext'
+import { getDomainDescription, getDomainDisplayName, getDomainRef } from '../utilities'
 import { SEARCH_LAYOUT } from '../configurations'
 import { UI } from '../enums'
 

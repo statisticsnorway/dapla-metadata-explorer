@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { Icon, Loader } from 'semantic-ui-react'
 import { SSB_COLORS } from '@statisticsnorway/dapla-js-utilities'
 
-import { ApiContext, LanguageContext } from '../../utilities'
+import { ApiContext, LanguageContext } from '../../context/AppContext'
 import { API, GSIM_DEFINITIONS, ROUTING } from '../../configurations'
 
 function DomainLinkResolve ({ link }) {

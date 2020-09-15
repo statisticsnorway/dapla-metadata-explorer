@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event'
 import { render } from '@testing-library/react'
 
 import { AppSettings } from '../components'
-import { ApiContext, LanguageContext } from '../utilities'
+import { ApiContext, LanguageContext } from '../context/AppContext'
 import { TEST_CONFIGURATIONS } from '../configurations'
 import { SETTINGS, TEST_IDS } from '../enums'
 
