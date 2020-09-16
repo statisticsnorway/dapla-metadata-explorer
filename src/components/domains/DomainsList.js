@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom'
 import { Label, List, Menu, Tab } from 'semantic-ui-react'
 import { getNestedObject } from '@statisticsnorway/dapla-js-utilities'
 
-import { getDomainDescription, getDomainDisplayName, getDomainRef, SchemasContext } from '../../utilities'
+import { SchemasContext } from '../../context/AppContext'
+import { getDomainDescription, getDomainDisplayName, getDomainRef } from '../../utilities'
 import { GSIM, ROUTING } from '../../configurations'
 
 function DomainsList () {

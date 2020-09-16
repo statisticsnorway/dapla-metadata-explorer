@@ -5,7 +5,8 @@ import { MemoryRouter } from 'react-router-dom'
 import { getLocalizedGsimObjectText } from '@statisticsnorway/dapla-js-utilities'
 
 import { DomainLinkResolve } from '../components/domain'
-import { ApiContext, getDomainRef, LanguageContext } from '../utilities'
+import { ApiContext, LanguageContext } from '../context/AppContext'
+import { getDomainRef } from '../utilities'
 import { API, TEST_CONFIGURATIONS } from '../configurations'
 
 import RepresentedVariable from './test-data/RepresentedVariable.json'

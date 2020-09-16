@@ -5,15 +5,8 @@ import { Button, Container, Grid, Header, Icon, Loader } from 'semantic-ui-react
 import { ErrorMessage, InfoPopup, SSB_COLORS } from '@statisticsnorway/dapla-js-utilities'
 
 import { DomainTable, DomainTableHeaders } from './'
-import {
-  ApiContext,
-  getDomainDescription,
-  getDomainDisplayName,
-  getDomainSchema,
-  LanguageContext,
-  mapDataToTable,
-  SchemasContext
-} from '../../utilities'
+import { ApiContext, LanguageContext, SchemasContext } from '../../context/AppContext'
+import { getDomainDescription, getDomainDisplayName, getDomainSchema, mapDataToTable } from '../../utilities'
 import { API, GSIM, ROUTING, TABLE_HEADERS } from '../../configurations'
 import { DOMAIN } from '../../enums'
 

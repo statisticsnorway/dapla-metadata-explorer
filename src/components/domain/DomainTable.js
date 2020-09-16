@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import ReactTable from 'react-table-6'
 import { REACT_TABLE_TEXT, reactTableCustomFilterMethod } from '@statisticsnorway/dapla-js-utilities'
 
-import { LanguageContext } from '../../utilities'
+import { LanguageContext } from '../../context/AppContext'
 
 function DomainTable ({ columns, data, loading }) {
   const { language } = useContext(LanguageContext)

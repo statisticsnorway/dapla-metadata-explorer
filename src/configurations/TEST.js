@@ -7,8 +7,8 @@ const errorString = 'A problem occured'
 export const TEST_CONFIGURATIONS = {
   alternativeApi: 'http://localhost:9999',
   apiContext: (fn, fn2) => ({
-    graphqlApi: `${process.env.REACT_APP_API}${API.GRAPHQL}`,
-    restApi: process.env.REACT_APP_API,
+    graphqlApi: `${window._env.REACT_APP_API}${API.GRAPHQL}`,
+    restApi: window._env.REACT_APP_API,
     setRestApi: fn,
     setGraphqlApi: fn2
   }),

@@ -2,7 +2,8 @@ import React from 'react'
 import { render } from '@testing-library/react'
 
 import { AppHome } from '../components'
-import { LanguageContext, SchemasContext, sortSchemas } from '../utilities'
+import { LanguageContext, SchemasContext } from '../context/AppContext'
+import { sortSchemas } from '../utilities'
 import { TEST_CONFIGURATIONS } from '../configurations'
 
 import About from './test-data/About'

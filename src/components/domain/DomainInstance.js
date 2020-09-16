@@ -5,14 +5,8 @@ import { Grid, Header, Loader } from 'semantic-ui-react'
 import { ErrorMessage, getNestedObject, InfoPopup } from '@statisticsnorway/dapla-js-utilities'
 
 import { DomainInstanceEdit } from './'
-import {
-  ApiContext,
-  convertDataToView,
-  getDomainDisplayName,
-  getDomainSchema,
-  LanguageContext,
-  SchemasContext
-} from '../../utilities'
+import { ApiContext, LanguageContext, SchemasContext } from '../../context/AppContext'
+import { convertDataToView, getDomainDisplayName, getDomainSchema } from '../../utilities'
 import { API, DOMAIN_PROPERTY_GROUPING, GSIM } from '../../configurations'
 
 function DomainInstance () {
@@ -68,17 +62,17 @@ function DomainInstance () {
                 <Grid.Column key={name}>
                   <Grid>
                     {ready && properties.filter(([property]) => test(property)).map(([property]) => {
-                      const { description, name, value } = domainInstanceData[property]
+                        const { description, name, value } = domainInstanceData[property]
 
-                      return (
-                        <Grid.Row key={property}>
-                          <Grid.Column textAlign='right' width={5}>
-                            <InfoPopup text={description} trigger={<b>{name}</b>} />
-                          </Grid.Column>
-                          <Grid.Column width={11}>{value}</Grid.Column>
-                        </Grid.Row>
-                      )
-                    }
+                        return (
+                          <Grid.Row key={property}>
+                            <Grid.Column textAlign='right' width={5}>
+                              <InfoPopup text={description} trigger={<b>{name}</b>} />
+                            </Grid.Column>
+                            <Grid.Column width={11}>{value}</Grid.Column>
+                          </Grid.Row>
+                        )
+                      }
                     )}
                   </Grid>
                 </Grid.Column>

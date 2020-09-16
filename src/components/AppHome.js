@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { Divider, Grid, Header } from 'semantic-ui-react'
 
 import { DomainsChart, DomainsList } from './domains'
-import { LanguageContext, SchemasContext } from '../utilities'
+import { LanguageContext, SchemasContext } from '../context/AppContext'
 import { HOME, UI } from '../enums'
 
 function AppHome () {

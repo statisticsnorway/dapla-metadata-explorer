@@ -6,7 +6,7 @@ import { MemoryRouter } from 'react-router-dom'
 import { LANGUAGE } from '@statisticsnorway/dapla-js-utilities'
 
 import App from '../App'
-import { AppContextProvider } from '../utilities'
+import { AppContextProvider } from '../context/AppContext'
 import { API, TEST_CONFIGURATIONS } from '../configurations'
 import { SETTINGS, TEST_IDS, UI } from '../enums'
 
@@ -63,7 +63,7 @@ test('Does not crash', () => {
   useAxios.mockReturnValue([{ data: undefined, loading: true, error: null }])
   setup()
 
-  expect(useAxios).toHaveBeenCalledWith(`${process.env.REACT_APP_API}${API.GET_SCHEMAS}`, { useCache: false })
+  expect(useAxios).toHaveBeenCalledWith(`${window._env.REACT_APP_API}${API.GET_SCHEMAS}`, { useCache: false })
 })
 
 test('Does not crash on sortSchema problems', () => {

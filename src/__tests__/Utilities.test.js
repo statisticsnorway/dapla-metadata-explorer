@@ -5,7 +5,8 @@ import { render } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 
 import { Domain, DomainInstance } from '../components/domain'
-import { ApiContext, getDomainRef, LanguageContext, SchemasContext, sortSchemas } from '../utilities'
+import { ApiContext, LanguageContext, SchemasContext } from '../context/AppContext'
+import { getDomainRef, sortSchemas } from '../utilities'
 import { ROUTING, TEST_CONFIGURATIONS } from '../configurations'
 import { DOMAIN, TEST_IDS } from '../enums'
 

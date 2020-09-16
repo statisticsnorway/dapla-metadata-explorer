@@ -4,7 +4,8 @@ import { render } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 
 import { AppSearch } from '../components'
-import { getDomainDisplayName, LanguageContext, SchemasContext, sortSchemas } from '../utilities'
+import { LanguageContext, SchemasContext } from '../context/AppContext'
+import { getDomainDisplayName, sortSchemas } from '../utilities'
 import { TEST_CONFIGURATIONS } from '../configurations'
 import { UI } from '../enums'
 
