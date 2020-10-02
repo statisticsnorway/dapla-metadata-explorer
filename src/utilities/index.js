@@ -1,11 +1,4 @@
-export {
-  getDomainDescription,
-  getDomainDisplayName,
-  getDomainPropertyDisplayName,
-  getDomainRef,
-  getDomainSchema,
-  replaceUnkownDomainProperty
-} from './SchemaExtraction'
+export { getDomainDescription, getDomainRef, getDomainSchema, replaceUnkownDomainProperty } from './SchemaExtraction'
 export { createEmptyDataObject, sortSchemas } from './SchemaHandling'
 export { convertDateToView } from './StringHandling'
 export { mapDataToTable } from './TableDataHandling'

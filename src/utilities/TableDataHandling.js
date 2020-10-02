@@ -14,7 +14,7 @@ import { TEST_IDS } from '../enums'
 
 const NOT_FINISHED = '...'
 
-const handleArrayPropertyForTable = (property, value, language) => {
+const handleArrayPropertyForTable = (language, ldsApi, property, value) => {
   if (property.hasOwnProperty(GSIM.ITEMS)) {
     if (property[GSIM.ITEMS].hasOwnProperty(GSIM.SCHEMA.REF)) {
       const item = getDomainRef(property[GSIM.ITEMS])
@@ -33,7 +33,7 @@ const handleArrayPropertyForTable = (property, value, language) => {
                 <Icon name='talk' size='large' data-testid={TEST_IDS.TABLE_HOVER} style={{ color: SSB_COLORS.GREY }} />
               }
             >
-              {convertAdministrativeDetailsToView(value, property)}
+              {convertAdministrativeDetailsToView(language, ldsApi, value, property)}
             </Popup>
           )
 
@@ -47,7 +47,7 @@ const handleArrayPropertyForTable = (property, value, language) => {
                 <Icon name='talk' size='large' data-testid={TEST_IDS.TABLE_HOVER} style={{ color: SSB_COLORS.GREY }} />
               }
             >
-              {convertAgentDetailsToView(value, property)}
+              {convertAgentDetailsToView(language, ldsApi, value, property)}
             </Popup>
           )
 
@@ -60,7 +60,7 @@ const handleArrayPropertyForTable = (property, value, language) => {
           <List>
             {value.map((element, index) =>
               <List.Item key={index}>
-                {handleStringForView(element, property)}
+                {handleStringForView(language, ldsApi, element, property)}
               </List.Item>
             )}
           </List>
@@ -72,14 +72,14 @@ const handleArrayPropertyForTable = (property, value, language) => {
   }
 }
 
-export const mapDataToTable = (data, schema, language) => {
+export const mapDataToTable = (language, ldsApi, data, schema) => {
   const properties = getNestedObject(schema, GSIM.PROPERTIES(schema))
 
   return data.map(item =>
     Object.entries(item).reduce((accumulator, [property, item]) => {
       switch (properties[property][GSIM.TYPE]) {
         case 'array':
-          accumulator[property] = handleArrayPropertyForTable(properties[property], item, language)
+          accumulator[property] = handleArrayPropertyForTable(language, ldsApi, properties[property], item)
           break
 
         case 'boolean':
@@ -87,7 +87,7 @@ export const mapDataToTable = (data, schema, language) => {
           break
 
         case 'string':
-          accumulator[property] = handleStringForView(item, properties[property])
+          accumulator[property] = handleStringForView(language, ldsApi, item, properties[property])
           break
 
         default:

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { Icon, Input, Popup } from 'semantic-ui-react'
 import { SSB_COLORS, truncateString } from '@statisticsnorway/dapla-js-utilities'
 
-import { getDomainPropertyDisplayName, getDomainRef } from '../utilities'
+import { getDomainRef } from '../utilities'
 import { GSIM, ROUTING } from './'
 import { DOMAIN, UI } from '../enums'
 
@@ -80,7 +80,7 @@ export const TABLE_HEADERS = (headers, schema, truncationLength, language) => he
     return ({
       accessor: header,
       Cell: props => TABLE_CELLS(header, props, truncationLength),
-      Header: getDomainPropertyDisplayName(schema, domain, header),
+      Header: header,
       headerStyle: { fontWeight: '700' },
       Filter: ({ filter, onChange }) => (
         <Input

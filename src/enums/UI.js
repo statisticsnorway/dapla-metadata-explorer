@@ -19,9 +19,5 @@ export const UI = {
     en: 'No results found',
     nb: 'Fant ingen resultater'
   },
-  UNKOWN: '-',
-  VERSION: {
-    en: 'Version',
-    nb: 'Versjon'
-  }
+  UNKOWN: '-'
 }

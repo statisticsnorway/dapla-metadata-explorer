@@ -1,13 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Search } from 'semantic-ui-react'
 
-import { LanguageContext, SchemasContext } from '../context/AppContext'
-import { getDomainDescription, getDomainDisplayName, getDomainRef } from '../utilities'
+import { LanguageContext } from '../context/AppContext'
+import { getDomainDescription, getDomainRef } from '../utilities'
 import { SEARCH_LAYOUT } from '../configurations'
 import { UI } from '../enums'
 
-function AppSearch ({ ready }) {
-  const { schemas } = useContext(SchemasContext)
+function AppSearch ({ schemas }) {
   const { language } = useContext(LanguageContext)
 
   const [value, setValue] = useState('')
@@ -15,20 +14,18 @@ function AppSearch ({ ready }) {
   const [results, setResults] = useState({})
 
   useEffect(() => {
-    if (schemas !== null) {
-      setSource(Object.entries(schemas.groups).reduce((accumulator, [group, schemasByGroup]) => {
-        accumulator[group] = {
-          name: group.charAt(0).toUpperCase() + group.slice(1),
-          results: schemasByGroup.map(schema => ({
-            domain: getDomainRef(schema),
-            title: getDomainDisplayName(schema),
-            description: getDomainDescription(schema)
-          }))
-        }
+    setSource(Object.entries(schemas.groups).reduce((accumulator, [group, schemasByGroup]) => {
+      accumulator[group] = {
+        name: group.charAt(0).toUpperCase() + group.slice(1),
+        results: schemasByGroup.map(schema => ({
+          domain: getDomainRef(schema),
+          title: getDomainRef(schema),
+          description: getDomainDescription(schema)
+        }))
+      }
 
-        return accumulator
-      }, {}))
-    }
+      return accumulator
+    }, {}))
   }, [schemas])
 
   const handleSearchChange = (event, { value }) => {
@@ -57,9 +54,9 @@ function AppSearch ({ ready }) {
   return (
     <Search
       category
+      size='large'
       value={value}
       results={results}
-      disabled={!ready}
       placeholder={UI.SEARCH[language]}
       onSearchChange={handleSearchChange}
       resultRenderer={SEARCH_LAYOUT.resultRenderer}

@@ -1,15 +1,12 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import { Label, List, Menu, Tab } from 'semantic-ui-react'
 import { getNestedObject } from '@statisticsnorway/dapla-js-utilities'
 
-import { SchemasContext } from '../../context/AppContext'
-import { getDomainDescription, getDomainDisplayName, getDomainRef } from '../../utilities'
+import { getDomainDescription, getDomainRef } from '../../utilities'
 import { GSIM, ROUTING } from '../../configurations'
 
-function DomainsList () {
-  const { schemas } = useContext(SchemasContext)
-
+function DomainsList ({ schemas }) {
   const panes = Object.entries(schemas.groups).map(([group, schemasByGroup]) => {
     const color = getNestedObject(GSIM.GROUPS, [group.toUpperCase(), 'COLOR'])
 
@@ -30,7 +27,7 @@ function DomainsList () {
             <List.Item key={getDomainRef(schema)}>
               <List.Content>
                 <List.Header as={Link} to={`${ROUTING.DOMAIN_BASE}${getDomainRef(schema)}`}>
-                  {getDomainDisplayName(schema)}
+                  {getDomainRef(schema)}
                 </List.Header>
                 <List.Description>{getDomainDescription(schema)}</List.Description>
               </List.Content>
@@ -40,7 +37,7 @@ function DomainsList () {
     }
   })
 
-  return <Tab menu={{ secondary: true, size: 'large' }} panes={panes} defaultActiveIndex={-1} />
+  return <Tab menu={{ secondary: true, pointing: true, size: 'large' }} panes={panes} defaultActiveIndex={0} />
 }
 
 export default DomainsList

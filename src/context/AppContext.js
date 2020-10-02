@@ -4,10 +4,7 @@ import { LANGUAGE } from '@statisticsnorway/dapla-js-utilities'
 
 import { API } from '../configurations'
 
-export const ApiContext = React.createContext({
-  graphqlApi: `${window._env.REACT_APP_API}${API.GRAPHQL}`,
-  restApi: window._env.REACT_APP_API
-})
+export const ApiContext = React.createContext({ ldsApi: window._env.REACT_APP_EXPLORATION_LDS })
 
 export const LanguageContext = React.createContext(LANGUAGE.LANGUAGES.NORWEGIAN.languageCode)
 
@@ -15,15 +12,14 @@ export const SchemasContext = React.createContext(null)
 
 export const AppContextProvider = (props) => {
   const [schemas, setSchemas] = useState(null)
-  const [restApi, setRestApi] = useState(window._env.REACT_APP_API)
+  const [ldsApi, setLdsApi] = useState(window._env.REACT_APP_EXPLORATION_LDS)
   const [language, setLanguage] = useState(LANGUAGE.LANGUAGES.NORWEGIAN.languageCode)
-  const [graphqlApi, setGraphqlApi] = useState(`${window._env.REACT_APP_API}${API.GRAPHQL}`)
 
-  const graphqlClient = new GraphQLClient({ url: `${graphqlApi}` })
+  const graphqlClient = new GraphQLClient({ url: `${ldsApi}${API.GRAPHQL}` })
 
   return (
     <ClientContext.Provider value={graphqlClient}>
-      <ApiContext.Provider value={{ graphqlApi, restApi, setGraphqlApi, setRestApi }}>
+      <ApiContext.Provider value={{ ldsApi, setLdsApi }}>
         <LanguageContext.Provider value={{ language, setLanguage }}>
           <SchemasContext.Provider value={{ schemas, setSchemas }}>
             {props.children}

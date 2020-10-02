@@ -1,20 +1,16 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import useAxios from 'axios-hooks'
 import { Link, useParams } from 'react-router-dom'
 import { Button, Container, Grid, Header, Icon, Loader } from 'semantic-ui-react'
 import { ErrorMessage, InfoPopup, SSB_COLORS } from '@statisticsnorway/dapla-js-utilities'
 
 import { DomainTable, DomainTableHeaders } from './'
-import { ApiContext, LanguageContext, SchemasContext } from '../../context/AppContext'
-import { getDomainDescription, getDomainDisplayName, getDomainSchema, mapDataToTable } from '../../utilities'
+import { getDomainDescription, getDomainSchema, mapDataToTable } from '../../utilities'
 import { API, GSIM, ROUTING, TABLE_HEADERS } from '../../configurations'
 import { DOMAIN } from '../../enums'
 
-function Domain () {
+function Domain ({ language, ldsApi, schemas }) {
   const { domain } = useParams()
-  const { restApi } = useContext(ApiContext)
-  const { schemas } = useContext(SchemasContext)
-  const { language } = useContext(LanguageContext)
 
   const [tableData, setTableData] = useState([])
   const [tableColumns, setTableColumns] = useState([])
@@ -22,7 +18,7 @@ function Domain () {
   const [tableHeaders, setTableHeaders] = useState(GSIM.DEFAULT_TABLE_HEADERS)
   const [truncationLength, setTruncationLength] = useState(200 / tableHeaders.length)
 
-  const [{ data, loading, error }, refetch] = useAxios(`${restApi}${API.GET_DOMAIN_DATA(domain)}`)
+  const [{ data, loading, error }, refetch] = useAxios(`${ldsApi}${API.GET_DOMAIN_DATA(domain)}`)
 
   useEffect(() => {
     try {
@@ -36,12 +32,12 @@ function Domain () {
   useEffect(() => {
     if (!loading && !error && data !== undefined) {
       try {
-        setTableData(mapDataToTable(data, schema, language))
+        setTableData(mapDataToTable(language, ldsApi, data, schema))
       } catch (e) {
         console.log(e)
       }
     }
-  }, [data, error, language, loading, schema])
+  }, [data, error, language, loading, schema, ldsApi])
 
   useEffect(() => {
     try {
@@ -55,7 +51,7 @@ function Domain () {
     <>
       <Grid columns='equal'>
         <Grid.Column>
-          <Header size='large' content={getDomainDisplayName(schema)} subheader={getDomainDescription(schema)} />
+          <Header size='large' content={domain} subheader={getDomainDescription(schema)} />
         </Grid.Column>
         <Grid.Column textAlign='right' verticalAlign='middle'>
           <InfoPopup

@@ -1,4 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import useAxios from 'axios-hooks'
 import AceEditor from 'react-ace'
 import { v4 as uuidv4 } from 'uuid'
 import { useParams } from 'react-router-dom'
@@ -8,17 +9,12 @@ import { ErrorMessage, SSB_COLORS } from '@statisticsnorway/dapla-js-utilities'
 import 'ace-builds/src-noconflict/mode-json'
 import 'ace-builds/src-noconflict/theme-textmate'
 
-import { ApiContext, LanguageContext, SchemasContext } from '../../context/AppContext'
-import { createEmptyDataObject, getDomainDisplayName, getDomainSchema } from '../../utilities'
+import { createEmptyDataObject, getDomainSchema } from '../../utilities'
 import { DOMAIN } from '../../enums'
-import useAxios from 'axios-hooks'
 import { API } from '../../configurations'
 
-function DomainInstanceNew () {
+function DomainInstanceNew ({ language, ldsApi, schemas }) {
   const { domain } = useParams()
-  const { restApi } = useContext(ApiContext)
-  const { schemas } = useContext(SchemasContext)
-  const { language } = useContext(LanguageContext)
 
   const [id] = useState(uuidv4())
   const [saved, setSaved] = useState(false)
@@ -26,7 +22,7 @@ function DomainInstanceNew () {
   const [data, setData] = useState(JSON.stringify(createEmptyDataObject(schema, id), null, 2))
 
   const [{ loading, error, response }, executePut] =
-    useAxios({ url: `${restApi}${API.PUT_DOMAIN_INSTANCE_DATA(domain, id)}`, method: 'PUT' }, { manual: true })
+    useAxios({ url: `${ldsApi}${API.PUT_DOMAIN_INSTANCE_DATA(domain, id)}`, method: 'PUT' }, { manual: true })
 
   useEffect(() => {
     if (!loading && !error && response !== undefined) {
@@ -38,7 +34,7 @@ function DomainInstanceNew () {
 
   return (
     <>
-      <Header size='large' content={getDomainDisplayName(schema)} subheader={id} />
+      <Header size='large' content={domain} subheader={id} />
       {error && <ErrorMessage error={error} language={language} />}
       {saved &&
       <Message

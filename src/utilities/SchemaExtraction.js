@@ -7,8 +7,6 @@ const checkUnkown = string => string !== undefined ? string : UI.UNKOWN
 
 export const getDomainRef = schema => getNestedObject(schema, [GSIM.SCHEMA.REF]).replace(GSIM.SCHEMA.DEFINITIONS, '')
 
-const replaceUnknownDomain = (name, schema) => name === undefined || name === '' ? getDomainRef(schema) : name
-
 export const replaceUnkownDomainProperty = (name, property) => name === undefined || name === '' ? property : name
 
 export const getDomainDescription = schema => {
@@ -16,11 +14,6 @@ export const getDomainDescription = schema => {
 
   return checkUnkown(description)
 }
-export const getDomainDisplayName = schema =>
-  replaceUnknownDomain(getNestedObject(schema, GSIM.DISPLAY_NAME(schema)), schema)
-
-export const getDomainPropertyDisplayName = (schema, domain, property) =>
-  replaceUnkownDomainProperty(getNestedObject(schema, GSIM.PROPERTIES_DISPLAY_NAME(domain, property)), property)
 
 export const getDomainSchema = (domain, schemas) => Object.entries(schemas.groups).reduce((accumulator, group) => {
   const getSchema = group[1].reduce((accumulator, schema) => {

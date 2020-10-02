@@ -1,19 +1,15 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import useAxios from 'axios-hooks'
 import { Link } from 'react-router-dom'
 import { Icon, Loader } from 'semantic-ui-react'
 import { SSB_COLORS } from '@statisticsnorway/dapla-js-utilities'
 
-import { ApiContext, LanguageContext } from '../../context/AppContext'
 import { API, GSIM_DEFINITIONS, ROUTING } from '../../configurations'
 
-function DomainLinkResolve ({ link }) {
-  const { restApi } = useContext(ApiContext)
-  const { language } = useContext(LanguageContext)
-
+function DomainLinkResolve ({ language, ldsApi, link }) {
   const [resolvedName, setResolvedName] = useState(link)
 
-  const [{ data, loading, error }] = useAxios(`${restApi}${API.GET_DOMAIN_INSTANCE_NAME(link)}`)
+  const [{ data, loading, error }] = useAxios(`${ldsApi}${API.GET_DOMAIN_INSTANCE_NAME(link)}`)
 
   useEffect(() => {
     if (!loading && !error && data !== undefined) {
