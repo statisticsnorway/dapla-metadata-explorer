@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { Icon, Input } from 'semantic-ui-react'
 import { SSB_COLORS } from '@statisticsnorway/dapla-js-utilities'
 
-import { getDomainRef } from '../utilities'
+import { camelToTitle, getDomainRef } from '../utilities'
 import { GSIM, ROUTING } from './'
 import { DOMAIN, UI } from '../enums'
 
@@ -48,7 +48,7 @@ export const SEARCH_LAYOUT = {
   resultRenderer: ({ domain, title, description }) => (
     <Link to={`${ROUTING.DOMAIN_BASE}${domain}`}>
       <div className='content'>
-        <div className='title'>{title}</div>
+        <div className='title'>{camelToTitle(title)}</div>
         <div className='description'>{description}</div>
       </div>
     </Link>
@@ -64,7 +64,7 @@ export const TABLE_HEADERS = (headers, schema, truncationLength, language) => he
     return ({
       accessor: header,
       Cell: props => TABLE_CELLS(header, props, truncationLength),
-      Header: header,
+      Header: camelToTitle(header),
       headerStyle: { fontWeight: '700' },
       Filter: ({ filter, onChange }) => (
         <Input

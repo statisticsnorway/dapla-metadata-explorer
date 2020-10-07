@@ -5,7 +5,7 @@ import { Grid, Header, Loader } from 'semantic-ui-react'
 import { ErrorMessage, getNestedObject, InfoPopup } from '@statisticsnorway/dapla-js-utilities'
 
 import { DomainInstanceEdit } from './'
-import { convertDataToView, getDomainSchema } from '../../utilities'
+import { camelToTitle, convertDataToView, getDomainSchema } from '../../utilities'
 import { API, DOMAIN_PROPERTY_GROUPING, GSIM } from '../../configurations'
 
 function DomainInstance ({ language, ldsApi, schemas }) {
@@ -49,7 +49,7 @@ function DomainInstance ({ language, ldsApi, schemas }) {
 
   return (
     <>
-      <Header size='large' content={domain} subheader={id} />
+      <Header size='large' content={camelToTitle(domain)} subheader={id} />
       {loading ? <Loader active inline='centered' /> :
         error ? <ErrorMessage error={error} language={language} /> : ready &&
           <Grid columns='equal' divided>
@@ -62,10 +62,10 @@ function DomainInstance ({ language, ldsApi, schemas }) {
 
                         return (
                           <Grid.Row key={property}>
-                            <Grid.Column textAlign='right' width={5}>
-                              <InfoPopup text={description} trigger={<b>{name}</b>} />
+                            <Grid.Column textAlign='right' verticalAlign='middle' width={5}>
+                              <InfoPopup text={description} trigger={<b>{camelToTitle(name)}</b>} />
                             </Grid.Column>
-                            <Grid.Column width={11}>{value}</Grid.Column>
+                            <Grid.Column width={11} verticalAlign='middle'>{value}</Grid.Column>
                           </Grid.Row>
                         )
                       }

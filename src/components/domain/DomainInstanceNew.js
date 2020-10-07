@@ -9,7 +9,7 @@ import { ErrorMessage, SSB_COLORS } from '@statisticsnorway/dapla-js-utilities'
 import 'ace-builds/src-noconflict/mode-json'
 import 'ace-builds/src-noconflict/theme-textmate'
 
-import { createEmptyDataObject, getDomainSchema } from '../../utilities'
+import { camelToTitle, createEmptyDataObject, getDomainSchema } from '../../utilities'
 import { DOMAIN } from '../../enums'
 import { API } from '../../configurations'
 
@@ -34,7 +34,7 @@ function DomainInstanceNew ({ language, ldsApi, schemas }) {
 
   return (
     <>
-      <Header size='large' content={domain} subheader={id} />
+      <Header size='large' content={camelToTitle(domain)} subheader={id} />
       {error && <ErrorMessage error={error} language={language} />}
       {saved &&
       <Message

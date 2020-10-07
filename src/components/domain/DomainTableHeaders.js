@@ -5,6 +5,7 @@ import { getNestedObject, InfoPopup, SSB_COLORS } from '@statisticsnorway/dapla-
 import { LanguageContext } from '../../context/AppContext'
 import { DOMAIN_PROPERTY_GROUPING, GSIM } from '../../configurations'
 import { DOMAIN, TEST_IDS } from '../../enums'
+import { camelToTitle } from '../../utilities'
 
 function DomainTableHeaders ({ headers, schema, setHeaders, setTrunc }) {
   const { language } = useContext(LanguageContext)
@@ -73,9 +74,9 @@ function DomainTableHeaders ({ headers, schema, setHeaders, setTrunc }) {
                         trigger={
                           <Checkbox
                             key={property}
-                            label={property}
+                            label={camelToTitle(property)}
                             checked={includes}
-                            style={{ marginRight: '0.5rem' }}
+                            style={{ marginRight: '1rem' }}
                             onClick={() => handleCheckbox(includes, property)}
                           />
                         }

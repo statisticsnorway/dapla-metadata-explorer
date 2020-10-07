@@ -5,6 +5,7 @@ import { Icon, Loader } from 'semantic-ui-react'
 import { SSB_COLORS } from '@statisticsnorway/dapla-js-utilities'
 
 import { API, GSIM_DEFINITIONS, ROUTING } from '../../configurations'
+import { camelToTitle } from '../../utilities'
 
 function DomainLinkResolve ({ language, ldsApi, link }) {
   const [resolvedName, setResolvedName] = useState(link)
@@ -29,7 +30,7 @@ function DomainLinkResolve ({ language, ldsApi, link }) {
         <>{`${resolvedName} (`}<Icon fitted name='unlink' style={{ color: SSB_COLORS.RED, paddingRight: 0 }}/>{`)`}</>
       )
     } else {
-      return <Link to={`${ROUTING.DOMAIN_BASE}${link.substr(1)}`}>{resolvedName}</Link>
+      return <Link to={`${ROUTING.DOMAIN_BASE}${link.substr(1)}`}>{camelToTitle(resolvedName)}</Link>
     }
   }
 }
