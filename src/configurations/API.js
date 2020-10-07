@@ -19,6 +19,7 @@ export const GSIM = {
     CHANGELOG: ['definitions', 'About', 'properties', 'model_version', 'description']
   },
   DEFAULT_TABLE_HEADERS: ['id', 'name', 'description'],
+  DEFINITIONS: 'definitions',
   DESCRIPTION: (schema) => ['definitions', getDomainRef(schema), 'description'],
   DISPLAY_NAME: (schema) => ['definitions', getDomainRef(schema), 'displayName'],
   ENUM: 'enum',
@@ -233,4 +234,23 @@ export const GSIM_DEFINITIONS = {
     }
   },
   PATH: ['items', GSIM.SCHEMA.REF]
+}
+
+export const GSIM_PROPERTY_TYPES = {
+  TYPES: {
+    ANY_OF: 'anyOf',
+    NULL: 'null',
+    BOOLEAN: 'boolean',
+    NUMBER: 'number',
+    STRING: 'string',
+    ARRAY: 'array',
+    OBJECT: 'object',
+  },
+  FORMATS: {
+    NUMBER: 'number',
+    DATE_TIME: 'date-time'
+  },
+  EXTRA: {
+    ENUM: 'enum'
+  }
 }

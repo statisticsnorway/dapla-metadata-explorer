@@ -19,7 +19,7 @@
     "ace-builds": "^1.4.11",
     "axios": "^0.20.0",
     "axios-hooks": "^2.1.0",
-    "graphql-hooks": "^4.4.4",
+    "graphql-hooks": "^5.0.0",
     "react": "^16.13.1",
     "react-ace": "^9.0.0",
     "react-dom": "^16.13.1",
@@ -27,7 +27,7 @@
     "react-scripts": "3.4.0",
     "react-table-6": "^6.11.0",
     "semantic-ui-css": "^2.4.1",
-    "semantic-ui-react": "^1.0.0",
+    "semantic-ui-react": "^2.0.0",
     "uuid": "^8.3.0"
   },
   "scripts": {

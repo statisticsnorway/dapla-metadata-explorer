@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Icon, Input, Popup } from 'semantic-ui-react'
-import { SSB_COLORS, truncateString } from '@statisticsnorway/dapla-js-utilities'
+import { Icon, Input } from 'semantic-ui-react'
+import { SSB_COLORS } from '@statisticsnorway/dapla-js-utilities'
 
 import { getDomainRef } from '../utilities'
 import { GSIM, ROUTING } from './'
@@ -55,23 +55,7 @@ export const SEARCH_LAYOUT = {
   )
 }
 
-const TABLE_CELLS = (header, { value }, truncationLength) =>
-  Array.isArray(value) ?
-    <Popup basic flowing trigger={
-      <div>{truncateString(value.toString(), truncationLength)}</div>
-    }>
-      <div>{value.map(value => <p key={value}>{value}</p>)}</div>
-    </Popup>
-    :
-    value !== undefined ?
-      value.length > truncationLength ?
-        <Popup basic flowing trigger={<div>{truncateString(value, truncationLength)}</div>}>
-          {value}
-        </Popup>
-        :
-        value
-      :
-      ''
+const TABLE_CELLS = (header, { value }, truncationLength) => value
 
 export const TABLE_HEADERS = (headers, schema, truncationLength, language) => headers.map(header => {
   const domain = getDomainRef(schema)
@@ -99,7 +83,7 @@ export const TABLE_HEADERS = (headers, schema, truncationLength, language) => he
       filterable: false,
       Cell: props =>
         <Link to={`${ROUTING.DOMAIN_BASE}${domain}/${props.value}`}>
-          <Icon fitted name='eye' size='large' style={{ color: SSB_COLORS.BLUE }} />
+          <Icon fitted name='eye' size='large' style={{ color: SSB_COLORS.BLUE }}/>
         </Link>
     })
   }
