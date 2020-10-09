@@ -186,12 +186,14 @@ export const GSIM = {
     CODE: 'languageCode',
     TEXT: 'languageText'
   },
+  PROPERTIES_ELEMENT: 'properties',
   PROPERTIES: (schema) => ['definitions', getDomainRef(schema), 'properties'],
   PROPERTIES_GROUPING: {
     AUTOFILLED: ['id', 'createdDate', 'createdBy', 'version', 'versionValidFrom', 'lastUpdatedDate', 'lastUpdatedBy', 'validFrom', 'validUntil'],
     COMMON: ['name', 'description', 'shortName', 'administrativeStatus', 'versionRationale', 'administrativeDetails', 'agentInRoles']
   },
   PROPERTY_DESCRIPTION: 'description',
+  REQUIRED: (schema) => ['definitions', getDomainRef(schema), 'required'],
   SCHEMA: {
     DEFINITIONS: '#/definitions/',
     REF: '$ref'
