@@ -56,7 +56,7 @@ const handleStringForView = (data, configuration, language, ldsApi) => {
   return data.toString()
 }
 
-const convertAgentDetailsToView = (language, ldsApi, value) =>
+const convertAgentDetailsToView = (configuration, language, ldsApi, value) =>
   <List relaxed>
     {value.map((element, index) =>
       <List.Item key={index}>
@@ -68,7 +68,7 @@ const convertAgentDetailsToView = (language, ldsApi, value) =>
             <List.List>
               {element[GSIM_DEFINITIONS.AGENT_DETAILS.PROPERTIES.VALUES].map(innerElement =>
                 <List.Item key={innerElement}>
-                  {handleStringForView(innerElement, false, false, false, language, ldsApi)}
+                  {handleStringForView(innerElement, configuration, language, ldsApi)}
                 </List.Item>
               )}
             </List.List>
@@ -78,7 +78,7 @@ const convertAgentDetailsToView = (language, ldsApi, value) =>
     )}
   </List>
 
-const convertAdministrativeDetailsToView = (language, ldsApi, value) =>
+const convertAdministrativeDetailsToView = (configuration, language, ldsApi, value) =>
   <List relaxed>
     {value.map((element, index) =>
       <List.Item key={index}>
@@ -90,7 +90,7 @@ const convertAdministrativeDetailsToView = (language, ldsApi, value) =>
             <List.List>
               {element[GSIM_DEFINITIONS.ADMINISTRATIVE_DETAILS.PROPERTIES.VALUES].map(innerElement =>
                 <List.Item key={innerElement}>
-                  {handleStringForView(innerElement, false, false, false, language, ldsApi)}
+                  {handleStringForView(innerElement, configuration, language, ldsApi)}
                 </List.Item>
               )}
             </List.List>
@@ -108,10 +108,10 @@ const handleArrayForView = (data, configuration, language, ldsApi) => {
           return convertMultilingualToView(data)
 
         case GSIM_DEFINITIONS.ADMINISTRATIVE_DETAILS.NAME:
-          return convertAdministrativeDetailsToView(language, ldsApi, data)
+          return convertAdministrativeDetailsToView(configuration, language, ldsApi, data)
 
         case GSIM_DEFINITIONS.AGENT_DETAILS.NAME:
-          return convertAgentDetailsToView(language, ldsApi, data)
+          return convertAgentDetailsToView(configuration, language, ldsApi, data)
 
         default:
           return NOT_FINISHED
@@ -125,7 +125,7 @@ const handleArrayForView = (data, configuration, language, ldsApi) => {
     <List>
       {data.map((element, index) =>
         <List.Item key={index}>
-          {handleStringForView(element, false, false, false, language, ldsApi)}
+          {handleStringForView(element, configuration, language, ldsApi)}
         </List.Item>
       )}
     </List>

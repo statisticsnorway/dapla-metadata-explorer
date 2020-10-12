@@ -4,7 +4,7 @@ import { Form } from 'semantic-ui-react'
 function FormKeyValuesInput ({ configuration }) {
   useEffect(() => {
     console.log(configuration)
-  }, [])
+  }, [configuration])
 
   return (
     <Form.Group>

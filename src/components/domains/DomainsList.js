@@ -37,7 +37,7 @@ function DomainsList ({ schemas }) {
     }
   })
 
-  return <Tab menu={{ secondary: true, pointing: true, size: 'large' }} panes={panes} defaultActiveIndex={0} />
+  return <Tab menu={{ secondary: true, pointing: true, size: 'large' }} panes={panes} defaultActiveIndex={-1} />
 }
 
 export default DomainsList
