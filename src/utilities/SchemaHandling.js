@@ -5,28 +5,16 @@ import { GSIM } from '../configurations'
 import { UI } from '../enums'
 import { GSIM_PROPERTY_TYPES } from '../configurations/API'
 
-export const createEmptyDataObject = (schema, id) => {
+export const createEmptyDataObject = (id, user) => {
   const data = {}
-  const properties = getNestedObject(schema, GSIM.PROPERTIES(schema))
+  const dateNow = new Date(Date.now()).toISOString()
+  const autofilledDates = GSIM.PROPERTIES_GROUPING.AUTOFILLED.filter((value, index) => [1, 4, 5, 7, 8].includes(index))
 
-  Object.keys(properties).forEach(property => {
-    if (!property.startsWith(GSIM.LINK_TYPE)) {
-      switch (properties[property][GSIM.TYPE]) {
-        case 'array':
-          data[property] = ['']
-          break
-
-        case 'boolean':
-          data[property] = null
-          break
-
-        default:
-          data[property] = ''
-      }
-    }
-  })
-
-  data.id = id
+  data[GSIM.PROPERTIES_GROUPING.AUTOFILLED[0]] = id
+  data[GSIM.PROPERTIES_GROUPING.AUTOFILLED[2]] = user
+  data[GSIM.PROPERTIES_GROUPING.AUTOFILLED[3]] = '1.0.0'
+  data[GSIM.PROPERTIES_GROUPING.AUTOFILLED[6]] = user
+  autofilledDates.forEach(property => data[property] = dateNow)
 
   return data
 }

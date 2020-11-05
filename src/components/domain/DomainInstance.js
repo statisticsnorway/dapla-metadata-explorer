@@ -56,7 +56,7 @@ function DomainInstance ({ language, ldsApi, schemas }) {
             <Grid.Row>
               {DOMAIN_PROPERTY_GROUPING.map(({ name, test }) =>
                 <Grid.Column key={name}>
-                  <Grid>
+                  <Grid divided>
                     {ready && properties.filter(([property]) => test(property)).map(([property]) => {
                         const { description, name, value } = domainInstanceData[property]
 

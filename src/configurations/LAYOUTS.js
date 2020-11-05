@@ -83,7 +83,7 @@ export const TABLE_HEADERS = (headers, schema, truncationLength, language) => he
       filterable: false,
       Cell: props =>
         <Link to={`${ROUTING.DOMAIN_BASE}${domain}/${props.value}`}>
-          <Icon fitted name='eye' size='large' style={{ color: SSB_COLORS.BLUE }}/>
+          <Icon fitted name='eye' size='large' style={{ color: SSB_COLORS.BLUE }} />
         </Link>
     })
   }

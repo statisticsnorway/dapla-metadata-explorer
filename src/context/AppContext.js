@@ -10,22 +10,27 @@ export const LanguageContext = React.createContext(LANGUAGE.LANGUAGES.NORWEGIAN.
 
 export const SchemasContext = React.createContext(null)
 
+export const UserContext = React.createContext(null)
+
 export const AppContextProvider = (props) => {
   const [schemas, setSchemas] = useState(null)
-  const [ldsApi, setLdsApi] = useState(window._env.REACT_APP_EXPLORATION_LDS)
   const [language, setLanguage] = useState(LANGUAGE.LANGUAGES.NORWEGIAN.languageCode)
+  const [user, setUser] = useState(localStorage.hasOwnProperty('user') ? localStorage.getItem('user') : 'Test')
+  const [ldsApi, setLdsApi] = useState(localStorage.hasOwnProperty('lds') ? localStorage.getItem('lds') : window._env.REACT_APP_EXPLORATION_LDS)
 
   const graphqlClient = new GraphQLClient({ url: `${ldsApi}${API.GRAPHQL}` })
 
   return (
     <ClientContext.Provider value={graphqlClient}>
-      <ApiContext.Provider value={{ ldsApi, setLdsApi }}>
-        <LanguageContext.Provider value={{ language, setLanguage }}>
-          <SchemasContext.Provider value={{ schemas, setSchemas }}>
-            {props.children}
-          </SchemasContext.Provider>
-        </LanguageContext.Provider>
-      </ApiContext.Provider>
+      <UserContext.Provider value={{ user, setUser }}>
+        <ApiContext.Provider value={{ ldsApi, setLdsApi }}>
+          <LanguageContext.Provider value={{ language, setLanguage }}>
+            <SchemasContext.Provider value={{ schemas, setSchemas }}>
+              {props.children}
+            </SchemasContext.Provider>
+          </LanguageContext.Provider>
+        </ApiContext.Provider>
+      </UserContext.Provider>
     </ClientContext.Provider>
   )
 }

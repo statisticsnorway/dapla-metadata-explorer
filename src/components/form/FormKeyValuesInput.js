@@ -9,6 +9,7 @@ function FormKeyValuesInput ({ configuration }) {
   return (
     <Form.Group>
       <Form.Select
+        disabled
         width={6}
         clearable
         options={configuration.configuration.options.key.values.map(value => ({
@@ -18,7 +19,7 @@ function FormKeyValuesInput ({ configuration }) {
         }))}
         placeholder={configuration.configuration.options.key.name}
       />
-      <Form.Input width={10} placeholder={configuration.configuration.options.value.name} />
+      <Form.Input disabled width={10} placeholder={configuration.configuration.options.value.name} />
     </Form.Group>
   )
 }
