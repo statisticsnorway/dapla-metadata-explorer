@@ -9,7 +9,8 @@ export const API = {
   GET_DOMAIN_INSTANCE_NAME: (link) => `/${NAMESPACE}${link}/name`,
   GET_HEALTH: '/health/ready',
   GET_SCHEMAS: `/${NAMESPACE}?schema=embed`,
-  GRAPHQL: '/graphql'
+  GRAPHQL: '/graphql',
+  LDS: ['Exploration LDS', 'Concept LDS']
 }
 
 export const GSIM = {
@@ -186,12 +187,14 @@ export const GSIM = {
     CODE: 'languageCode',
     TEXT: 'languageText'
   },
+  PROPERTIES_ELEMENT: 'properties',
   PROPERTIES: (schema) => ['definitions', getDomainRef(schema), 'properties'],
   PROPERTIES_GROUPING: {
     AUTOFILLED: ['id', 'createdDate', 'createdBy', 'version', 'versionValidFrom', 'lastUpdatedDate', 'lastUpdatedBy', 'validFrom', 'validUntil'],
     COMMON: ['name', 'description', 'shortName', 'administrativeStatus', 'versionRationale', 'administrativeDetails', 'agentInRoles']
   },
   PROPERTY_DESCRIPTION: 'description',
+  REQUIRED: (schema) => ['definitions', getDomainRef(schema), 'required'],
   SCHEMA: {
     DEFINITIONS: '#/definitions/',
     REF: '$ref'

@@ -34,7 +34,7 @@ function AppSearch ({ schemas }) {
     if (value.length >= 1) {
       const filteredResults = Object.entries(source).reduce((accumulator, [group, entries]) => {
         const filteredEntries = entries.results.filter(entry =>
-          entry.title.toUpperCase().includes(value.toUpperCase())
+          entry.title.toUpperCase().includes(value.replace(' ', '').toUpperCase())
         )
 
         if (filteredEntries.length !== 0) {

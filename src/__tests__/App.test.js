@@ -7,19 +7,12 @@ import { LANGUAGE } from '@statisticsnorway/dapla-js-utilities'
 
 import App from '../App'
 import { AppContextProvider } from '../context/AppContext'
-import { API, TEST_CONFIGURATIONS } from '../configurations'
+import { TEST_CONFIGURATIONS } from '../configurations'
 import { SETTINGS, TEST_IDS, UI } from '../enums'
 
-jest.mock('../components/AppHome', () => () => null)
-jest.mock('../components/domain/Domain', () => () => null)
-jest.mock('../components/domain/DomainInstance', () => () => null)
-jest.mock('../components/domain/DomainInstanceNew', () => () => null)
+jest.mock('../AppWrapper', () => () => null)
 
-global.console = {
-  log: jest.fn()
-}
-
-const { errorObject, language, otherLanguage } = TEST_CONFIGURATIONS
+const { language, otherLanguage } = TEST_CONFIGURATIONS
 
 const setup = () => {
   const { getByTestId, getByText } = render(
@@ -34,7 +27,9 @@ const setup = () => {
 }
 
 describe('Common mock', () => {
-  useAxios.mockReturnValue([{ data: [], loading: false, error: null }])
+  beforeEach(() => {
+    useAxios.mockReturnValue([{ loading: false, error: undefined }])
+  })
 
   test('Renders basics', () => {
     const { getByText } = setup()
@@ -57,25 +52,4 @@ describe('Common mock', () => {
 
     expect(getByText(SETTINGS.HEADER[language])).toBeInTheDocument()
   })
-})
-
-test('Does not crash', () => {
-  useAxios.mockReturnValue([{ data: undefined, loading: true, error: null }])
-  setup()
-
-  expect(useAxios).toHaveBeenCalledWith(`${window._env.REACT_APP_API}${API.GET_SCHEMAS}`, { useCache: false })
-})
-
-test('Does not crash on sortSchema problems', () => {
-  useAxios.mockReturnValue([{ data: 'Invalid schemas', loading: false, error: null }])
-  setup()
-
-  expect(global.console.log).toHaveBeenCalledWith('Could not set schemas: TypeError: schemas.find is not a function')
-})
-
-test('Renders error when api returns error', () => {
-  useAxios.mockReturnValue([{ data: undefined, loading: false, error: errorObject }])
-  const { getByText } = setup()
-
-  expect(getByText(UI.API_ERROR_MESSAGE[language])).toBeInTheDocument()
 })

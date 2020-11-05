@@ -5,7 +5,7 @@ import { Button, Container, Grid, Header, Icon, Loader } from 'semantic-ui-react
 import { ErrorMessage, InfoPopup, SSB_COLORS } from '@statisticsnorway/dapla-js-utilities'
 
 import { DomainTable, DomainTableHeaders } from './'
-import { getDomainDescription, getDomainSchema, mapDataToTable } from '../../utilities'
+import { camelToTitle, getDomainDescription, getDomainSchema, mapDataToTable } from '../../utilities'
 import { API, GSIM, ROUTING, TABLE_HEADERS } from '../../configurations'
 import { DOMAIN } from '../../enums'
 
@@ -51,7 +51,7 @@ function Domain ({ language, ldsApi, schemas }) {
     <>
       <Grid columns='equal'>
         <Grid.Column>
-          <Header size='large' content={domain} subheader={getDomainDescription(schema)} />
+          <Header size='large' content={camelToTitle(domain)} subheader={getDomainDescription(schema)} />
         </Grid.Column>
         <Grid.Column textAlign='right' verticalAlign='middle'>
           <InfoPopup
@@ -81,7 +81,7 @@ function Domain ({ language, ldsApi, schemas }) {
           style={{ backgroundColor: SSB_COLORS.BLUE }}
         >
           <Icon name='pencil alternate' style={{ paddingRight: '0.5rem' }} />
-          {`${DOMAIN.CREATE_NEW[language]} '${domain}'`}
+          {`${DOMAIN.CREATE_NEW[language]} '${camelToTitle(domain)}'`}
         </Button>
       </Container>
       <DomainTableHeaders

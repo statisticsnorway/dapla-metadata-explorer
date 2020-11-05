@@ -6,5 +6,9 @@ export const SETTINGS = {
   HEADER: {
     en: 'Settings',
     nb: 'Innstillinger'
+  },
+  USER: {
+    en: 'User',
+    nb: 'Bruker'
   }
 }

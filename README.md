@@ -26,3 +26,18 @@ Run `yarn start` and navigate to `http://localhost:3000`.
 
 **Note** that this application requires [dapla-project localstack](https://github.com/statisticsnorway/dapla-project/blob/master/localstack/README.md)
 running to function locally (or atleast a running instance of [linked-data-store](https://github.com/statisticsnorway/linked-data-store-documentation)).
+
+### TODO
+* “Resolve“ antall instanser av et domene et sted, slik at man kan se hvor mange instanser det finnes uten å måtte gå inn på tabellen for hver enkelt.
+* Fikse tabellvisning til å være mer brukervennlig
+* Lage faktisk skjema for å endre/lage ny instans av et domene -- Delvis løst (mangler multi values på admin og agent details og multi objekter på dette og multilingual, samt multidate)
+* Finne en god løsning på manglende displayName -- Delvis løst
+* Gjøre tabellkolonnevalg mer brukervennlig -- Delvis løst
+* Rekkefølge på properties i view at en instans av et domene (kanskje også da i skjema for å opprette ny/endre) <— Disse bør være like
+* Generell brukervennlighet
+* Forsøke å få applikasjonen til å fungere som bibliotek (kan bli utfordrende med React Router)
+* Se litt på dropdownSingle som skal hente fra flere ressurser der løsningen nå er litt lite robust og klarer ikke flere enn 2
+* Input valideringer (i første omgang hvertfall sanitering og ting som er påkrevd)
+* Generell refactorering av kompliserte funksjoner (gjelder både å trekke ut i mindre funksjoner og forenkling)
+* Fikse slik at DomainInstanceNew og DomainInstanceEdit er en og samme komponent og kan både lage nye og editere eksisterende
+* Fikse tester

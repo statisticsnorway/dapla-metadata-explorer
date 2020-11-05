@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { Label, List, Menu, Tab } from 'semantic-ui-react'
 import { getNestedObject } from '@statisticsnorway/dapla-js-utilities'
 
-import { getDomainDescription, getDomainRef } from '../../utilities'
+import { camelToTitle, getDomainDescription, getDomainRef } from '../../utilities'
 import { GSIM, ROUTING } from '../../configurations'
 
 function DomainsList ({ schemas }) {
@@ -27,7 +27,7 @@ function DomainsList ({ schemas }) {
             <List.Item key={getDomainRef(schema)}>
               <List.Content>
                 <List.Header as={Link} to={`${ROUTING.DOMAIN_BASE}${getDomainRef(schema)}`}>
-                  {getDomainRef(schema)}
+                  {camelToTitle(getDomainRef(schema))}
                 </List.Header>
                 <List.Description>{getDomainDescription(schema)}</List.Description>
               </List.Content>
@@ -37,7 +37,7 @@ function DomainsList ({ schemas }) {
     }
   })
 
-  return <Tab menu={{ secondary: true, pointing: true, size: 'large' }} panes={panes} defaultActiveIndex={0} />
+  return <Tab menu={{ secondary: true, pointing: true, size: 'large' }} panes={panes} defaultActiveIndex={-1} />
 }
 
 export default DomainsList
