@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import useAxios from 'axios-hooks'
 import AceEditor from 'react-ace'
 import { useParams } from 'react-router-dom'
@@ -7,20 +7,17 @@ import { ErrorMessage, SSB_COLORS } from '@statisticsnorway/dapla-js-utilities'
 import 'ace-builds/src-noconflict/mode-json'
 import 'ace-builds/src-noconflict/theme-textmate'
 
-import { ApiContext, LanguageContext } from '../../context/AppContext'
 import { API } from '../../configurations'
 import { DOMAIN } from '../../enums'
 
-function DomainInstanceEdit ({ data, refetch }) {
+function DomainInstanceEdit ({ data, language, ldsApi, refetch }) {
   const { domain, id } = useParams()
-  const { restApi } = useContext(ApiContext)
-  const { language } = useContext(LanguageContext)
 
   const [madeChanges, setMadeChanges] = useState(false)
   const [domainInstanceJson, setDomainInstanceJson] = useState('')
 
   const [{ loading: putLoading, error: putError, response: putResponse }, executePut] =
-    useAxios({ url: `${restApi}${API.PUT_DOMAIN_INSTANCE_DATA(domain, id)}`, method: 'PUT' }, { manual: true })
+    useAxios({ url: `${ldsApi}${API.PUT_DOMAIN_INSTANCE_DATA(domain, id)}`, method: 'PUT' }, { manual: true })
 
   useEffect(() => {
     if (data !== undefined) {

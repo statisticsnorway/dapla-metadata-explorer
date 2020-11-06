@@ -2,7 +2,6 @@
   "name": "dapla-metadata-explorer",
   "version": "0.1.0",
   "description": "Metadata exploration through GSIM for Statistics Norway Dataplatform",
-  "private": true,
   "repository": {
     "type": "git",
     "url": "https://github.com/statisticsnorway/dapla-metadata-explorer"
@@ -16,21 +15,20 @@
     }
   ],
   "dependencies": {
-    "@statisticsnorway/dapla-js-utilities": "^0.1.1",
+    "@statisticsnorway/dapla-js-utilities": "^0.2.0",
     "ace-builds": "^1.4.11",
-    "axios": "^0.20.0",
+    "axios": "^0.21.0",
     "axios-hooks": "^2.1.0",
-    "chart.js": "^2.9.3",
-    "graphql-hooks": "^4.4.4",
-    "react": "^16.13.1",
+    "graphql-hooks": "^5.0.0",
+    "react": "^17.0.1",
     "react-ace": "^9.0.0",
-    "react-chartjs-2": "^2.9.0",
-    "react-dom": "^16.13.1",
+    "react-dom": "^17.0.1",
+    "react-hook-form": "^6.10.1",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.0",
+    "react-scripts": "4.0.0",
     "react-table-6": "^6.11.0",
     "semantic-ui-css": "^2.4.1",
-    "semantic-ui-react": "^1.0.0",
+    "semantic-ui-react": "^2.0.0",
     "uuid": "^8.3.0"
   },
   "scripts": {
@@ -38,8 +36,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build && react-env --dest ./build",
     "test": "react-scripts test",
-    "coverage": "react-scripts test --coverage --watchAll=false",
-    "eject": "react-scripts eject"
+    "coverage": "react-scripts test --coverage --watchAll=false"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -69,13 +66,14 @@
       "!src/**/index.js",
       "!src/configurations/**",
       "!src/enums/**",
+      "!src/utilities/**",
       "!src/__tests__/test-data/**",
-      "!src/components/domains/DomainsChart.js",
-      "!src/components/domain/DomainInstanceEdit.js"
+      "!src/components/**",
+      "!src/AppWrapper.js"
     ],
     "coverageThreshold": {
       "global": {
-        "branches": 75,
+        "branches": 50,
         "functions": 75,
         "lines": 75,
         "statements": 75

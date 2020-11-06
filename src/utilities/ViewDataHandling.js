@@ -3,30 +3,13 @@ import { Icon, List } from 'semantic-ui-react'
 import { getNestedObject, SSB_COLORS } from '@statisticsnorway/dapla-js-utilities'
 
 import { DomainLinkResolve } from '../components/domain'
-import { convertDateToView, getDomainRef, replaceUnkownDomainProperty } from './'
+import { convertDateToView, setConfiguration } from './'
 import { GSIM, GSIM_DEFINITIONS } from '../configurations'
+import { GSIM_PROPERTY_TYPES } from '../configurations/API'
 
 const NOT_FINISHED = '...'
 
-export const handleStringForView = (value, property) => {
-  if (property.hasOwnProperty(GSIM.FORMAT)) {
-    if (property[GSIM.FORMAT] === 'date-time') {
-      return convertDateToView(value)
-    } else {
-      return value
-    }
-  } else {
-    if (value.startsWith('/')) {
-      return <DomainLinkResolve link={value} />
-    } else if (value.startsWith('http')) {
-      return <a target='_blank' rel='noopener noreferrer' href={value}>{value}</a>
-    } else if (property.hasOwnProperty(GSIM.ENUM)) {
-      return value
-    } else {
-      return value
-    }
-  }
-}
+const handleNumberForView = value => value
 
 const convertMultilingualToView = value =>
   <List>
@@ -44,7 +27,36 @@ const convertMultilingualToView = value =>
     )}
   </List>
 
-export const convertAgentDetailsToView = (value, property) =>
+const handleStringForView = (data, configuration, language, ldsApi) => {
+  if (configuration.format) {
+    if (configuration.format === 'date-time') {
+      return convertDateToView(data)
+    } else {
+      console.log(`Format not handled: ${configuration.format}`)
+      return data.toString()
+    }
+  }
+
+  if (configuration.enumerated) {
+    return data.toString()
+  }
+
+  if (configuration.refProperty) {
+    return data.toString()
+  }
+
+  if (data.startsWith('/')) {
+    return <DomainLinkResolve language={language} ldsApi={ldsApi} link={data} />
+  }
+
+  if (data.startsWith('http')) {
+    return <a target='_blank' rel='noopener noreferrer' href={data}>{data}</a>
+  }
+
+  return data.toString()
+}
+
+const convertAgentDetailsToView = (configuration, language, ldsApi, value) =>
   <List relaxed>
     {value.map((element, index) =>
       <List.Item key={index}>
@@ -56,7 +68,7 @@ export const convertAgentDetailsToView = (value, property) =>
             <List.List>
               {element[GSIM_DEFINITIONS.AGENT_DETAILS.PROPERTIES.VALUES].map(innerElement =>
                 <List.Item key={innerElement}>
-                  {handleStringForView(innerElement, property)}
+                  {handleStringForView(innerElement, configuration, language, ldsApi)}
                 </List.Item>
               )}
             </List.List>
@@ -66,7 +78,7 @@ export const convertAgentDetailsToView = (value, property) =>
     )}
   </List>
 
-export const convertAdministrativeDetailsToView = (value, property) =>
+const convertAdministrativeDetailsToView = (configuration, language, ldsApi, value) =>
   <List relaxed>
     {value.map((element, index) =>
       <List.Item key={index}>
@@ -78,7 +90,7 @@ export const convertAdministrativeDetailsToView = (value, property) =>
             <List.List>
               {element[GSIM_DEFINITIONS.ADMINISTRATIVE_DETAILS.PROPERTIES.VALUES].map(innerElement =>
                 <List.Item key={innerElement}>
-                  {handleStringForView(innerElement, property)}
+                  {handleStringForView(innerElement, configuration, language, ldsApi)}
                 </List.Item>
               )}
             </List.List>
@@ -88,80 +100,133 @@ export const convertAdministrativeDetailsToView = (value, property) =>
     )}
   </List>
 
-const handleArrayForView = (value, property) => {
-  if (property.hasOwnProperty(GSIM.ITEMS)) {
-    if (property[GSIM.ITEMS].hasOwnProperty(GSIM.SCHEMA.REF)) {
-      const item = getDomainRef(property[GSIM.ITEMS])
-
-      switch (item) {
+const handleArrayForView = (data, configuration, language, ldsApi) => {
+  if (configuration.refProperty !== false) {
+    if (configuration.refName !== false) {
+      switch (configuration.refName) {
         case GSIM_DEFINITIONS.MULTILINGUAL_TEXT.NAME:
-          return convertMultilingualToView(value)
+          return convertMultilingualToView(data)
 
         case GSIM_DEFINITIONS.ADMINISTRATIVE_DETAILS.NAME:
-          return convertAdministrativeDetailsToView(value, property)
+          return convertAdministrativeDetailsToView(configuration, language, ldsApi, data)
 
         case GSIM_DEFINITIONS.AGENT_DETAILS.NAME:
-          return convertAgentDetailsToView(value, property)
+          return convertAgentDetailsToView(configuration, language, ldsApi, data)
 
         default:
           return NOT_FINISHED
       }
     } else {
-      return (
-        <List>
-          {value.map((element, index) =>
-            <List.Item key={index}>
-              {handleStringForView(element, property)}
-            </List.Item>
-          )}
-        </List>
-      )
+      return data.toString()
     }
-  } else {
-    return NOT_FINISHED
   }
+
+  return (
+    <List>
+      {data.map((element, index) =>
+        <List.Item key={index}>
+          {handleStringForView(element, configuration, language, ldsApi)}
+        </List.Item>
+      )}
+    </List>
+  )
 }
 
-export const handleBooleanForView = value =>
+const handleBooleanForView = value =>
   <Icon
     fitted
     size='large'
-    color={value ? 'green' : 'red'}
-    name={value ? 'check square outline' : 'square outline'}
+    name={value ? 'check' : 'close'}
     style={{ color: value ? SSB_COLORS.GREEN : SSB_COLORS.RED }}
   />
 
-export const convertDataToView = (data, schema) => {
+const handleUserForView = user =>
+  <>
+    <Icon size='large' name='user' style={{ color: SSB_COLORS.PURPLE }} />
+    {user}
+  </>
+
+const handleDateForView = date =>
+  <>
+    <Icon size='large' name='calendar alternate outline' style={{ color: SSB_COLORS.PURPLE }} />
+    {date}
+  </>
+
+const handleIdForView = id =>
+  <>
+    <Icon size='large' name='barcode' style={{ color: SSB_COLORS.PURPLE }} />
+    {id}
+  </>
+
+const handleVersionForView = version =>
+  <>
+    <Icon size='large' name='fork' style={{ color: SSB_COLORS.PURPLE }} />
+    {version}
+  </>
+
+export const convertAutofilledToView = (item, data) => {
+  switch (item) {
+    case GSIM.PROPERTIES_GROUPING.AUTOFILLED[0]:
+      return handleIdForView(data)
+
+    case GSIM.PROPERTIES_GROUPING.AUTOFILLED[3]:
+      return handleVersionForView(data)
+
+    case GSIM.PROPERTIES_GROUPING.AUTOFILLED[1]:
+    case GSIM.PROPERTIES_GROUPING.AUTOFILLED[4]:
+    case GSIM.PROPERTIES_GROUPING.AUTOFILLED[5]:
+    case GSIM.PROPERTIES_GROUPING.AUTOFILLED[7]:
+    case GSIM.PROPERTIES_GROUPING.AUTOFILLED[8]:
+      return handleDateForView(convertDateToView(data))
+
+    case GSIM.PROPERTIES_GROUPING.AUTOFILLED[2]:
+    case GSIM.PROPERTIES_GROUPING.AUTOFILLED[6]:
+      return handleUserForView(data)
+
+    default:
+      return data
+  }
+}
+
+export const convertDataToView = (language, ldsApi, data, schema) => {
   const properties = getNestedObject(schema, GSIM.PROPERTIES(schema))
 
   return Object.entries(properties).reduce((accumulator, [property]) => {
     if (!property.startsWith(GSIM.LINK_TYPE)) {
       let newProperty = {
-        name: replaceUnkownDomainProperty(properties[property][GSIM.PROPERTY_DISPLAY_NAME], property),
+        name: property,
         description: properties[property][GSIM.PROPERTY_DESCRIPTION],
         value: null
       }
 
       if (data.hasOwnProperty(property)) {
-        switch (properties[property][GSIM.TYPE]) {
-          case 'array':
-            newProperty.value = handleArrayForView(data[property], properties[property])
+        const baseRef = getNestedObject(properties, [property, GSIM.SCHEMA.REF])
+        const itemsRef = getNestedObject(properties, [property, GSIM.ITEMS, GSIM.SCHEMA.REF])
+        const configuration = setConfiguration(baseRef, itemsRef, properties[property], schema)
+
+        switch (configuration.type) {
+          case GSIM_PROPERTY_TYPES.TYPES.ARRAY:
+            newProperty.value = handleArrayForView(data[property], configuration, language, ldsApi)
             break
 
-          case 'boolean':
+          case GSIM_PROPERTY_TYPES.TYPES.BOOLEAN:
             newProperty.value = handleBooleanForView(data[property])
             break
 
-          case 'number':
-            newProperty.value = data[property]
+          case GSIM_PROPERTY_TYPES.TYPES.NUMBER:
+            newProperty.value = handleNumberForView(data[property])
             break
 
-          case 'string':
-            newProperty.value = handleStringForView(data[property], properties[property])
+          case GSIM_PROPERTY_TYPES.TYPES.OBJECT:
+            newProperty.value = `${data[property].toString()} (${NOT_FINISHED} (object))`
+            break
+
+          case GSIM_PROPERTY_TYPES.TYPES.STRING:
+            newProperty.value = handleStringForView(data[property], configuration, language, ldsApi)
             break
 
           default:
-            newProperty.value = `${data[property].toString()} (${NOT_FINISHED})`
+            newProperty.value = `${data[property].toString()} (${NOT_FINISHED} (default))`
         }
       }
 
@@ -170,4 +235,16 @@ export const convertDataToView = (data, schema) => {
 
     return accumulator
   }, {})
+}
+
+export const mapDataToTable = (language, ldsApi, data, schema) => {
+  return data.map(item => {
+    const values = convertDataToView(language, ldsApi, item, schema)
+
+    return Object.entries(values).reduce((accumulator, [property, item]) => {
+      accumulator[property] = item.value
+
+      return accumulator
+    }, {})
+  })
 }

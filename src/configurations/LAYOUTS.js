@@ -1,9 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Icon, Input, Popup } from 'semantic-ui-react'
-import { SSB_COLORS, truncateString } from '@statisticsnorway/dapla-js-utilities'
+import { Icon, Input } from 'semantic-ui-react'
+import { SSB_COLORS } from '@statisticsnorway/dapla-js-utilities'
 
-import { getDomainPropertyDisplayName, getDomainRef } from '../utilities'
+import { camelToTitle, getDomainRef } from '../utilities'
 import { GSIM, ROUTING } from './'
 import { DOMAIN, UI } from '../enums'
 
@@ -48,30 +48,14 @@ export const SEARCH_LAYOUT = {
   resultRenderer: ({ domain, title, description }) => (
     <Link to={`${ROUTING.DOMAIN_BASE}${domain}`}>
       <div className='content'>
-        <div className='title'>{title}</div>
+        <div className='title'>{camelToTitle(title)}</div>
         <div className='description'>{description}</div>
       </div>
     </Link>
   )
 }
 
-const TABLE_CELLS = (header, { value }, truncationLength) =>
-  Array.isArray(value) ?
-    <Popup basic flowing trigger={
-      <div>{truncateString(value.toString(), truncationLength)}</div>
-    }>
-      <div>{value.map(value => <p key={value}>{value}</p>)}</div>
-    </Popup>
-    :
-    value !== undefined ?
-      value.length > truncationLength ?
-        <Popup basic flowing trigger={<div>{truncateString(value, truncationLength)}</div>}>
-          {value}
-        </Popup>
-        :
-        value
-      :
-      ''
+const TABLE_CELLS = (header, { value }, truncationLength) => value
 
 export const TABLE_HEADERS = (headers, schema, truncationLength, language) => headers.map(header => {
   const domain = getDomainRef(schema)
@@ -80,7 +64,7 @@ export const TABLE_HEADERS = (headers, schema, truncationLength, language) => he
     return ({
       accessor: header,
       Cell: props => TABLE_CELLS(header, props, truncationLength),
-      Header: getDomainPropertyDisplayName(schema, domain, header),
+      Header: camelToTitle(header),
       headerStyle: { fontWeight: '700' },
       Filter: ({ filter, onChange }) => (
         <Input

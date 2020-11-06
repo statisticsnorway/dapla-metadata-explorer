@@ -9,7 +9,8 @@ export const API = {
   GET_DOMAIN_INSTANCE_NAME: (link) => `/${NAMESPACE}${link}/name`,
   GET_HEALTH: '/health/ready',
   GET_SCHEMAS: `/${NAMESPACE}?schema=embed`,
-  GRAPHQL: '/graphql'
+  GRAPHQL: '/graphql',
+  LDS: ['Exploration LDS', 'Concept LDS']
 }
 
 export const GSIM = {
@@ -19,8 +20,8 @@ export const GSIM = {
     CHANGELOG: ['definitions', 'About', 'properties', 'model_version', 'description']
   },
   DEFAULT_TABLE_HEADERS: ['id', 'name', 'description'],
+  DEFINITIONS: 'definitions',
   DESCRIPTION: (schema) => ['definitions', getDomainRef(schema), 'description'],
-  DISPLAY_NAME: (schema) => ['definitions', getDomainRef(schema), 'displayName'],
   ENUM: 'enum',
   FORMAT: 'format',
   GROUPS: {
@@ -185,14 +186,14 @@ export const GSIM = {
     CODE: 'languageCode',
     TEXT: 'languageText'
   },
+  PROPERTIES_ELEMENT: 'properties',
   PROPERTIES: (schema) => ['definitions', getDomainRef(schema), 'properties'],
-  PROPERTIES_DISPLAY_NAME: (domain, property) => ['definitions', domain, 'properties', property, 'displayName'],
   PROPERTIES_GROUPING: {
     AUTOFILLED: ['id', 'createdDate', 'createdBy', 'version', 'versionValidFrom', 'lastUpdatedDate', 'lastUpdatedBy', 'validFrom', 'validUntil'],
     COMMON: ['name', 'description', 'shortName', 'administrativeStatus', 'versionRationale', 'administrativeDetails', 'agentInRoles']
   },
   PROPERTY_DESCRIPTION: 'description',
-  PROPERTY_DISPLAY_NAME: 'displayName',
+  REQUIRED: (schema) => ['definitions', getDomainRef(schema), 'required'],
   SCHEMA: {
     DEFINITIONS: '#/definitions/',
     REF: '$ref'
@@ -235,4 +236,23 @@ export const GSIM_DEFINITIONS = {
     }
   },
   PATH: ['items', GSIM.SCHEMA.REF]
+}
+
+export const GSIM_PROPERTY_TYPES = {
+  TYPES: {
+    ANY_OF: 'anyOf',
+    NULL: 'null',
+    BOOLEAN: 'boolean',
+    NUMBER: 'number',
+    STRING: 'string',
+    ARRAY: 'array',
+    OBJECT: 'object',
+  },
+  FORMATS: {
+    NUMBER: 'number',
+    DATE_TIME: 'date-time'
+  },
+  EXTRA: {
+    ENUM: 'enum'
+  }
 }

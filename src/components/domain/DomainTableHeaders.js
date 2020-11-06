@@ -1,10 +1,11 @@
 import React, { useContext, useState } from 'react'
-import { Accordion, Checkbox, Divider, Grid, Header, Icon, Label, Segment } from 'semantic-ui-react'
+import { Accordion, Checkbox, Divider, Grid, Header, Icon, Label, List, Segment } from 'semantic-ui-react'
 import { getNestedObject, InfoPopup, SSB_COLORS } from '@statisticsnorway/dapla-js-utilities'
 
 import { LanguageContext } from '../../context/AppContext'
 import { DOMAIN_PROPERTY_GROUPING, GSIM } from '../../configurations'
 import { DOMAIN, TEST_IDS } from '../../enums'
+import { camelToTitle } from '../../utilities'
 
 function DomainTableHeaders ({ headers, schema, setHeaders, setTrunc }) {
   const { language } = useContext(LanguageContext)
@@ -56,33 +57,50 @@ function DomainTableHeaders ({ headers, schema, setHeaders, setTrunc }) {
             />
           </Label>
           <Grid columns='equal' divided>
-            {DOMAIN_PROPERTY_GROUPING.map(({ name, description, test }) =>
-              <Grid.Column key={name}>
-                <InfoPopup
-                  text={description(language)}
-                  trigger={<Header content={name} />}
-                />
-                {properties.filter(([property]) => test(property)).map(([property, object]) => {
-                    const includes = headers.includes(property)
+            {DOMAIN_PROPERTY_GROUPING.map(({ name, description, test }) => {
+                const filteredProperties = properties.filter(([property]) => test(property))
+                const indexToSplit = filteredProperties.length / 2
+                const firstColumn = filteredProperties.slice(0, indexToSplit)
+                const secondColumn = filteredProperties.slice(indexToSplit + 1)
 
-                    return property === GSIM.ID ? null :
-                      <InfoPopup
-                        key={property}
-                        position='top left'
-                        text={object.description}
-                        trigger={
-                          <Checkbox
-                            key={property}
-                            checked={includes}
-                            label={object.displayName !== '' ? object.displayName : property}
-                            style={{ marginRight: '0.5rem' }}
-                            onClick={() => handleCheckbox(includes, property)}
-                          />
-                        }
-                      />
-                  }
-                )}
-              </Grid.Column>
+                return (
+                  <Grid.Column key={name}>
+                    <InfoPopup
+                      text={description(language)}
+                      trigger={<Header content={name} />}
+                    />
+                    <Grid columns='equal'>
+                      {[firstColumn, secondColumn].map((column, index) =>
+                        <Grid.Column key={index}>
+                          <List>
+                            {column.filter(([property]) => test(property)).map(([property, object]) => {
+                                const includes = headers.includes(property)
+
+                                return property === GSIM.ID ? null :
+                                  <List.Item key={property}>
+                                    <InfoPopup
+                                      position='top left'
+                                      text={object.description}
+                                      trigger={
+                                        <Checkbox
+                                          key={property}
+                                          label={camelToTitle(property)}
+                                          checked={includes}
+                                          style={{ marginRight: '1rem' }}
+                                          onClick={() => handleCheckbox(includes, property)}
+                                        />
+                                      }
+                                    />
+                                  </List.Item>
+                              }
+                            )}
+                          </List>
+                        </Grid.Column>
+                      )}
+                    </Grid>
+                  </Grid.Column>
+                )
+              }
             )}
           </Grid>
         </Segment>

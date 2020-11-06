@@ -35,8 +35,12 @@ export const DOMAIN = {
     en: 'Domain properties unique for this domain',
     nb: 'Domeneattributter som er unike for dette domene'
   },
+  WAS_EDITED: {
+    en: 'You have unsaved changes',
+    nb: 'Du har ulagrede endringer'
+  },
   WAS_SAVED: {
-    en: 'Object was saved!',
-    nb: 'Objektet ble lagret!'
+    en: 'Domain was saved!',
+    nb: 'Domene ble lagret!'
   }
 }
