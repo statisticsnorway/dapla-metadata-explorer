@@ -48,7 +48,7 @@ function FormInputDropdown ({ configuration, register, setValue }) {
         }
       )
     }
-  }, [configuration.configuration.options.isLink, configuration.configuration.options.links, refetch])
+  }, [configuration.configuration.options.isLink, configuration.configuration.options.links, refetch, ldsApi, language])
 
   return (
     <Form.Select
