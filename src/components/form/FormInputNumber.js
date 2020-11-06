@@ -13,11 +13,11 @@ function FormInputNumber ({ configuration, register, setValue }) {
 
   return (
     <Form.Input
-      icon={{ name: 'hashtag', style: { color: SSB_COLORS.PURPLE } }}
-      iconPosition='left'
       type='number'
+      iconPosition='left'
       onChange={handleChange}
       placeholder={configuration.name}
+      icon={{ name: 'hashtag', style: { color: SSB_COLORS.PURPLE } }}
     />
   )
 }

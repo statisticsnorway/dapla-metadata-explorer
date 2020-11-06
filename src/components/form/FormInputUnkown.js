@@ -5,7 +5,7 @@ function FormInputUnkown ({ configuration }) {
   return (
     <>
       <span style={{ color: 'red' }}>Not handled yet!</span>
-      <Form.Input placeholder={configuration.name} />
+      <Form.Input disabled placeholder={configuration.name} />
     </>
   )
 }

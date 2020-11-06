@@ -3,10 +3,12 @@ import { Form } from 'semantic-ui-react'
 import useAxios from 'axios-hooks'
 import { getLocalizedGsimObjectText } from '@statisticsnorway/dapla-js-utilities'
 
-import { LanguageContext } from '../../context/AppContext'
+import { ApiContext, LanguageContext } from '../../context/AppContext'
 
 function FormInputDropdown ({ configuration, register, setValue }) {
+  const { ldsApi } = useContext(ApiContext)
   const { language } = useContext(LanguageContext)
+
   const [options, setOptions] = useState(configuration.configuration.options.isLink ? [] : configuration.configuration.options.values)
 
   const [{ loading }, refetch] = useAxios('', { manual: true })
@@ -24,8 +26,8 @@ function FormInputDropdown ({ configuration, register, setValue }) {
       let i = 0
       let fetchedOptions = []
 
-      async function myStuff (i) {
-        const response = await refetch({ url: `http://localhost:29091/ns/${configuration.configuration.options.links[i]}` })
+      async function fetchOptions (i) {
+        const response = await refetch({ url: `${ldsApi}/ns/${configuration.configuration.options.links[i]}` })
 
         fetchedOptions = fetchedOptions.concat(response.data.map(item => ({
           key: `/${configuration.configuration.options.links[i]}/${item.id}`,
@@ -34,10 +36,10 @@ function FormInputDropdown ({ configuration, register, setValue }) {
         })))
       }
 
-      myStuff(i).then(() => {
+      fetchOptions(i).then(() => {
           if (configuration.configuration.options.links.length - 1 > i) {
             i++
-            myStuff(i).then(() => {
+            fetchOptions(i).then(() => {
               setOptions(fetchedOptions)
             })
           } else {
@@ -50,13 +52,13 @@ function FormInputDropdown ({ configuration, register, setValue }) {
 
   return (
     <Form.Select
+      clearable
+      options={options}
       loading={loading}
       disabled={loading}
-      clearable
       onChange={handleChange}
-      options={options}
-      multiple={configuration.configuration.options.multiple}
       placeholder={configuration.name}
+      multiple={configuration.configuration.options.multiple}
     />
   )
 }

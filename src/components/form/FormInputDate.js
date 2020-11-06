@@ -13,13 +13,13 @@ function FormInputDate ({ configuration, register, setValue }) {
 
   return (
     <Form.Input
+      type='date'
+      iconPosition='left'
+      onChange={handleChange}
+      placeholder={configuration.name}
       disabled={configuration.configuration.options.multiple}
       icon={{ name: 'calendar alternate outline', style: { color: SSB_COLORS.PURPLE } }}
-      iconPosition='left'
-      type='date'
-      onChange={handleChange}
-      placeholder={configuration.name}>
-    </Form.Input>
+    />
   )
 }
 

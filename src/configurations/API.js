@@ -22,7 +22,6 @@ export const GSIM = {
   DEFAULT_TABLE_HEADERS: ['id', 'name', 'description'],
   DEFINITIONS: 'definitions',
   DESCRIPTION: (schema) => ['definitions', getDomainRef(schema), 'description'],
-  DISPLAY_NAME: (schema) => ['definitions', getDomainRef(schema), 'displayName'],
   ENUM: 'enum',
   FORMAT: 'format',
   GROUPS: {
