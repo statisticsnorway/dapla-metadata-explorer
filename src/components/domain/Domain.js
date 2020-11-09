@@ -73,16 +73,22 @@ function Domain ({ language, ldsApi, schemas }) {
         </Grid.Column>
       </Grid>
       <Container fluid textAlign='right'>
-        <Button
-          as={Link}
-          size='large'
-          disabled={loading}
-          to={`${ROUTING.DOMAIN_BASE}${domain}/new`}
-          style={{ backgroundColor: SSB_COLORS.BLUE }}
-        >
-          <Icon name='pencil alternate' style={{ paddingRight: '0.5rem' }} />
-          {`${DOMAIN.CREATE_NEW[language]} '${camelToTitle(domain)}'`}
-        </Button>
+        <Button.Group size='large'>
+          <Button
+            as={Link}
+            disabled={loading}
+            to={`${ROUTING.DOMAIN_BASE}${domain}/new`}
+            style={{ backgroundColor: SSB_COLORS.BLUE }}
+          >
+            <Icon name='pencil alternate' style={{ paddingRight: '0.5rem' }} />
+            {`${DOMAIN.CREATE_NEW[language]} '${camelToTitle(domain)}'`}
+          </Button>
+          <Button.Or text='||' />
+          <Button disabled style={{ backgroundColor: SSB_COLORS.PURPLE }}>
+            <Icon name='upload' style={{ paddingRight: '0.5rem' }} />
+            {DOMAIN.UPLOAD_JSON[language]}
+          </Button>
+        </Button.Group>
       </Container>
       <DomainTableHeaders
         schema={schema}

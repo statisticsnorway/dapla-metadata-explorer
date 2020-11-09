@@ -8,7 +8,8 @@ export const API = {
   PUT_DOMAIN_INSTANCE_DATA: (domain, id) => `/${NAMESPACE}/${domain}/${id}`,
   GET_DOMAIN_INSTANCE_NAME: (link) => `/${NAMESPACE}${link}/name`,
   GET_HEALTH: '/health/ready',
-  GET_SCHEMAS: `/${NAMESPACE}?schema=embed`,
+  GET_SCHEMAS: `/${NAMESPACE}?schema`,
+  GET_SCHEMAS_EMBED: `/${NAMESPACE}?schema=embed`,
   GRAPHQL: '/graphql',
   LDS: ['Exploration LDS', 'Concept LDS']
 }
@@ -186,6 +187,7 @@ export const GSIM = {
     CODE: 'languageCode',
     TEXT: 'languageText'
   },
+  NAME: 'name',
   PROPERTIES_ELEMENT: 'properties',
   PROPERTIES: (schema) => ['definitions', getDomainRef(schema), 'properties'],
   PROPERTIES_GROUPING: {

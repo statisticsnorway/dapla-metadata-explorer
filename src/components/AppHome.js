@@ -10,7 +10,7 @@ import { HOME } from '../enums'
 function AppHome ({ language, schemas }) {
   let location = useLocation()
 
-  const [visible, setVisible] = useState(true)
+  const [visible, setVisible] = useState(location.pathname === '/')
 
   const informationRows = [
     {

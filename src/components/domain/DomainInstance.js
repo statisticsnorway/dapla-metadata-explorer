@@ -2,7 +2,12 @@ import React, { useEffect, useState } from 'react'
 import useAxios from 'axios-hooks'
 import { useParams } from 'react-router-dom'
 import { Grid, Header, Loader } from 'semantic-ui-react'
-import { ErrorMessage, getNestedObject, InfoPopup } from '@statisticsnorway/dapla-js-utilities'
+import {
+  ErrorMessage,
+  getLocalizedGsimObjectText,
+  getNestedObject,
+  InfoPopup
+} from '@statisticsnorway/dapla-js-utilities'
 
 import { DomainInstanceEdit } from './'
 import { camelToTitle, convertDataToView, getDomainSchema } from '../../utilities'
@@ -49,7 +54,10 @@ function DomainInstance ({ language, ldsApi, schemas }) {
 
   return (
     <>
-      <Header size='large' content={camelToTitle(domain)} subheader={id} />
+      <Header size='large'
+              subheader={camelToTitle(domain)}
+              content={ready ? getLocalizedGsimObjectText(language, data[GSIM.NAME]) : id}
+      />
       {loading ? <Loader active inline='centered' /> :
         error ? <ErrorMessage error={error} language={language} /> : ready &&
           <Grid columns='equal' divided>

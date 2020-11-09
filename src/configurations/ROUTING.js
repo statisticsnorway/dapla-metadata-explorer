@@ -5,6 +5,7 @@ const BASES = {
 
 export const ROUTING = {
   BASE: '/',
+  IMPORT: '/import',
   DOMAIN: `/${BASES.DOMAIN}/:${BASES.DOMAIN}`,
   DOMAIN_BASE: `/${BASES.DOMAIN}/`,
   DOMAIN_INSTANCE: `/${BASES.DOMAIN}/:${BASES.DOMAIN}/:${BASES.ID}`,

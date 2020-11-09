@@ -3,7 +3,7 @@ import useAxios from 'axios-hooks'
 import { v4 as uuidv4 } from 'uuid'
 import { useParams } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
-import { Button, Container, Divider, Form, Grid, Header, Icon, Message } from 'semantic-ui-react'
+import { Button, Divider, Form, Grid, Header, Icon, Message } from 'semantic-ui-react'
 import { ErrorMessage, InfoPopup, SSB_COLORS } from '@statisticsnorway/dapla-js-utilities'
 
 import { FormInputs } from '../form'
@@ -13,6 +13,7 @@ import {
   convertAutofilledToView,
   convertSchemaToEdit,
   createEmptyDataObject,
+  getDomainDescription,
   getDomainSchema
 } from '../../utilities'
 import { API, DOMAIN_PROPERTY_GROUPING } from '../../configurations'
@@ -29,7 +30,7 @@ function DomainInstanceNew ({ language, ldsApi, schemas }) {
   const [formData] = useState(createEmptyDataObject(id, user))
   const [formConfiguration] = useState(convertSchemaToEdit({}, schema))
 
-  const { register, handleSubmit, setValue, formState } = useForm()
+  const { register, handleSubmit, setValue, formState, getValues } = useForm()
 
   useEffect(() => {
     if (formState.isDirty) {
@@ -62,9 +63,40 @@ function DomainInstanceNew ({ language, ldsApi, schemas }) {
     }
   }, [loading, error, response])
 
+  const downloadJson = () => {
+    let json
+    const filterData = Object.entries(getValues()).filter(value => value[1] !== undefined)
+
+    if (filterData.length !== 0) {
+      const filteredData = {}
+
+      filterData.forEach(value => filteredData[value[0]] = value[1])
+
+      json = { ...formData, ...filteredData }
+    } else {
+      json = formData
+    }
+
+    const filename = `${domain}_${id}.json`
+    const blob = new Blob([JSON.stringify(json, null, 2)], { type: 'text/json;charset=utf-8;' })
+    const link = document.createElement('a')
+    const url = URL.createObjectURL(blob)
+
+    link.setAttribute('href', url)
+    link.setAttribute('download', filename)
+    link.style.visibility = 'hidden'
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+  }
+
   return (
     <>
-      <Header size='large' content={camelToTitle(domain)} subheader={id} />
+      <Header
+        size='large'
+        subheader={getDomainDescription(schema)}
+        content={`${DOMAIN.CREATE_NEW[language]} '${camelToTitle(domain)}'`}
+      />
       {edited && <Message warning content={DOMAIN.WAS_EDITED[language]} />}
       {error && <ErrorMessage error={error} language={language} />}
       {saved &&
@@ -102,17 +134,30 @@ function DomainInstanceNew ({ language, ldsApi, schemas }) {
           )}
         </Grid>
         <Divider hidden />
-        <Container fluid textAlign='right'>
-          <Button
-            type='submit'
-            size='large'
-            disabled={loading}
-            style={{ backgroundColor: SSB_COLORS.BLUE }}
-          >
-            <Icon name='save' style={{ paddingRight: '0.5rem' }} />
-            {DOMAIN.SAVE[language]}
-          </Button>
-        </Container>
+        <Grid columns='equal'>
+          <Grid.Column textAlign='left'>
+            <Button
+              size='large'
+              type='button'
+              style={{ backgroundColor: SSB_COLORS.PURPLE }}
+              onClick={(e, data) => downloadJson(e, data)}
+            >
+              <Icon name='download' style={{ paddingRight: '0.5rem' }} />
+              {DOMAIN.GET_JSON[language]}
+            </Button>
+          </Grid.Column>
+          <Grid.Column textAlign='right'>
+            <Button
+              size='large'
+              type='submit'
+              disabled={loading}
+              style={{ backgroundColor: SSB_COLORS.BLUE }}
+            >
+              <Icon name='save' style={{ paddingRight: '0.5rem' }} />
+              {DOMAIN.SAVE[language]}
+            </Button>
+          </Grid.Column>
+        </Grid>
       </Form>
     </>
   )

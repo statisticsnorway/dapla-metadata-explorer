@@ -1,5 +1,6 @@
 export { DOMAIN } from './DOMAIN'
 export { HOME } from './HOME'
+export { IMPORT } from './IMPORT'
 export { SETTINGS } from './SETTINGS'
 export { TEST_IDS } from './TEST'
 export { UI } from './UI'

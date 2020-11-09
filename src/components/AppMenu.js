@@ -1,9 +1,10 @@
 import React, { useContext, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { Dropdown, Header, Icon, Image, Menu, Sticky } from 'semantic-ui-react'
 import { LANGUAGE, SSB_COLORS, ssb_logo_rgb } from '@statisticsnorway/dapla-js-utilities'
 
 import { ApiContext, LanguageContext, UserContext } from '../context/AppContext'
-import { API } from '../configurations'
+import { API, ROUTING } from '../configurations'
 import { TEST_IDS, UI } from '../enums'
 
 function AppMenu ({ setSettingsOpen, context }) {
@@ -32,6 +33,19 @@ function AppMenu ({ setSettingsOpen, context }) {
           <Header size={menuIsStuck ? 'medium' : 'huge'} content={UI.HEADER[language]} />
         </Menu.Item>
         <Menu.Menu position='right'>
+          <Menu.Item
+            as={Link}
+            to={ROUTING.IMPORT}
+            style={{ color: SSB_COLORS.PURPLE }}
+            icon={{ name: 'upload', size: menuIsStuck ? 'large' : 'big' }}
+
+          />
+          <Menu.Item
+            style={{ color: SSB_COLORS.GREEN }}
+            onClick={() => setSettingsOpen(true)}
+            data-testid={TEST_IDS.ACCESS_SETTINGS_BUTTON}
+            icon={{ name: 'setting', size: menuIsStuck ? 'large' : 'big' }}
+          />
           <Menu.Item>
             <Icon style={{ color: SSB_COLORS.BLUE }} size='large' name='user' />
             {user}
@@ -40,12 +54,6 @@ function AppMenu ({ setSettingsOpen, context }) {
             <Icon style={{ color: SSB_COLORS.BLUE }} size='large' name='plug' />
             {API.LDS[window._env.REACT_APP_EXPLORATION_LDS === ldsApi ? 0 : 1]}
           </Menu.Item>
-          <Menu.Item
-            style={{ color: SSB_COLORS.GREEN }}
-            onClick={() => setSettingsOpen(true)}
-            icon={{ name: 'setting', size: menuIsStuck ? 'large' : 'big' }}
-            data-testid={TEST_IDS.ACCESS_SETTINGS_BUTTON}
-          />
           <Dropdown item text={`${LANGUAGE.LANGUAGE[language]} (${LANGUAGE.LANGUAGE_CHOICE[language]})`}>
             <Dropdown.Menu>
               {Object.keys(LANGUAGE.LANGUAGES).map(languageName =>
