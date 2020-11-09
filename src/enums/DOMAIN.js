@@ -15,6 +15,10 @@ export const DOMAIN = {
     en: 'Create new',
     nb: 'Opprett ny'
   },
+  GET_JSON: {
+    en: 'Download JSON',
+    nb: 'Last ned JSON'
+  },
   REFRESH_DOMAIN_LIST: {
     en: 'Fetch data again',
     nb: 'Hent data på nytt'
@@ -34,6 +38,10 @@ export const DOMAIN = {
   UNIQUE_PROPERTIES: {
     en: 'Domain properties unique for this domain',
     nb: 'Domeneattributter som er unike for dette domene'
+  },
+  UPLOAD_JSON: {
+    en: 'Upload JSON',
+    nb: 'Last opp JSON'
   },
   WAS_EDITED: {
     en: 'You have unsaved changes',

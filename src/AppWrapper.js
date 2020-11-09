@@ -5,6 +5,7 @@ import { Loader, Segment } from 'semantic-ui-react'
 import { ErrorMessage } from '@statisticsnorway/dapla-js-utilities'
 
 import { AppHome } from './components'
+import { Import } from './components/domains'
 import { Domain, DomainInstance, DomainInstanceNew } from './components/domain'
 import { sortSchemas } from './utilities'
 import { API, ROUTING } from './configurations'
@@ -14,7 +15,7 @@ function AppWrapper ({ language, ldsApi }) {
   const [ready, setReady] = useState(false)
   const [schemas, setSchemas] = useState(null)
 
-  const [{ data, loading, error }] = useAxios(`${ldsApi}${API.GET_SCHEMAS}`, { useCache: false })
+  const [{ data, loading, error }] = useAxios(`${ldsApi}${API.GET_SCHEMAS_EMBED}`, { useCache: false })
 
   useEffect(() => {
     if (!loading && !error && data !== undefined) {
@@ -45,6 +46,9 @@ function AppWrapper ({ language, ldsApi }) {
               </Route>
               <Route path={ROUTING.DOMAIN}>
                 <Domain language={language} ldsApi={ldsApi} schemas={schemas} />
+              </Route>
+              <Route path={ROUTING.IMPORT}>
+                <Import language={language} ldsApi={ldsApi} />
               </Route>
             </Switch>
           </>

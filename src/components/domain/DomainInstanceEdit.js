@@ -34,8 +34,34 @@ function DomainInstanceEdit ({ data, language, ldsApi, refetch }) {
     }
   }, [putLoading, putError, putResponse, refetch])
 
+  const downloadJson = () => {
+    const filename = `${domain}_${id}.json`
+    const blob = new Blob([domainInstanceJson], { type: 'text/json;charset=utf-8;' })
+    const link = document.createElement('a')
+    const url = URL.createObjectURL(blob)
+
+    link.setAttribute('href', url)
+    link.setAttribute('download', filename)
+    link.style.visibility = 'hidden'
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+  }
+
   return (
     <>
+      <Grid.Row>
+        <Grid.Column textAlign='right'>
+          <Button
+            size='large'
+            onClick={() => downloadJson()}
+            style={{ backgroundColor: SSB_COLORS.PURPLE }}
+          >
+            <Icon name='download' style={{ paddingRight: '0.5rem' }} />
+            {DOMAIN.GET_JSON[language]}
+          </Button>
+        </Grid.Column>
+      </Grid.Row>
       {putError &&
       <Grid.Row>
         <Grid.Column>
