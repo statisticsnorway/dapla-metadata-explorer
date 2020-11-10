@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import useAxios from 'axios-hooks'
 import { useParams } from 'react-router-dom'
 import { Grid, Header, Loader } from 'semantic-ui-react'
@@ -10,10 +10,15 @@ import {
 } from '@statisticsnorway/dapla-js-utilities'
 
 import { DomainInstanceEdit } from './'
+import { ApiContext, LanguageContext, SchemasContext } from '../../context/AppContext'
 import { camelToTitle, convertDataToView, getDomainSchema } from '../../utilities'
 import { API, DOMAIN_PROPERTY_GROUPING, GSIM } from '../../configurations'
 
-function DomainInstance ({ language, ldsApi, schemas }) {
+function DomainInstance () {
+  const { ldsApi } = useContext(ApiContext)
+  const { schemas } = useContext(SchemasContext)
+  const { language } = useContext(LanguageContext)
+
   const { domain, id } = useParams()
 
   const [ready, setReady] = useState(false)
@@ -43,14 +48,14 @@ function DomainInstance ({ language, ldsApi, schemas }) {
   useEffect(() => {
     if (!loading && !error && data !== undefined) {
       try {
-        setDomainInstanceData(convertDataToView(language, ldsApi, data, schema))
+        setDomainInstanceData(convertDataToView(data, schema))
         setReady(true)
       } catch (e) {
         setReady(false)
         console.log(e)
       }
     }
-  }, [data, error, loading, schema, language, ldsApi])
+  }, [data, error, loading, schema])
 
   return (
     <>
@@ -82,7 +87,7 @@ function DomainInstance ({ language, ldsApi, schemas }) {
                 </Grid.Column>
               )}
             </Grid.Row>
-            {ready && <DomainInstanceEdit refetch={refetch} data={data} ldsApi={ldsApi} language={language} />}
+            {ready && <DomainInstanceEdit refetch={refetch} data={data} />}
           </Grid>
       }
     </>

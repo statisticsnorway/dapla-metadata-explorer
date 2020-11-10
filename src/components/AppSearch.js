@@ -1,12 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Search } from 'semantic-ui-react'
 
-import { LanguageContext } from '../context/AppContext'
+import { LanguageContext, SchemasContext } from '../context/AppContext'
 import { getDomainDescription, getDomainRef } from '../utilities'
 import { SEARCH_LAYOUT } from '../configurations'
 import { UI } from '../enums'
 
-function AppSearch ({ schemas }) {
+function AppSearch () {
+  const { schemas } = useContext(SchemasContext)
   const { language } = useContext(LanguageContext)
 
   const [value, setValue] = useState('')

@@ -31,8 +31,6 @@ running to function locally (or atleast a running instance of [linked-data-store
 * Show the number instances of a domain stored in LDS
 * User friendlier table
 * Make form for editing
-* Order of properties in view mode should be equal
-* Make application work as a importable component
 * Input validations
 * General refactoring (smaller functions)
 * Write tests

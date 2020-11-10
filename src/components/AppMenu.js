@@ -33,10 +33,18 @@ function AppMenu ({ setSettingsOpen, context }) {
           <Header size={menuIsStuck ? 'medium' : 'huge'} content={UI.HEADER[language]} />
         </Menu.Item>
         <Menu.Menu position='right'>
+          <Menu.Item>
+            <Icon style={{ color: SSB_COLORS.GREY }} name='user' />
+            {user}
+          </Menu.Item>
+          <Menu.Item>
+            <Icon style={{ color: SSB_COLORS.GREY }} name='plug' />
+            {API.LDS[window._env.REACT_APP_EXPLORATION_LDS === ldsApi ? 0 : 1]}
+          </Menu.Item>
           <Menu.Item
             as={Link}
             to={ROUTING.IMPORT}
-            style={{ color: SSB_COLORS.PURPLE }}
+            style={{ color: SSB_COLORS.BLUE }}
             icon={{ name: 'upload', size: menuIsStuck ? 'large' : 'big' }}
 
           />
@@ -46,14 +54,6 @@ function AppMenu ({ setSettingsOpen, context }) {
             data-testid={TEST_IDS.ACCESS_SETTINGS_BUTTON}
             icon={{ name: 'setting', size: menuIsStuck ? 'large' : 'big' }}
           />
-          <Menu.Item>
-            <Icon style={{ color: SSB_COLORS.BLUE }} size='large' name='user' />
-            {user}
-          </Menu.Item>
-          <Menu.Item>
-            <Icon style={{ color: SSB_COLORS.BLUE }} size='large' name='plug' />
-            {API.LDS[window._env.REACT_APP_EXPLORATION_LDS === ldsApi ? 0 : 1]}
-          </Menu.Item>
           <Dropdown item text={`${LANGUAGE.LANGUAGE[language]} (${LANGUAGE.LANGUAGE_CHOICE[language]})`}>
             <Dropdown.Menu>
               {Object.keys(LANGUAGE.LANGUAGES).map(languageName =>

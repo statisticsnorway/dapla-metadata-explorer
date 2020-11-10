@@ -1,16 +1,21 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import useAxios from 'axios-hooks'
 import AceEditor from 'react-ace'
 import { useParams } from 'react-router-dom'
 import { Button, Grid, Icon } from 'semantic-ui-react'
 import { ErrorMessage, SSB_COLORS } from '@statisticsnorway/dapla-js-utilities'
+
 import 'ace-builds/src-noconflict/mode-json'
 import 'ace-builds/src-noconflict/theme-textmate'
 
+import { ApiContext, LanguageContext } from '../../context/AppContext'
 import { API } from '../../configurations'
 import { DOMAIN } from '../../enums'
 
-function DomainInstanceEdit ({ data, language, ldsApi, refetch }) {
+function DomainInstanceEdit ({ data, refetch }) {
+  const { ldsApi } = useContext(ApiContext)
+  const { language } = useContext(LanguageContext)
+
   const { domain, id } = useParams()
 
   const [madeChanges, setMadeChanges] = useState(false)

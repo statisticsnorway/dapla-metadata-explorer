@@ -1,12 +1,15 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { Label, List, Menu, Tab } from 'semantic-ui-react'
 import { getNestedObject } from '@statisticsnorway/dapla-js-utilities'
 
+import { SchemasContext } from '../../context/AppContext'
 import { camelToTitle, getDomainDescription, getDomainRef } from '../../utilities'
 import { GSIM, ROUTING } from '../../configurations'
 
-function DomainsList ({ schemas }) {
+function DomainsList () {
+  const { schemas } = useContext(SchemasContext)
+
   const panes = Object.entries(schemas.groups).map(([group, schemasByGroup]) => {
     const color = getNestedObject(GSIM.GROUPS, [group.toUpperCase(), 'COLOR'])
 
