@@ -1,15 +1,20 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import useAxios from 'axios-hooks'
 import { Link, useParams } from 'react-router-dom'
 import { Button, Container, Grid, Header, Icon, Loader } from 'semantic-ui-react'
 import { ErrorMessage, InfoPopup, SSB_COLORS } from '@statisticsnorway/dapla-js-utilities'
 
 import { DomainTable, DomainTableHeaders } from './'
+import { ApiContext, LanguageContext, SchemasContext } from '../../context/AppContext'
 import { camelToTitle, getDomainDescription, getDomainSchema, mapDataToTable } from '../../utilities'
 import { API, GSIM, ROUTING, TABLE_HEADERS } from '../../configurations'
 import { DOMAIN } from '../../enums'
 
-function Domain ({ language, ldsApi, schemas }) {
+function Domain () {
+  const { ldsApi } = useContext(ApiContext)
+  const { schemas } = useContext(SchemasContext)
+  const { language } = useContext(LanguageContext)
+
   const { domain } = useParams()
 
   const [tableData, setTableData] = useState([])
@@ -32,12 +37,12 @@ function Domain ({ language, ldsApi, schemas }) {
   useEffect(() => {
     if (!loading && !error && data !== undefined) {
       try {
-        setTableData(mapDataToTable(language, ldsApi, data, schema))
+        setTableData(mapDataToTable(data, schema))
       } catch (e) {
         console.log(e)
       }
     }
-  }, [data, error, language, loading, schema, ldsApi])
+  }, [data, error, loading, schema])
 
   useEffect(() => {
     try {

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { ClientContext, GraphQLClient } from 'graphql-hooks'
 import { LANGUAGE } from '@statisticsnorway/dapla-js-utilities'
 
-import { API } from '../configurations'
+import { API, STORAGE } from '../configurations'
 
 export const ApiContext = React.createContext({ ldsApi: window._env.REACT_APP_EXPLORATION_LDS })
 
@@ -15,8 +15,8 @@ export const UserContext = React.createContext(null)
 export const AppContextProvider = (props) => {
   const [schemas, setSchemas] = useState(null)
   const [language, setLanguage] = useState(LANGUAGE.LANGUAGES.NORWEGIAN.languageCode)
-  const [user, setUser] = useState(localStorage.hasOwnProperty('user') ? localStorage.getItem('user') : 'Test')
-  const [ldsApi, setLdsApi] = useState(localStorage.hasOwnProperty('lds') ? localStorage.getItem('lds') : window._env.REACT_APP_EXPLORATION_LDS)
+  const [user, setUser] = useState(localStorage.hasOwnProperty(STORAGE.USER) ? localStorage.getItem(STORAGE.USER) : 'Test')
+  const [ldsApi, setLdsApi] = useState(localStorage.hasOwnProperty(STORAGE.LDS) ? localStorage.getItem(STORAGE.LDS) : window._env.REACT_APP_EXPLORATION_LDS)
 
   const graphqlClient = new GraphQLClient({ url: `${ldsApi}${API.GRAPHQL}` })
 

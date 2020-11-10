@@ -1,13 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
-import { Divider, Grid, Icon, List, Segment, Transition } from 'semantic-ui-react'
+import { Button, Divider, Grid, Icon, List, Segment, Transition } from 'semantic-ui-react'
 import { InfoText } from '@statisticsnorway/dapla-js-utilities'
 
 import AppSearch from './AppSearch'
 import { DomainsList } from './domains'
+import { LanguageContext, SchemasContext } from '../context/AppContext'
 import { HOME } from '../enums'
 
-function AppHome ({ language, schemas }) {
+function AppHome () {
+  const { schemas } = useContext(SchemasContext)
+  const { language } = useContext(LanguageContext)
+
   let location = useLocation()
 
   const [visible, setVisible] = useState(location.pathname === '/')
@@ -34,32 +38,40 @@ function AppHome ({ language, schemas }) {
   return (
     <>
       <Transition visible={visible} animation='fade down' duration={300}>
-        <Segment>
-          <Grid columns='equal'>
-            <Grid.Row>
-              <Grid.Column>
-                <AppSearch schemas={schemas} />
-                <InfoText text={HOME.CHOOSE_OR_SEARCH[language]} />
-              </Grid.Column>
-              <Grid.Column>
-                <List relaxed>
-                  {informationRows.map(({ text, value }) =>
-                    <List.Item key={text}>
-                      <b>{`${text}: `}</b>
-                      {value(schemas)}
-                    </List.Item>
-                  )}
-                </List>
-              </Grid.Column>
-            </Grid.Row>
-            <Divider hidden />
-            <Grid.Row>
-              <Grid.Column>
-                <DomainsList schemas={schemas} />
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
-        </Segment>
+        <div>
+          <Segment attached>
+            <Grid columns='equal'>
+              <Grid.Row>
+                <Grid.Column>
+                  <AppSearch />
+                  <InfoText text={HOME.CHOOSE_OR_SEARCH[language]} />
+                </Grid.Column>
+                <Grid.Column>
+                  <List relaxed>
+                    {informationRows.map(({ text, value }) =>
+                      <List.Item key={text}>
+                        <b>{`${text}: `}</b>
+                        {value(schemas)}
+                      </List.Item>
+                    )}
+                  </List>
+                </Grid.Column>
+              </Grid.Row>
+              <Divider hidden />
+              <Grid.Row>
+                <Grid.Column>
+                  <DomainsList />
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
+          </Segment>
+          <Button
+            icon='caret up'
+            attached='bottom'
+            style={{ background: '#fff' }}
+            onClick={() => setVisible(false)}
+          />
+        </div>
       </Transition>
       {!visible && <Icon size='big' name='bars' link onClick={() => setVisible(!visible)} />}
       <Divider hidden />

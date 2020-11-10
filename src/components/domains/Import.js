@@ -1,14 +1,18 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 import useAxios from 'axios-hooks'
 import { useDropzone } from 'react-dropzone'
-import { Container, Header, List, Loader, Segment } from 'semantic-ui-react'
+import { Container, Divider, Header, Icon, List, Loader, Segment } from 'semantic-ui-react'
 import { ErrorMessage, SSB_COLORS } from '@statisticsnorway/dapla-js-utilities'
 
 import Upload from './Upload'
+import { ApiContext, LanguageContext } from '../../context/AppContext'
 import { API } from '../../configurations'
 import { IMPORT, UI } from '../../enums'
 
-function Import ({ language, ldsApi }) {
+function Import () {
+  const { ldsApi } = useContext(ApiContext)
+  const { language } = useContext(LanguageContext)
+
   const [ready, setReady] = useState(false)
   const [domains, setDomains] = useState([])
   const [fullFiles, setFullFiles] = useState([])
@@ -47,8 +51,9 @@ function Import ({ language, ldsApi }) {
     setFullFiles(filesAsJson)
   }, [])
 
-  const { acceptedFiles, getRootProps, getInputProps, isDragActive } = useDropzone({
+  const { acceptedFiles, fileRejections, getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
+    maxFiles: 50,
     accept: 'application/json'
   })
 
@@ -58,7 +63,7 @@ function Import ({ language, ldsApi }) {
       const domain = file.name.substr(0, file.name.indexOf('_'))
 
       if (!domains.includes(domain)) {
-        errors.push('Could not identify domain')
+        errors.push(IMPORT.NO_DOMAIN[language])
       }
 
       if (errors.length !== 0) {
@@ -75,7 +80,7 @@ function Import ({ language, ldsApi }) {
         )
       } else {
         return (
-          <Upload key={file.name} name={file.name} file={fullFiles[index]} ldsApi={ldsApi} />
+          <Upload key={file.name} name={file.name} file={fullFiles[index]} />
         )
       }
     } else {
@@ -85,6 +90,16 @@ function Import ({ language, ldsApi }) {
 
   return (
     <Container>
+      <Header size='huge'>
+        <Icon name='upload' style={{ color: SSB_COLORS.BLUE }} />
+        <Header.Content>
+          {IMPORT.HEADER[language]}
+          <Header.Subheader>
+            {IMPORT.SUBHEADER[language]}
+          </Header.Subheader>
+        </Header.Content>
+      </Header>
+      <Divider hidden />
       {loading ? <Loader active inline='centered' /> :
         error ? <ErrorMessage error={UI.API_ERROR_MESSAGE[language]} language={language} /> : ready &&
           <>
@@ -108,6 +123,9 @@ function Import ({ language, ldsApi }) {
                 </List>
               </Segment>
             </>
+            }
+            {fileRejections.length > 50 &&
+            <ErrorMessage language={language} error={IMPORT.MAX_FILES(fileRejections.length)[language]} />
             }
           </>
       }

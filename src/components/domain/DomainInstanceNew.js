@@ -7,7 +7,7 @@ import { Button, Divider, Form, Grid, Header, Icon, Message } from 'semantic-ui-
 import { ErrorMessage, InfoPopup, SSB_COLORS } from '@statisticsnorway/dapla-js-utilities'
 
 import { FormInputs } from '../form'
-import { UserContext } from '../../context/AppContext'
+import { ApiContext, LanguageContext, SchemasContext, UserContext } from '../../context/AppContext'
 import {
   camelToTitle,
   convertAutofilledToView,
@@ -19,13 +19,17 @@ import {
 import { API, DOMAIN_PROPERTY_GROUPING } from '../../configurations'
 import { DOMAIN } from '../../enums'
 
-function DomainInstanceNew ({ language, ldsApi, schemas }) {
+function DomainInstanceNew () {
   const { user } = useContext(UserContext)
+  const { ldsApi } = useContext(ApiContext)
+  const { schemas } = useContext(SchemasContext)
+  const { language } = useContext(LanguageContext)
+
   const { domain } = useParams()
 
   const [id] = useState(uuidv4())
-  const [edited, setEdited] = useState(false)
   const [saved, setSaved] = useState(false)
+  const [edited, setEdited] = useState(false)
   const [schema] = useState(getDomainSchema(domain, schemas))
   const [formData] = useState(createEmptyDataObject(id, user))
   const [formConfiguration] = useState(convertSchemaToEdit({}, schema))
@@ -139,8 +143,8 @@ function DomainInstanceNew ({ language, ldsApi, schemas }) {
             <Button
               size='large'
               type='button'
+              onClick={() => downloadJson()}
               style={{ backgroundColor: SSB_COLORS.PURPLE }}
-              onClick={(e, data) => downloadJson(e, data)}
             >
               <Icon name='download' style={{ paddingRight: '0.5rem' }} />
               {DOMAIN.GET_JSON[language]}

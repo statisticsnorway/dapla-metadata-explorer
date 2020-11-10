@@ -27,7 +27,7 @@ const convertMultilingualToView = value =>
     )}
   </List>
 
-const handleStringForView = (data, configuration, language, ldsApi) => {
+const handleStringForView = (data, configuration) => {
   if (configuration.format) {
     if (configuration.format === 'date-time') {
       return convertDateToView(data)
@@ -46,7 +46,7 @@ const handleStringForView = (data, configuration, language, ldsApi) => {
   }
 
   if (data.startsWith('/')) {
-    return <DomainLinkResolve language={language} ldsApi={ldsApi} link={data} />
+    return <DomainLinkResolve link={data} />
   }
 
   if (data.startsWith('http')) {
@@ -56,7 +56,7 @@ const handleStringForView = (data, configuration, language, ldsApi) => {
   return data.toString()
 }
 
-const convertAgentDetailsToView = (configuration, language, ldsApi, value) =>
+const convertAgentDetailsToView = (configuration, value) =>
   <List relaxed>
     {value.map((element, index) =>
       <List.Item key={index}>
@@ -68,7 +68,7 @@ const convertAgentDetailsToView = (configuration, language, ldsApi, value) =>
             <List.List>
               {element[GSIM_DEFINITIONS.AGENT_DETAILS.PROPERTIES.VALUES].map(innerElement =>
                 <List.Item key={innerElement}>
-                  {handleStringForView(innerElement, configuration, language, ldsApi)}
+                  {handleStringForView(innerElement, configuration)}
                 </List.Item>
               )}
             </List.List>
@@ -78,7 +78,7 @@ const convertAgentDetailsToView = (configuration, language, ldsApi, value) =>
     )}
   </List>
 
-const convertAdministrativeDetailsToView = (configuration, language, ldsApi, value) =>
+const convertAdministrativeDetailsToView = (configuration, value) =>
   <List relaxed>
     {value.map((element, index) =>
       <List.Item key={index}>
@@ -90,7 +90,7 @@ const convertAdministrativeDetailsToView = (configuration, language, ldsApi, val
             <List.List>
               {element[GSIM_DEFINITIONS.ADMINISTRATIVE_DETAILS.PROPERTIES.VALUES].map(innerElement =>
                 <List.Item key={innerElement}>
-                  {handleStringForView(innerElement, configuration, language, ldsApi)}
+                  {handleStringForView(innerElement, configuration)}
                 </List.Item>
               )}
             </List.List>
@@ -100,7 +100,7 @@ const convertAdministrativeDetailsToView = (configuration, language, ldsApi, val
     )}
   </List>
 
-const handleArrayForView = (data, configuration, language, ldsApi) => {
+const handleArrayForView = (data, configuration) => {
   if (configuration.refProperty !== false) {
     if (configuration.refName !== false) {
       switch (configuration.refName) {
@@ -108,10 +108,10 @@ const handleArrayForView = (data, configuration, language, ldsApi) => {
           return convertMultilingualToView(data)
 
         case GSIM_DEFINITIONS.ADMINISTRATIVE_DETAILS.NAME:
-          return convertAdministrativeDetailsToView(configuration, language, ldsApi, data)
+          return convertAdministrativeDetailsToView(configuration, data)
 
         case GSIM_DEFINITIONS.AGENT_DETAILS.NAME:
-          return convertAgentDetailsToView(configuration, language, ldsApi, data)
+          return convertAgentDetailsToView(configuration, data)
 
         default:
           return NOT_FINISHED
@@ -125,7 +125,7 @@ const handleArrayForView = (data, configuration, language, ldsApi) => {
     <List>
       {data.map((element, index) =>
         <List.Item key={index}>
-          {handleStringForView(element, configuration, language, ldsApi)}
+          {handleStringForView(element, configuration)}
         </List.Item>
       )}
     </List>
@@ -188,7 +188,7 @@ export const convertAutofilledToView = (item, data) => {
   }
 }
 
-export const convertDataToView = (language, ldsApi, data, schema) => {
+export const convertDataToView = (data, schema) => {
   const properties = getNestedObject(schema, GSIM.PROPERTIES(schema))
 
   return Object.entries(properties).reduce((accumulator, [property]) => {
@@ -206,7 +206,7 @@ export const convertDataToView = (language, ldsApi, data, schema) => {
 
         switch (configuration.type) {
           case GSIM_PROPERTY_TYPES.TYPES.ARRAY:
-            newProperty.value = handleArrayForView(data[property], configuration, language, ldsApi)
+            newProperty.value = handleArrayForView(data[property], configuration)
             break
 
           case GSIM_PROPERTY_TYPES.TYPES.BOOLEAN:
@@ -222,7 +222,7 @@ export const convertDataToView = (language, ldsApi, data, schema) => {
             break
 
           case GSIM_PROPERTY_TYPES.TYPES.STRING:
-            newProperty.value = handleStringForView(data[property], configuration, language, ldsApi)
+            newProperty.value = handleStringForView(data[property], configuration)
             break
 
           default:
@@ -237,9 +237,9 @@ export const convertDataToView = (language, ldsApi, data, schema) => {
   }, {})
 }
 
-export const mapDataToTable = (language, ldsApi, data, schema) => {
+export const mapDataToTable = (data, schema) => {
   return data.map(item => {
-    const values = convertDataToView(language, ldsApi, item, schema)
+    const values = convertDataToView(item, schema)
 
     return Object.entries(values).reduce((accumulator, [property, item]) => {
       accumulator[property] = item.value

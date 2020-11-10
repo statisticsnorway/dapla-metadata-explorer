@@ -1,10 +1,14 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import useAxios from 'axios-hooks'
-import { List } from 'semantic-ui-react'
+import { Icon, List } from 'semantic-ui-react'
 import { SSB_COLORS } from '@statisticsnorway/dapla-js-utilities'
 
-function Upload ({ name, file, ldsApi }) {
-  const [{ loading, error, response }] = useAxios({
+import { ApiContext } from '../../context/AppContext'
+
+function Upload ({ name, file }) {
+  const { ldsApi } = useContext(ApiContext)
+
+  const [{ loading, error, response }, retry] = useAxios({
     url: `${ldsApi}/ns/${file[0]}/${file[1].id}`,
     method: 'PUT',
     data: file[1]
@@ -21,6 +25,7 @@ function Upload ({ name, file, ldsApi }) {
         {name}
         <List.Description>
           {error ? error.response.data !== '' ? error.response.data : error.response.statusText : ''}
+          {error && <Icon link name='redo' onClick={retry} style={{ color: SSB_COLORS.BLUE, marginLeft: '0.3em' }} />}
         </List.Description>
       </List.Content>
     </List.Item>

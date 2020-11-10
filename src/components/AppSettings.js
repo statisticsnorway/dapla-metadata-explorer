@@ -3,7 +3,7 @@ import { Divider, Dropdown, Header, Icon, Input, Modal, Segment } from 'semantic
 import { ErrorMessage, SimpleFooter, SSB_COLORS, SSB_STYLE } from '@statisticsnorway/dapla-js-utilities'
 
 import { ApiContext, LanguageContext, UserContext } from '../context/AppContext'
-import { API } from '../configurations'
+import { API, STORAGE } from '../configurations'
 import { SETTINGS } from '../enums'
 
 function AppSettings ({ error, loading, open, setOpen }) {
@@ -29,7 +29,7 @@ function AppSettings ({ error, loading, open, setOpen }) {
           icon={{ name: 'user', style: { color: SSB_COLORS.BLUE } }}
           iconPosition='left'
           onChange={(e, { value }) => {
-            localStorage.setItem('user', value)
+            localStorage.setItem(STORAGE.USER, value)
             setUser(value)
           }}
           placeholder={SETTINGS.USER[language]}
@@ -45,7 +45,7 @@ function AppSettings ({ error, loading, open, setOpen }) {
           error={!loading && !!error}
           placeholder={SETTINGS.API[language]}
           onChange={(e, { value }) => {
-            localStorage.setItem('lds', value)
+            localStorage.setItem(STORAGE.LDS, value)
             setLdsApi(value)
           }}
         />

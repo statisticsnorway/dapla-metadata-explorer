@@ -10,7 +10,11 @@ import { AppContextProvider } from '../context/AppContext'
 import { TEST_CONFIGURATIONS } from '../configurations'
 import { SETTINGS, TEST_IDS, UI } from '../enums'
 
-jest.mock('../AppWrapper', () => () => null)
+jest.mock('../components/AppHome', () => () => null)
+jest.mock('../components/domain/Domain', () => () => null)
+jest.mock('../components/domains/Import', () => () => null)
+jest.mock('../components/domain/DomainInstance', () => () => null)
+jest.mock('../components/domain/DomainInstanceNew', () => () => null)
 
 const { language, otherLanguage } = TEST_CONFIGURATIONS
 
@@ -28,7 +32,7 @@ const setup = () => {
 
 describe('Common mock', () => {
   beforeEach(() => {
-    useAxios.mockReturnValue([{ loading: false, error: undefined }])
+    useAxios.mockReturnValue([{ loading: false, error: undefined, data: [] }])
   })
 
   test('Renders basics', () => {
