@@ -15,6 +15,7 @@ function AppHome () {
   let location = useLocation()
 
   const [visible, setVisible] = useState(location.pathname === '/')
+  const [burgerVisible, setBurgerVisible] = useState(location.pathname !== '/')
 
   const informationRows = [
     {
@@ -37,7 +38,7 @@ function AppHome () {
 
   return (
     <>
-      <Transition visible={visible} animation='fade down' duration={300}>
+      <Transition visible={visible} animation='fade down' duration={300} onHide={() => setBurgerVisible(true)}>
         <div>
           <Segment attached>
             <Grid columns='equal'>
@@ -73,7 +74,17 @@ function AppHome () {
           />
         </div>
       </Transition>
-      {!visible && <Icon size='big' name='bars' link onClick={() => setVisible(!visible)} />}
+      {burgerVisible &&
+      <Icon
+        link
+        size='big'
+        name='bars'
+        onClick={() => {
+          setVisible(!visible)
+          setBurgerVisible(false)
+        }}
+      />
+      }
       <Divider hidden />
     </>
   )

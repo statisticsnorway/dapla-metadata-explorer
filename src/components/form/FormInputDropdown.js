@@ -11,7 +11,7 @@ function FormInputDropdown ({ configuration, register, setValue }) {
 
   const [options, setOptions] = useState(configuration.configuration.options.isLink ? [] : configuration.configuration.options.values)
 
-  const [{ loading }, refetch] = useAxios('', { manual: true })
+  const [{ loading }, refetch] = useAxios('', { manual: true, useCache: false })
 
   const handleChange = (e, { value }) => {
     setValue(configuration.name, value, { shouldDirty: true })

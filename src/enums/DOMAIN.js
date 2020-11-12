@@ -19,6 +19,10 @@ export const DOMAIN = {
     en: 'Download JSON',
     nb: 'Last ned JSON'
   },
+  JUMP_TO_SAVED: {
+    en: 'Click here to view what you just saved',
+    nb: 'Klikk her for å se det du akkurat lagret'
+  },
   REFRESH_DOMAIN_LIST: {
     en: 'Fetch data again',
     nb: 'Hent data på nytt'
@@ -38,10 +42,6 @@ export const DOMAIN = {
   UNIQUE_PROPERTIES: {
     en: 'Domain properties unique for this domain',
     nb: 'Domeneattributter som er unike for dette domene'
-  },
-  UPLOAD_JSON: {
-    en: 'Upload JSON',
-    nb: 'Last opp JSON'
   },
   WAS_EDITED: {
     en: 'You have unsaved changes',

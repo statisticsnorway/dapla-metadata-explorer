@@ -58,7 +58,8 @@
     "@beam-australia/react-env": "^2.1.2",
     "@testing-library/jest-dom": "^5.9.0",
     "@testing-library/react": "^11.0.1",
-    "@testing-library/user-event": "^12.0.11"
+    "@testing-library/user-event": "^12.0.11",
+    "jest-localstorage-mock": "^2.4.3"
   },
   "jest": {
     "collectCoverageFrom": [

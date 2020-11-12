@@ -14,9 +14,9 @@ export const UserContext = React.createContext(null)
 
 export const AppContextProvider = (props) => {
   const [schemas, setSchemas] = useState(null)
-  const [language, setLanguage] = useState(LANGUAGE.LANGUAGES.NORWEGIAN.languageCode)
   const [user, setUser] = useState(localStorage.hasOwnProperty(STORAGE.USER) ? localStorage.getItem(STORAGE.USER) : 'Test')
   const [ldsApi, setLdsApi] = useState(localStorage.hasOwnProperty(STORAGE.LDS) ? localStorage.getItem(STORAGE.LDS) : window._env.REACT_APP_EXPLORATION_LDS)
+  const [language, setLanguage] = useState(localStorage.hasOwnProperty(STORAGE.LANGUAGE) ? localStorage.getItem(STORAGE.LANGUAGE) : LANGUAGE.LANGUAGES.NORWEGIAN.languageCode)
 
   const graphqlClient = new GraphQLClient({ url: `${ldsApi}${API.GRAPHQL}` })
 

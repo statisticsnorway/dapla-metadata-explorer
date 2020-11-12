@@ -57,3 +57,15 @@ describe('Common mock', () => {
     expect(getByText(SETTINGS.HEADER[language])).toBeInTheDocument()
   })
 })
+
+test('Handles undefined data', () => {
+  useAxios.mockReturnValue([{ loading: false, error: undefined, data: undefined }])
+
+  setup()
+})
+
+test('Handles errors in schema sorting', () => {
+  useAxios.mockReturnValue([{ loading: false, error: undefined, data: {} }])
+
+  setup()
+})
