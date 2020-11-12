@@ -23,7 +23,7 @@ function Domain () {
   const [tableHeaders, setTableHeaders] = useState(GSIM.DEFAULT_TABLE_HEADERS)
   const [truncationLength, setTruncationLength] = useState(200 / tableHeaders.length)
 
-  const [{ data, loading, error }, refetch] = useAxios(`${ldsApi}${API.GET_DOMAIN_DATA(domain)}`)
+  const [{ data, loading, error }, refetch] = useAxios(`${ldsApi}${API.GET_DOMAIN_DATA(domain)}`, { useCache: false })
 
   useEffect(() => {
     try {
@@ -78,22 +78,16 @@ function Domain () {
         </Grid.Column>
       </Grid>
       <Container fluid textAlign='right'>
-        <Button.Group size='large'>
-          <Button
-            as={Link}
-            disabled={loading}
-            to={`${ROUTING.DOMAIN_BASE}${domain}/new`}
-            style={{ backgroundColor: SSB_COLORS.BLUE }}
-          >
-            <Icon name='pencil alternate' style={{ paddingRight: '0.5rem' }} />
-            {`${DOMAIN.CREATE_NEW[language]} '${camelToTitle(domain)}'`}
-          </Button>
-          <Button.Or text='||' />
-          <Button disabled style={{ backgroundColor: SSB_COLORS.PURPLE }}>
-            <Icon name='upload' style={{ paddingRight: '0.5rem' }} />
-            {DOMAIN.UPLOAD_JSON[language]}
-          </Button>
-        </Button.Group>
+        <Button
+          as={Link}
+          size='large'
+          disabled={loading}
+          to={`${ROUTING.DOMAIN_BASE}${domain}/new`}
+          style={{ backgroundColor: SSB_COLORS.BLUE }}
+        >
+          <Icon name='pencil alternate' style={{ paddingRight: '0.5rem' }} />
+          {`${DOMAIN.CREATE_NEW[language]} '${camelToTitle(domain)}'`}
+        </Button>
       </Container>
       <DomainTableHeaders
         schema={schema}

@@ -4,7 +4,7 @@ import { Dropdown, Header, Icon, Image, Menu, Sticky } from 'semantic-ui-react'
 import { LANGUAGE, SSB_COLORS, ssb_logo_rgb } from '@statisticsnorway/dapla-js-utilities'
 
 import { ApiContext, LanguageContext, UserContext } from '../context/AppContext'
-import { API, ROUTING } from '../configurations'
+import { API, ROUTING, STORAGE } from '../configurations'
 import { TEST_IDS, UI } from '../enums'
 
 function AppMenu ({ setSettingsOpen, context }) {
@@ -46,7 +46,6 @@ function AppMenu ({ setSettingsOpen, context }) {
             to={ROUTING.IMPORT}
             style={{ color: SSB_COLORS.BLUE }}
             icon={{ name: 'upload', size: menuIsStuck ? 'large' : 'big' }}
-
           />
           <Menu.Item
             style={{ color: SSB_COLORS.GREEN }}
@@ -60,7 +59,10 @@ function AppMenu ({ setSettingsOpen, context }) {
                 <Dropdown.Item
                   key={languageName}
                   content={LANGUAGE[languageName][language]}
-                  onClick={() => setLanguage(LANGUAGE.LANGUAGES[languageName].languageCode)}
+                  onClick={() => {
+                    setLanguage(LANGUAGE.LANGUAGES[languageName].languageCode)
+                    localStorage.setItem(STORAGE.LANGUAGE, LANGUAGE.LANGUAGES[languageName].languageCode)
+                  }}
                 />
               )}
             </Dropdown.Menu>

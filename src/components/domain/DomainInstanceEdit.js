@@ -95,7 +95,7 @@ function DomainInstanceEdit ({ data, refetch }) {
           />
         </Grid.Column>
       </Grid.Row>
-      <Grid.Row>
+      <Grid.Row divided={false}>
         <Grid.Column />
         <Grid.Column textAlign='right'>
           <Button

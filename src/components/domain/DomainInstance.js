@@ -26,7 +26,7 @@ function DomainInstance () {
   const [domainInstanceData, setDomainInstanceData] = useState(null)
 
   const [{ data, loading, error }, refetch] =
-    useAxios(`${ldsApi}${API.GET_DOMAIN_INSTANCE_DATA(domain, id)}`, { manual: true })
+    useAxios(`${ldsApi}${API.GET_DOMAIN_INSTANCE_DATA(domain, id)}`, { manual: true, useCache: false })
 
   const properties = Object.entries(getNestedObject(schema, GSIM.PROPERTIES(schema)))
 

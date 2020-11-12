@@ -1,4 +1,5 @@
 import '@testing-library/jest-dom/extend-expect'
+require('jest-localstorage-mock')
 
 jest.mock('react-ace')
 jest.mock('axios-hooks')

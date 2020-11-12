@@ -40,8 +40,8 @@ function App () {
     <>
       <AppMenu setSettingsOpen={setSettingsOpen} context={appRefArea} />
       <Ref innerRef={appRefArea}>
-        {loading ? <Loader active inline='centered' /> :
-          error ? <ErrorMessage error={UI.API_ERROR_MESSAGE[language]} language={language} /> : ready ?
+        {loading ? <Loader active inline='centered' /> : !!error ?
+          <Segment basic><ErrorMessage error={UI.API_ERROR_MESSAGE[language]} language={language} /></Segment> : ready ?
             <Segment basic>
               <AppHome />
               <Switch>
