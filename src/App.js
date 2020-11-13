@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import useAxios from 'axios-hooks'
 import { Route, Switch } from 'react-router-dom'
-import { Divider, Loader, Ref, Segment } from 'semantic-ui-react'
+import { Loader, Ref, Segment } from 'semantic-ui-react'
 import { ErrorMessage } from '@statisticsnorway/dapla-js-utilities'
 
 import { AppHome, AppMenu, AppSettings, Domain, DomainInstance, DomainInstanceNew, Import } from './components'

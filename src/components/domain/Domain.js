@@ -60,7 +60,7 @@ function Domain () {
             size='large'
             content={camelToTitle(domain)}
             subheader={getDomainDescription(schema)}
-            icon={{ name: 'list alternate outline', style: { color: SSB_COLORS.BLUE }}}
+            icon={{ name: 'list alternate outline', style: { color: SSB_COLORS.BLUE } }}
           />
         </Grid.Column>
         <Grid.Column textAlign='right'>

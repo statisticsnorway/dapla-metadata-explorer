@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
-import { Divider, Dropdown, Form, Header, Icon, Input, Modal, Segment } from 'semantic-ui-react'
+import { useHistory } from 'react-router-dom'
+import { Form, Header, Icon, Modal, Segment } from 'semantic-ui-react'
 import { ErrorMessage, SimpleFooter, SSB_COLORS, SSB_STYLE } from '@statisticsnorway/dapla-js-utilities'
 
 import { ApiContext, LanguageContext, UserContext } from '../context/AppContext'
@@ -10,6 +11,8 @@ function AppSettings ({ error, loading, open, setOpen }) {
   const { language } = useContext(LanguageContext)
   const { user, setUser } = useContext(UserContext)
   const { ldsApi, setLdsApi } = useContext(ApiContext)
+
+  let history = useHistory()
 
   const options = [window._env.REACT_APP_EXPLORATION_LDS, window._env.REACT_APP_CONCEPT_LDS].map((lds, index) => ({
     key: index,
@@ -48,6 +51,7 @@ function AppSettings ({ error, loading, open, setOpen }) {
               label={SETTINGS.API[language]}
               placeholder={SETTINGS.API[language]}
               onChange={(e, { value }) => {
+                history.push('/')
                 localStorage.setItem(STORAGE.LDS, value)
                 setLdsApi(value)
               }}
