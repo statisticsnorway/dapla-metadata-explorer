@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import useAxios from 'axios-hooks'
 import { Link, useParams } from 'react-router-dom'
-import { Button, Container, Grid, Header, Icon, Loader } from 'semantic-ui-react'
+import { Button, Divider, Grid, Header, Icon, Loader } from 'semantic-ui-react'
 import { ErrorMessage, InfoPopup, SSB_COLORS } from '@statisticsnorway/dapla-js-utilities'
 
 import { DomainTable, DomainTableHeaders } from './'
@@ -56,16 +56,32 @@ function Domain () {
     <>
       <Grid columns='equal'>
         <Grid.Column>
-          <Header size='large' content={camelToTitle(domain)} subheader={getDomainDescription(schema)} />
+          <Header
+            size='large'
+            content={camelToTitle(domain)}
+            subheader={getDomainDescription(schema)}
+            icon={{ name: 'list alternate outline', style: { color: SSB_COLORS.BLUE } }}
+          />
         </Grid.Column>
-        <Grid.Column textAlign='right' verticalAlign='middle'>
+        <Grid.Column textAlign='right'>
+          <Button
+            as={Link}
+            size='large'
+            disabled={loading}
+            to={`${ROUTING.DOMAIN_BASE}${domain}/new`}
+            style={{ backgroundColor: SSB_COLORS.BLUE }}
+          >
+            <Icon name='pencil alternate' style={{ paddingRight: '0.5rem' }} />
+            {`${DOMAIN.CREATE_NEW[language]} '${camelToTitle(domain)}'`}
+          </Button>
+          <Divider hidden />
           <InfoPopup
             position='left center'
             text={DOMAIN.REFRESH_DOMAIN_LIST[language]}
             trigger={
               <Icon
                 link
-                name='sync'
+                name='sync alternate'
                 size='large'
                 onClick={refetch}
                 loading={loading}
@@ -77,18 +93,7 @@ function Domain () {
           {loading ? '-' : `(${tableData.length})`}
         </Grid.Column>
       </Grid>
-      <Container fluid textAlign='right'>
-        <Button
-          as={Link}
-          size='large'
-          disabled={loading}
-          to={`${ROUTING.DOMAIN_BASE}${domain}/new`}
-          style={{ backgroundColor: SSB_COLORS.BLUE }}
-        >
-          <Icon name='pencil alternate' style={{ paddingRight: '0.5rem' }} />
-          {`${DOMAIN.CREATE_NEW[language]} '${camelToTitle(domain)}'`}
-        </Button>
-      </Container>
+      <Divider hidden />
       <DomainTableHeaders
         schema={schema}
         headers={tableHeaders}

@@ -142,25 +142,25 @@ const handleBooleanForView = value =>
 
 const handleUserForView = user =>
   <>
-    <Icon size='large' name='user' style={{ color: SSB_COLORS.PURPLE }} />
+    <Icon size='large' name='user' style={{ color: SSB_COLORS.BLUE }} />
     {user}
   </>
 
 const handleDateForView = date =>
   <>
-    <Icon size='large' name='calendar alternate outline' style={{ color: SSB_COLORS.PURPLE }} />
+    <Icon size='large' name='calendar alternate outline' style={{ color: SSB_COLORS.BLUE }} />
     {date}
   </>
 
 const handleIdForView = id =>
   <>
-    <Icon size='large' name='barcode' style={{ color: SSB_COLORS.PURPLE }} />
+    <Icon size='large' name='barcode' style={{ color: SSB_COLORS.BLUE }} />
     {id}
   </>
 
 const handleVersionForView = version =>
   <>
-    <Icon size='large' name='fork' style={{ color: SSB_COLORS.PURPLE }} />
+    <Icon size='large' name='fork' style={{ color: SSB_COLORS.BLUE }} />
     {version}
   </>
 
@@ -200,33 +200,37 @@ export const convertDataToView = (data, schema) => {
       }
 
       if (data.hasOwnProperty(property)) {
-        const baseRef = getNestedObject(properties, [property, GSIM.SCHEMA.REF])
-        const itemsRef = getNestedObject(properties, [property, GSIM.ITEMS, GSIM.SCHEMA.REF])
-        const configuration = setConfiguration(baseRef, itemsRef, properties[property], schema)
+        if (data[property] !== null) {
+          const baseRef = getNestedObject(properties, [property, GSIM.SCHEMA.REF])
+          const itemsRef = getNestedObject(properties, [property, GSIM.ITEMS, GSIM.SCHEMA.REF])
+          const configuration = setConfiguration(baseRef, itemsRef, properties[property], schema)
 
-        switch (configuration.type) {
-          case GSIM_PROPERTY_TYPES.TYPES.ARRAY:
-            newProperty.value = handleArrayForView(data[property], configuration)
-            break
+          switch (configuration.type) {
+            case GSIM_PROPERTY_TYPES.TYPES.ARRAY:
+              newProperty.value = handleArrayForView(data[property], configuration)
+              break
 
-          case GSIM_PROPERTY_TYPES.TYPES.BOOLEAN:
-            newProperty.value = handleBooleanForView(data[property])
-            break
+            case GSIM_PROPERTY_TYPES.TYPES.BOOLEAN:
+              newProperty.value = handleBooleanForView(data[property])
+              break
 
-          case GSIM_PROPERTY_TYPES.TYPES.NUMBER:
-            newProperty.value = handleNumberForView(data[property])
-            break
+            case GSIM_PROPERTY_TYPES.TYPES.NUMBER:
+              newProperty.value = handleNumberForView(data[property])
+              break
 
-          case GSIM_PROPERTY_TYPES.TYPES.OBJECT:
-            newProperty.value = `${data[property].toString()} (${NOT_FINISHED} (object))`
-            break
+            case GSIM_PROPERTY_TYPES.TYPES.OBJECT:
+              newProperty.value = `${data[property].toString()} (${NOT_FINISHED} (object))`
+              break
 
-          case GSIM_PROPERTY_TYPES.TYPES.STRING:
-            newProperty.value = handleStringForView(data[property], configuration)
-            break
+            case GSIM_PROPERTY_TYPES.TYPES.STRING:
+              newProperty.value = handleStringForView(data[property], configuration)
+              break
 
-          default:
-            newProperty.value = `${data[property].toString()} (${NOT_FINISHED} (default))`
+            default:
+              newProperty.value = `${data[property].toString()} (${NOT_FINISHED} (default))`
+          }
+        } else {
+          newProperty.value = null
         }
       }
 

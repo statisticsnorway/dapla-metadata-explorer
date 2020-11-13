@@ -6,13 +6,13 @@ import 'react-table-6/react-table.css'
 
 import './index.css'
 import { AppContextProvider } from './context/AppContext'
-import App from './App'
+import ErrorWrapper from './ErrorBoundary'
 
 ReactDOM.render(
   <React.StrictMode>
     <AppContextProvider>
       <Router>
-        <App />
+        <ErrorWrapper />
       </Router>
     </AppContextProvider>
   </React.StrictMode>,

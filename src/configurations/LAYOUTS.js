@@ -77,13 +77,18 @@ export const TABLE_HEADERS = (headers, schema, truncationLength, language) => he
     })
   } else {
     return ({
-      width: 35,
+      width: 27,
       sortable: false,
       accessor: header,
       filterable: false,
+      style: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center'
+      },
       Cell: props =>
         <Link to={`${ROUTING.DOMAIN_BASE}${domain}/${props.value}`}>
-          <Icon fitted name='eye' size='large' style={{ color: SSB_COLORS.BLUE }} />
+          <Icon fitted name='file alternate outline' size='large' style={{ color: SSB_COLORS.BLUE }} />
         </Link>
     })
   }

@@ -17,7 +17,7 @@ function FormInputNumber ({ configuration, register, setValue }) {
       iconPosition='left'
       onChange={handleChange}
       placeholder={configuration.name}
-      icon={{ name: 'hashtag', style: { color: SSB_COLORS.PURPLE } }}
+      icon={{ name: 'hashtag', style: { color: SSB_COLORS.BLUE } }}
     />
   )
 }

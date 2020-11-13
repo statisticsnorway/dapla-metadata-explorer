@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
-import { Button, Divider, Grid, Icon, List, Segment, Transition } from 'semantic-ui-react'
+import { Button, Divider, Grid, Header, Icon, List, Segment, Transition } from 'semantic-ui-react'
 import { InfoText } from '@statisticsnorway/dapla-js-utilities'
 
 import AppSearch from './AppSearch'
@@ -38,13 +38,14 @@ function AppHome () {
 
   return (
     <>
-      <Transition visible={visible} animation='fade down' duration={300} onHide={() => setBurgerVisible(true)}>
-        <div>
+      <Transition duration={300} visible={visible} animation='fade down' onHide={() => setBurgerVisible(true)}>
+        <div style={{ marginBottom: '3rem' }}>
           <Segment attached>
             <Grid columns='equal'>
               <Grid.Row>
                 <Grid.Column>
                   <AppSearch />
+                  <Divider hidden style={{ margin: '0.2rem 0 0 0' }} />
                   <InfoText text={HOME.CHOOSE_OR_SEARCH[language]} />
                 </Grid.Column>
                 <Grid.Column>
@@ -58,19 +59,22 @@ function AppHome () {
                   </List>
                 </Grid.Column>
               </Grid.Row>
-              <Divider hidden />
+              <Divider />
               <Grid.Row>
                 <Grid.Column>
+                  <Header size='large' content={HOME.GSIM_GROUPS[language]} />
                   <DomainsList />
                 </Grid.Column>
               </Grid.Row>
             </Grid>
           </Segment>
           <Button
+            compact
+            size='tiny'
             icon='caret up'
             attached='bottom'
-            style={{ background: '#fff' }}
             onClick={() => setVisible(false)}
+            style={{ width: '15%', left: '42.5%' }}
           />
         </div>
       </Transition>

@@ -1,12 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react'
 import useAxios from 'axios-hooks'
 import { useParams } from 'react-router-dom'
-import { Grid, Header, Loader } from 'semantic-ui-react'
+import { Divider, Grid, Header, Loader } from 'semantic-ui-react'
 import {
   ErrorMessage,
   getLocalizedGsimObjectText,
   getNestedObject,
-  InfoPopup
+  InfoPopup,
+  SSB_COLORS
 } from '@statisticsnorway/dapla-js-utilities'
 
 import { DomainInstanceEdit } from './'
@@ -59,10 +60,14 @@ function DomainInstance () {
 
   return (
     <>
-      <Header size='large'
-              subheader={camelToTitle(domain)}
-              content={ready ? getLocalizedGsimObjectText(language, data[GSIM.NAME]) : id}
+      <Header
+        size='large'
+        subheader={camelToTitle(domain)}
+        style={{ marginTop: '-.14285714em' }}
+        icon={{ name: 'file alternate outline', style: { color: SSB_COLORS.BLUE } }}
+        content={ready ? getLocalizedGsimObjectText(language, data[GSIM.NAME]) : id}
       />
+      <Divider hidden />
       {loading ? <Loader active inline='centered' /> :
         error ? <ErrorMessage error={error} language={language} /> : ready &&
           <Grid columns='equal' divided>

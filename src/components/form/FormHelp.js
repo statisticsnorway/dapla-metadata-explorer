@@ -9,7 +9,7 @@ function FormHelp ({ open, setOpen, user }) {
   const { language } = useContext(LanguageContext)
 
   return (
-    <Modal size='fullscreen' open={open} onClose={() => setOpen(false)} style={SSB_STYLE}>
+    <Modal size='fullscreen' open={open} onClose={() => setOpen(false)} style={SSB_STYLE} centered={false}>
       <Header size='large' style={SSB_STYLE}>
         <Icon name='help circle' style={{ color: SSB_COLORS.BLUE }} />
         {FORM.HEADER[language]}
@@ -22,9 +22,10 @@ function FormHelp ({ open, setOpen, user }) {
             size='medium'
             content={FORM.EXAMPLE_HEADER[language]}
             subheader={FORM.EXAMPLE_SUBHEADER[language]}
+            icon={{ name: 'pencil', style: { color: SSB_COLORS.BLUE } }}
           />
           <Message style={{ opacity: '0.45' }} size='small' info content={FORM.EXAMPLE_MESSAGE[language]} />
-          <Divider hidden />
+          <Divider hidden style={{ marginBottom: '2rem' }} />
           <Form>
             <Grid divided columns='equal'>
               <Grid.Column verticalAlign='middle'>
@@ -45,7 +46,7 @@ function FormHelp ({ open, setOpen, user }) {
                 <Header size='tiny' disabled content={FORM.COLUMN_AUTOFILLED[language]} />
                 <Divider hidden />
                 <Header disabled size='small'>{FORM.EXAMPLE_AUTOFILLED[language]}</Header>
-                <Icon disabled size='large' name='user' style={{ color: SSB_COLORS.PURPLE }} />
+                <Icon disabled size='large' name='user' style={{ color: SSB_COLORS.BLUE }} />
                 <span style={{ opacity: '0.45' }}>{user}</span>
               </Grid.Column>
             </Grid>
