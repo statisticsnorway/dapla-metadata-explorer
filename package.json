@@ -66,6 +66,7 @@
     "collectCoverageFrom": [
       "src/**",
       "!src/index.js",
+      "!src/ErrorBoundary.js",
       "!src/**/index.js",
       "!src/configurations/**",
       "!src/enums/**",
