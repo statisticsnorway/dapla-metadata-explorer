@@ -142,25 +142,25 @@ const handleBooleanForView = value =>
 
 const handleUserForView = user =>
   <>
-    <Icon size='large' name='user' style={{ color: SSB_COLORS.PURPLE }} />
+    <Icon size='large' name='user' style={{ color: SSB_COLORS.BLUE }} />
     {user}
   </>
 
 const handleDateForView = date =>
   <>
-    <Icon size='large' name='calendar alternate outline' style={{ color: SSB_COLORS.PURPLE }} />
+    <Icon size='large' name='calendar alternate outline' style={{ color: SSB_COLORS.BLUE }} />
     {date}
   </>
 
 const handleIdForView = id =>
   <>
-    <Icon size='large' name='barcode' style={{ color: SSB_COLORS.PURPLE }} />
+    <Icon size='large' name='barcode' style={{ color: SSB_COLORS.BLUE }} />
     {id}
   </>
 
 const handleVersionForView = version =>
   <>
-    <Icon size='large' name='fork' style={{ color: SSB_COLORS.PURPLE }} />
+    <Icon size='large' name='fork' style={{ color: SSB_COLORS.BLUE }} />
     {version}
   </>
 

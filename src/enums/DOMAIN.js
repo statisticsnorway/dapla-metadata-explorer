@@ -5,7 +5,11 @@ export const DOMAIN = {
   },
   AUTOFILLED_PROPERTIES: {
     en: 'Domain properties which values are autofilled when actions are taken',
-    nb: 'Domeneattributter hvor verdien autogenereres når handlinger på domene blir gjort'
+    nb: 'Domeneattributter hvor verdier genereres når handlinger på domene blir gjort'
+  },
+  BACK_TO_LIST: {
+    en: 'Go back to the list of ',
+    nb: 'Gå tilbake til listen over '
   },
   COMMON_PROPERTIES: {
     en: 'Domain properties common across all domains',

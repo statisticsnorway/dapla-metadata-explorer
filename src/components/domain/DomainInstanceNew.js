@@ -98,11 +98,12 @@ function DomainInstanceNew () {
 
   return (
     <>
-      <Grid columns='equal'>
+      <Grid columns='equal' style={{ marginBottom: '2rem' }}>
         <Grid.Column>
           <Header
-            size='huge'
+            size='large'
             subheader={getDomainDescription(schema)}
+            icon={{ name: 'edit outline', style: { color: SSB_COLORS.BLUE } }}
             content={`${DOMAIN.CREATE_NEW[language]} '${camelToTitle(domain)}'`}
           />
         </Grid.Column>
@@ -126,6 +127,10 @@ function DomainInstanceNew () {
           </Message.Header>
           {`${DOMAIN.WAS_SAVED[language]} `}
           <Link to={`${ROUTING.DOMAIN_BASE}${domain}/${id}`}>{`${DOMAIN.JUMP_TO_SAVED[language]}`}</Link>
+          <br />
+          <Link to={`${ROUTING.DOMAIN_BASE}${domain}`}>{
+            `${DOMAIN.BACK_TO_LIST[language]} '${camelToTitle(domain)}'`}
+          </Link>
         </Message.Content>
       </Message>
       }

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import useAxios from 'axios-hooks'
 import { Route, Switch } from 'react-router-dom'
-import { Loader, Ref, Segment } from 'semantic-ui-react'
+import { Divider, Loader, Ref, Segment } from 'semantic-ui-react'
 import { ErrorMessage } from '@statisticsnorway/dapla-js-utilities'
 
 import { AppHome, AppMenu, AppSettings, Domain, DomainInstance, DomainInstanceNew, Import } from './components'
@@ -42,7 +42,7 @@ function App () {
       <Ref innerRef={appRefArea}>
         {loading ? <Loader active inline='centered' /> : !!error ?
           <Segment basic><ErrorMessage error={UI.API_ERROR_MESSAGE[language]} language={language} /></Segment> : ready ?
-            <Segment basic>
+            <Segment basic style={{ marginBottom: '2rem' }}>
               <AppHome />
               <Switch>
                 <Route path={ROUTING.DOMAIN_INSTANCE_NEW}>

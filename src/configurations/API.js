@@ -181,6 +181,7 @@ export const GSIM = {
       ]
     }
   },
+  ID: 'id',
   ITEMS: 'items',
   LINK_TYPE: '_link_property_',
   LOCALIZED: {

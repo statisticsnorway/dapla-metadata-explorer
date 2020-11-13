@@ -18,7 +18,7 @@ function FormInputDate ({ configuration, register, setValue }) {
       onChange={handleChange}
       placeholder={configuration.name}
       disabled={configuration.configuration.options.multiple}
-      icon={{ name: 'calendar alternate outline', style: { color: SSB_COLORS.PURPLE } }}
+      icon={{ name: 'calendar alternate outline', style: { color: SSB_COLORS.BLUE } }}
     />
   )
 }
