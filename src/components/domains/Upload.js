@@ -25,7 +25,9 @@ function Upload ({ name, file }) {
         {name}
         <List.Description>
           {error ? error.response.data !== '' ? error.response.data : error.response.statusText : ''}
-          {error && <Icon link name='redo' onClick={retry} style={{ color: SSB_COLORS.BLUE, marginLeft: '0.3em' }} />}
+          {error &&
+          <Icon link name='redo' onClick={() => retry} style={{ color: SSB_COLORS.BLUE, marginLeft: '0.3em' }} />
+          }
         </List.Description>
       </List.Content>
     </List.Item>

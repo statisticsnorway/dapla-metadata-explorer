@@ -17,13 +17,14 @@ export const AppContextProvider = (props) => {
   const [user, setUser] = useState(localStorage.hasOwnProperty(STORAGE.USER) ? localStorage.getItem(STORAGE.USER) : 'Test')
   const [ldsApi, setLdsApi] = useState(localStorage.hasOwnProperty(STORAGE.LDS) ? localStorage.getItem(STORAGE.LDS) : window._env.REACT_APP_EXPLORATION_LDS)
   const [language, setLanguage] = useState(localStorage.hasOwnProperty(STORAGE.LANGUAGE) ? localStorage.getItem(STORAGE.LANGUAGE) : LANGUAGE.LANGUAGES.NORWEGIAN.languageCode)
+  const [apiReadOnly, setApiReadOnly] = useState(ldsApi === window._env.REACT_APP_EXPLORATION_LDS)
 
   const graphqlClient = new GraphQLClient({ url: `${ldsApi}${API.GRAPHQL}` })
 
   return (
     <ClientContext.Provider value={graphqlClient}>
       <UserContext.Provider value={{ user, setUser }}>
-        <ApiContext.Provider value={{ ldsApi, setLdsApi }}>
+        <ApiContext.Provider value={{ ldsApi, setLdsApi, apiReadOnly, setApiReadOnly }}>
           <LanguageContext.Provider value={{ language, setLanguage }}>
             <SchemasContext.Provider value={{ schemas, setSchemas }}>
               {props.children}

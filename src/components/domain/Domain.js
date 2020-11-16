@@ -11,9 +11,9 @@ import { API, GSIM, ROUTING, TABLE_HEADERS } from '../../configurations'
 import { DOMAIN } from '../../enums'
 
 function Domain () {
-  const { ldsApi } = useContext(ApiContext)
   const { schemas } = useContext(SchemasContext)
   const { language } = useContext(LanguageContext)
+  const { ldsApi, apiReadOnly } = useContext(ApiContext)
 
   const { domain } = useParams()
 
@@ -64,17 +64,21 @@ function Domain () {
           />
         </Grid.Column>
         <Grid.Column textAlign='right'>
-          <Button
-            as={Link}
-            size='large'
-            disabled={loading}
-            to={`${ROUTING.DOMAIN_BASE}${domain}/new`}
-            style={{ backgroundColor: SSB_COLORS.BLUE }}
-          >
-            <Icon name='pencil alternate' style={{ paddingRight: '0.5rem' }} />
-            {`${DOMAIN.CREATE_NEW[language]} '${camelToTitle(domain)}'`}
-          </Button>
-          <Divider hidden />
+          {!apiReadOnly &&
+          <>
+            <Button
+              as={Link}
+              size='large'
+              disabled={loading || apiReadOnly}
+              to={`${ROUTING.DOMAIN_BASE}${domain}/new`}
+              style={{ backgroundColor: SSB_COLORS.BLUE }}
+            >
+              <Icon name='pencil alternate' style={{ paddingRight: '0.5rem' }} />
+              {`${DOMAIN.CREATE_NEW[language]} '${camelToTitle(domain)}'`}
+            </Button>
+            <Divider hidden />
+          </>
+          }
           <InfoPopup
             position='left center'
             text={DOMAIN.REFRESH_DOMAIN_LIST[language]}
