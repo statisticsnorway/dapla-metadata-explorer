@@ -19,6 +19,21 @@ export const createEmptyDataObject = (id, user) => {
   return data
 }
 
+export const updateDataObject = (data, user) => {
+  const clone = Object.assign({}, data)
+  const dateNow = new Date(Date.now()).toISOString()
+  const version = clone[GSIM.PROPERTIES_GROUPING.AUTOFILLED[3]].split('.')
+
+  version[2] = (parseInt(version[2]) + 1).toString()
+
+  clone[GSIM.PROPERTIES_GROUPING.AUTOFILLED[3]] = version.join('.')
+  clone[GSIM.PROPERTIES_GROUPING.AUTOFILLED[4]] = dateNow
+  clone[GSIM.PROPERTIES_GROUPING.AUTOFILLED[5]] = dateNow
+  clone[GSIM.PROPERTIES_GROUPING.AUTOFILLED[6]] = user
+
+  return clone
+}
+
 const sortGroups = schemas => {
   const groups = {}
   let flatGroups = []

@@ -1,5 +1,5 @@
 export { convertSchemaToEdit } from './EditDataHandling'
 export { getDomainDescription, getDomainRef, getDomainSchema, replaceUnkownDomainProperty } from './SchemaExtraction'
-export { createEmptyDataObject, setConfiguration, sortSchemas } from './SchemaHandling'
+export { createEmptyDataObject, setConfiguration, sortSchemas, updateDataObject } from './SchemaHandling'
 export { camelToTitle, convertDateToView } from './StringHandling'
 export { convertAutofilledToView, convertDataToView, mapDataToTable } from './ViewDataHandling'

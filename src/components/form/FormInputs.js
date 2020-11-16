@@ -12,28 +12,28 @@ import FormKeyValuesInput from './FormKeyValuesInput'
 import FormInputDate from './FormInputDate'
 import { camelToTitle } from '../../utilities'
 
-function FormInputs ({ configuration, register, setValue }) {
+function FormInputs ({ configuration, register, setValue, value }) {
   let input
 
   switch (configuration.configuration.inputType) {
     case 'boolean':
-      input = <FormInputBoolean configuration={configuration} register={register} setValue={setValue} />
+      input = <FormInputBoolean configuration={configuration} register={register} setValue={setValue} value={value} />
       break
 
     case 'number':
-      input = <FormInputNumber configuration={configuration} register={register} setValue={setValue} />
+      input = <FormInputNumber configuration={configuration} register={register} setValue={setValue} value={value} />
       break
 
     case 'dropdown':
-      input = <FormInputDropdown configuration={configuration} register={register} setValue={setValue} />
+      input = <FormInputDropdown configuration={configuration} register={register} setValue={setValue} value={value} />
       break
 
     case 'string':
-      input = <FormInputString configuration={configuration} register={register} setValue={setValue} />
+      input = <FormInputString configuration={configuration} register={register} setValue={setValue} value={value} />
       break
 
     case 'keyValueInput':
-      input = <FormKeyValueInput configuration={configuration} register={register} setValue={setValue} />
+      input = <FormKeyValueInput configuration={configuration} register={register} setValue={setValue} value={value} />
       break
 
     case 'keyValuesInput':
@@ -41,7 +41,7 @@ function FormInputs ({ configuration, register, setValue }) {
       break
 
     case 'date':
-      input = <FormInputDate configuration={configuration} register={register} setValue={setValue} />
+      input = <FormInputDate configuration={configuration} register={register} setValue={setValue} value={value} />
       break
 
     default:

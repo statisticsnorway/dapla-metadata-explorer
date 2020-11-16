@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { Form } from 'semantic-ui-react'
 import { SSB_COLORS } from '@statisticsnorway/dapla-js-utilities'
 
-function FormInputNumber ({ configuration, register, setValue }) {
+function FormInputNumber ({ configuration, register, setValue, value }) {
   const handleChange = (e, { value }) => {
     setValue(configuration.name, value, { shouldDirty: true })
   }
@@ -17,6 +17,7 @@ function FormInputNumber ({ configuration, register, setValue }) {
       iconPosition='left'
       onChange={handleChange}
       placeholder={configuration.name}
+      defaultValue={value ? value : ''}
       icon={{ name: 'hashtag', style: { color: SSB_COLORS.BLUE } }}
     />
   )
