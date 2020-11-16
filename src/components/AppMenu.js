@@ -9,7 +9,7 @@ import { TEST_IDS, UI } from '../enums'
 
 function AppMenu ({ setSettingsOpen, context }) {
   const { user } = useContext(UserContext)
-  const { ldsApi } = useContext(ApiContext)
+  const { ldsApi, apiReadOnly } = useContext(ApiContext)
   const { language, setLanguage } = useContext(LanguageContext)
 
   const [menuIsStuck, setMenuIsStuck] = useState(false)
@@ -41,12 +41,14 @@ function AppMenu ({ setSettingsOpen, context }) {
             <Icon style={{ color: SSB_COLORS.GREY }} name='plug' />
             {API.LDS[window._env.REACT_APP_EXPLORATION_LDS === ldsApi ? 0 : 1]}
           </Menu.Item>
+          {!apiReadOnly &&
           <Menu.Item
             as={Link}
             to={ROUTING.IMPORT}
             style={{ color: SSB_COLORS.BLUE }}
             icon={{ name: 'upload', size: menuIsStuck ? 'large' : 'big' }}
           />
+          }
           <Menu.Item
             style={{ color: SSB_COLORS.GREEN }}
             onClick={() => setSettingsOpen(true)}

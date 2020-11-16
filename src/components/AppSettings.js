@@ -10,7 +10,7 @@ import { SETTINGS } from '../enums'
 function AppSettings ({ error, loading, open, setOpen }) {
   const { language } = useContext(LanguageContext)
   const { user, setUser } = useContext(UserContext)
-  const { ldsApi, setLdsApi } = useContext(ApiContext)
+  const { ldsApi, setLdsApi, setApiReadOnly } = useContext(ApiContext)
 
   let history = useHistory()
 
@@ -54,6 +54,12 @@ function AppSettings ({ error, loading, open, setOpen }) {
                 history.push('/')
                 localStorage.setItem(STORAGE.LDS, value)
                 setLdsApi(value)
+
+                if (value === window._env.REACT_APP_EXPLORATION_LDS) {
+                  setApiReadOnly(true)
+                } else {
+                  setApiReadOnly(false)
+                }
               }}
             />
           </Form.Group>

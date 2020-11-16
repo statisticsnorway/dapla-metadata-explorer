@@ -21,9 +21,9 @@ import { DOMAIN, FORM } from '../../enums'
 
 function DomainInstanceNew () {
   const { user } = useContext(UserContext)
-  const { ldsApi } = useContext(ApiContext)
   const { schemas } = useContext(SchemasContext)
   const { language } = useContext(LanguageContext)
+  const { ldsApi, apiReadOnly } = useContext(ApiContext)
 
   const { domain } = useParams()
 
@@ -44,16 +44,18 @@ function DomainInstanceNew () {
   }, [formState.isDirty])
 
   const onSubmit = data => {
-    const filterData = Object.entries(data).filter(value => value[1] !== undefined)
+    if (!apiReadOnly) {
+      const filterData = Object.entries(data).filter(value => value[1] !== undefined)
 
-    if (filterData.length !== 0) {
-      const filteredData = {}
+      if (filterData.length !== 0) {
+        const filteredData = {}
 
-      filterData.forEach(value => filteredData[value[0]] = value[1])
+        filterData.forEach(value => filteredData[value[0]] = value[1])
 
-      executePut({ data: { ...formData, ...filteredData } })
-    } else {
-      executePut({ data: formData })
+        executePut({ data: { ...formData, ...filteredData } })
+      } else {
+        executePut({ data: formData })
+      }
     }
   }
 
@@ -178,7 +180,7 @@ function DomainInstanceNew () {
             <Button
               size='large'
               type='submit'
-              disabled={loading || !edited}
+              disabled={loading || !edited || apiReadOnly}
               style={{ backgroundColor: SSB_COLORS.BLUE }}
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             >

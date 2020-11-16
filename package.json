@@ -1,6 +1,6 @@
 {
   "name": "dapla-metadata-explorer",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Metadata exploration through GSIM for Statistics Norway Dataplatform",
   "repository": {
     "type": "git",

@@ -10,8 +10,8 @@ import { API } from '../../configurations'
 import { IMPORT, UI } from '../../enums'
 
 function Import () {
-  const { ldsApi } = useContext(ApiContext)
   const { language } = useContext(LanguageContext)
+  const { ldsApi, apiReadOnly } = useContext(ApiContext)
 
   const [ready, setReady] = useState(false)
   const [domains, setDomains] = useState([])
@@ -54,6 +54,7 @@ function Import () {
   const { acceptedFiles, fileRejections, getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     maxFiles: 50,
+    disabled: apiReadOnly,
     accept: 'application/json'
   })
 
@@ -114,7 +115,7 @@ function Import () {
                 />
               </Segment>
             </div>
-            {fullFiles.length !== 0 &&
+            {fullFiles.length !== 0 && !apiReadOnly &&
             <>
               <Header size='medium' content={IMPORT.FILES[language]} />
               <Segment secondary>

@@ -13,8 +13,8 @@ import { API } from '../../configurations'
 import { DOMAIN } from '../../enums'
 
 function DomainInstanceEdit ({ data, refetch }) {
-  const { ldsApi } = useContext(ApiContext)
   const { language } = useContext(LanguageContext)
+  const { ldsApi, apiReadOnly } = useContext(ApiContext)
 
   const { domain, id } = useParams()
 
@@ -81,6 +81,7 @@ function DomainInstanceEdit ({ data, refetch }) {
             width='100%'
             fontSize={16}
             theme='textmate'
+            readOnly={apiReadOnly}
             showPrintMargin={false}
             name='DomainInstanceEdit'
             value={domainInstanceJson}
@@ -100,9 +101,13 @@ function DomainInstanceEdit ({ data, refetch }) {
         <Grid.Column textAlign='right'>
           <Button
             size='large'
-            disabled={putLoading || !madeChanges}
             style={{ backgroundColor: SSB_COLORS.BLUE }}
-            onClick={() => executePut({ data: JSON.parse(domainInstanceJson) })}
+            disabled={putLoading || !madeChanges || apiReadOnly}
+            onClick={() => {
+              if (!apiReadOnly) {
+                executePut({ data: JSON.parse(domainInstanceJson) })
+              }
+            }}
           >
             <Icon name='save' style={{ paddingRight: '0.5rem' }} />
             {DOMAIN.SAVE[language]}

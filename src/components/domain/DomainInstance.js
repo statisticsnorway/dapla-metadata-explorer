@@ -16,9 +16,9 @@ import { camelToTitle, convertDataToView, getDomainSchema } from '../../utilitie
 import { API, DOMAIN_PROPERTY_GROUPING, GSIM } from '../../configurations'
 
 function DomainInstance () {
-  const { ldsApi } = useContext(ApiContext)
   const { schemas } = useContext(SchemasContext)
   const { language } = useContext(LanguageContext)
+  const { ldsApi, apiReadOnly } = useContext(ApiContext)
 
   const { domain, id } = useParams()
 
@@ -92,7 +92,7 @@ function DomainInstance () {
                 </Grid.Column>
               )}
             </Grid.Row>
-            {ready && <DomainInstanceEdit refetch={refetch} data={data} />}
+            {ready && !apiReadOnly && <DomainInstanceEdit refetch={refetch} data={data} />}
           </Grid>
       }
     </>

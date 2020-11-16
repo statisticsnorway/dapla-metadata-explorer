@@ -11,7 +11,7 @@ export const API = {
   GET_SCHEMAS: `/${NAMESPACE}?schema`,
   GET_SCHEMAS_EMBED: `/${NAMESPACE}?schema=embed`,
   GRAPHQL: '/graphql',
-  LDS: ['Exploration LDS', 'Concept LDS']
+  LDS: ['Exploration LDS (read-only)', 'Concept LDS']
 }
 
 export const GSIM = {
