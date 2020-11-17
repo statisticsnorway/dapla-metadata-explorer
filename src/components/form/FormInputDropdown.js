@@ -5,7 +5,7 @@ import { getLocalizedGsimObjectText } from '@statisticsnorway/dapla-js-utilities
 
 import { ApiContext, LanguageContext } from '../../context/AppContext'
 
-function FormInputDropdown ({ configuration, register, setValue }) {
+function FormInputDropdown ({ configuration, register, setValue, value }) {
   const { ldsApi } = useContext(ApiContext)
   const { language } = useContext(LanguageContext)
 
@@ -58,6 +58,7 @@ function FormInputDropdown ({ configuration, register, setValue }) {
       disabled={loading}
       onChange={handleChange}
       placeholder={configuration.name}
+      defaultValue={value ? value : ''}
       multiple={configuration.configuration.options.multiple}
     />
   )

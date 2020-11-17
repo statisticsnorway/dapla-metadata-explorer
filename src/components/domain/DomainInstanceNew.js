@@ -14,12 +14,13 @@ import {
   convertSchemaToEdit,
   createEmptyDataObject,
   getDomainDescription,
-  getDomainSchema
+  getDomainSchema,
+  updateDataObject
 } from '../../utilities'
 import { API, DOMAIN_PROPERTY_GROUPING, ROUTING } from '../../configurations'
 import { DOMAIN, FORM } from '../../enums'
 
-function DomainInstanceNew () {
+function DomainInstanceNew ({ isNew = true, data = {}, refetch = () => null }) {
   const { user } = useContext(UserContext)
   const { schemas } = useContext(SchemasContext)
   const { language } = useContext(LanguageContext)
@@ -27,13 +28,13 @@ function DomainInstanceNew () {
 
   const { domain } = useParams()
 
-  const [id] = useState(uuidv4())
+  const [id] = useState(isNew ? uuidv4() : data.id)
   const [saved, setSaved] = useState(false)
   const [edited, setEdited] = useState(false)
   const [schema] = useState(getDomainSchema(domain, schemas))
-  const [formData] = useState(createEmptyDataObject(id, user))
   const [formHelpOpen, setFormHelpOpen] = useState(false)
   const [formConfiguration] = useState(convertSchemaToEdit({}, schema))
+  const [formData] = useState(isNew ? createEmptyDataObject(id, user) : updateDataObject(data, user))
 
   const { register, handleSubmit, setValue, formState, getValues } = useForm()
 
@@ -52,9 +53,17 @@ function DomainInstanceNew () {
 
         filterData.forEach(value => filteredData[value[0]] = value[1])
 
-        executePut({ data: { ...formData, ...filteredData } })
+        executePut({ data: { ...formData, ...filteredData } }).then(() => {
+          if (!isNew) {
+            refetch()
+          }
+        })
       } else {
-        executePut({ data: formData })
+        executePut({ data: formData }).then(() => {
+          if (!isNew) {
+            refetch()
+          }
+        })
       }
     }
   }
@@ -106,7 +115,7 @@ function DomainInstanceNew () {
             size='large'
             subheader={getDomainDescription(schema)}
             icon={{ name: 'edit outline', style: { color: SSB_COLORS.BLUE } }}
-            content={`${DOMAIN.CREATE_NEW[language]} '${camelToTitle(domain)}'`}
+            content={`${isNew ? DOMAIN.CREATE_NEW[language] : DOMAIN.EDIT[language]} '${camelToTitle(domain)}'`}
           />
         </Grid.Column>
         <Grid.Column textAlign='right'>
@@ -128,8 +137,12 @@ function DomainInstanceNew () {
             {DOMAIN.SUCCESS[language]}
           </Message.Header>
           {`${DOMAIN.WAS_SAVED[language]} `}
-          <Link to={`${ROUTING.DOMAIN_BASE}${domain}/${id}`}>{`${DOMAIN.JUMP_TO_SAVED[language]}`}</Link>
-          <br />
+          {isNew &&
+          <>
+            <Link to={`${ROUTING.DOMAIN_BASE}${domain}/${id}`}>{`${DOMAIN.JUMP_TO_SAVED[language]}`}</Link>
+            <br />
+          </>
+          }
           <Link to={`${ROUTING.DOMAIN_BASE}${domain}`}>{
             `${DOMAIN.BACK_TO_LIST[language]} '${camelToTitle(domain)}'`}
           </Link>
@@ -142,7 +155,13 @@ function DomainInstanceNew () {
           {DOMAIN_PROPERTY_GROUPING.filter(group => group.name !== 'AUTOFILLED').map(({ name, test }) =>
             <Grid.Column key={name} width={6}>
               {Object.entries(formConfiguration).filter(([item]) => test(item)).map(([item, value]) =>
-                <FormInputs key={item} configuration={value} register={register} setValue={setValue} />
+                <FormInputs
+                  key={item}
+                  register={register}
+                  setValue={setValue}
+                  configuration={value}
+                  value={isNew ? false : formData[item]}
+                />
               )}
             </Grid.Column>
           )}

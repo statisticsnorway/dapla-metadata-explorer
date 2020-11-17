@@ -3,7 +3,7 @@ import { Form, Tab } from 'semantic-ui-react'
 
 import { LanguageContext } from '../../context/AppContext'
 
-function FormKeyValueInput ({ configuration, register, setValue }) {
+function FormKeyValueInput ({ configuration, register, setValue, value }) {
   const { language } = useContext(LanguageContext)
 
   const [defaultActiveIndex, setDefaultActiveIndex] = useState(1)
@@ -24,15 +24,19 @@ function FormKeyValueInput ({ configuration, register, setValue }) {
     register(configuration.name)
   }, [register, configuration.name])
 
-  const panes = configuration.configuration.options.key.values.map(value =>
+  const panes = configuration.configuration.options.key.values.map(keyValue =>
     ({
-      menuItem: value,
+      menuItem: keyValue,
       pane: {
-        key: value,
+        key: keyValue,
         content: (
           <Form.TextArea
+            defaultValue={
+              value ? value.filter(languageObject => languageObject.languageCode === keyValue).length !== 0 ?
+                value.filter(languageObject => languageObject.languageCode === keyValue)[0].languageText : '' : ''
+            }
             placeholder={configuration.configuration.options.value.name}
-            onChange={(e, data) => handleChange(e, data, value)}
+            onChange={(e, data) => handleChange(e, data, keyValue)}
           />
         )
       }

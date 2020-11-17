@@ -23,6 +23,10 @@ export const DOMAIN = {
     en: 'Download JSON',
     nb: 'Last ned JSON'
   },
+  EDIT: {
+    en: 'Edit',
+    nb: 'Endre'
+  },
   JUMP_TO_SAVED: {
     en: 'Click here to view what you just saved',
     nb: 'Klikk her for å se det du akkurat lagret'

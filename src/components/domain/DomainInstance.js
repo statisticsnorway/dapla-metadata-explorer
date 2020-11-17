@@ -92,8 +92,13 @@ function DomainInstance () {
                 </Grid.Column>
               )}
             </Grid.Row>
-            {ready && !apiReadOnly && <DomainInstanceEdit refetch={refetch} data={data} />}
           </Grid>
+      }
+      {ready && !apiReadOnly &&
+      <>
+        <Divider hidden />
+        <DomainInstanceEdit data={data} refetch={refetch} />
+      </>
       }
     </>
   )
