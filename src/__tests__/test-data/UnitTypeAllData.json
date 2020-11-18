@@ -1,0 +1,122 @@
+[
+  {
+    "id": "31fd20ea-e1ca-46ba-bbf1-9d81e827575e",
+    "name": [
+      {
+        "languageCode": "en",
+        "languageText": "Family"
+      },
+      {
+        "languageCode": "nb",
+        "languageText": "Familie"
+      }
+    ],
+    "description": [
+      {
+        "languageCode": "en",
+        "languageText": "Family"
+      },
+      {
+        "languageCode": "nb",
+        "languageText": "Familie"
+      }
+    ],
+    "typeOfStatisticalUnit": "FAMILY",
+    "administrativeStatus": "OPEN",
+    "version": "1.0.0",
+    "versionValidFrom": "1985-01-01T15:00:00.000Z",
+    "validFrom": "1985-01-01T15:00:00.000Z",
+    "createdDate": "1985-01-01T15:00:00.000Z",
+    "createdBy": "OHV"
+  },
+  {
+    "id": "32ae01b4-50f7-4d8c-9be2-eecfeeef640c",
+    "name": [
+      {
+        "languageCode": "en",
+        "languageText": "Municipality"
+      },
+      {
+        "languageCode": "nb",
+        "languageText": "Kommune"
+      }
+    ],
+    "description": [
+      {
+        "languageCode": "en",
+        "languageText": "Municipality, region"
+      },
+      {
+        "languageCode": "nb",
+        "languageText": "Kommune, regional inndeling"
+      }
+    ],
+    "typeOfStatisticalUnit": "MUNICIPALITY",
+    "administrativeStatus": "OPEN",
+    "version": "1.0.0",
+    "versionValidFrom": "1985-01-01T15:00:00.000Z",
+    "validFrom": "1985-01-01T15:00:00.000Z",
+    "createdDate": "1985-01-01T15:00:00.000Z",
+    "createdBy": "BNJ"
+  },
+  {
+    "id": "51a8dcde-127d-49de-84a4-a0a9c34f666f",
+    "name": [
+      {
+        "languageCode": "en",
+        "languageText": "Person"
+      },
+      {
+        "languageCode": "nb",
+        "languageText": "Person"
+      }
+    ],
+    "description": [
+      {
+        "languageCode": "en",
+        "languageText": "Person, individual"
+      },
+      {
+        "languageCode": "nb",
+        "languageText": "Enkeltmenneske, individ"
+      }
+    ],
+    "typeOfStatisticalUnit": "PERSON",
+    "administrativeStatus": "OPEN",
+    "version": "1.0.0",
+    "versionValidFrom": "1985-01-01T15:00:00.000Z",
+    "validFrom": "1985-01-01T15:00:00.000Z",
+    "createdDate": "1985-01-01T15:00:00.000Z",
+    "createdBy": "BNJ"
+  },
+  {
+    "id": "82218226-ec61-46ce-9c6a-e7d3f29b3704",
+    "name": [
+      {
+        "languageCode": "en",
+        "languageText": "Quality"
+      },
+      {
+        "languageCode": "nb",
+        "languageText": "Kvalitet"
+      }
+    ],
+    "description": [
+      {
+        "languageCode": "en",
+        "languageText": "Quality classification for incomming data"
+      },
+      {
+        "languageCode": "nb",
+        "languageText": "Kvalitet på innsamlede data"
+      }
+    ],
+    "typeOfStatisticalUnit": "NOT_APPLICABLE",
+    "administrativeStatus": "OPEN",
+    "version": "1.0.0",
+    "versionValidFrom": "1985-01-01T15:00:00.000Z",
+    "validFrom": "1985-01-01T15:00:00.000Z",
+    "createdDate": "1985-01-01T15:00:00.000Z",
+    "createdBy": "OHV"
+  }
+]

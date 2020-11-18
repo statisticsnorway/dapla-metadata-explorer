@@ -1,6 +1,6 @@
 {
   "name": "dapla-metadata-explorer",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Metadata exploration through GSIM for Statistics Norway Dataplatform",
   "repository": {
     "type": "git",
@@ -70,13 +70,13 @@
       "!src/**/index.js",
       "!src/configurations/**",
       "!src/enums/**",
-      "!src/utilities/**",
       "!src/__tests__/test-data/**",
-      "!src/components/**"
+      "!src/components/domains/Import.js",
+      "!src/components/domains/Upload.js"
     ],
     "coverageThreshold": {
       "global": {
-        "branches": 50,
+        "branches": 75,
         "functions": 75,
         "lines": 75,
         "statements": 75

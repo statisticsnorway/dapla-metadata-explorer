@@ -1,0 +1,3146 @@
+[
+  {
+    "$ref": "#/definitions/About",
+    "definitions": {
+      "About": {
+        "displayName": "Information about the model",
+        "description": "Information about the model",
+        "type": "object",
+        "properties": {
+          "model_version": {
+            "description": "This version isolates the Concept group by itself",
+            "type": "string"
+          }
+        },
+        "required": [
+          "model_version"
+        ]
+      }
+    },
+    "#schema": "http://json-schema.org/draft-04/schema#"
+  },
+  {
+    "$ref": "#/definitions/ClassificationSubset",
+    "definitions": {
+      "AdministrativeStatusType": {
+        "type": "string",
+        "enum": [
+          "DEPRECATED",
+          "DRAFT",
+          "INTERNAL",
+          "OPEN"
+        ]
+      },
+      "MultilingualText": {
+        "displayName": "A reusable type for supporting multilingual texts.",
+        "description": "A reusable type for supporting multilingual texts.",
+        "type": "object",
+        "properties": {
+          "languageText": {
+            "description": "The text (e.g. label, title, description)",
+            "type": "string"
+          },
+          "languageCode": {
+            "description": "The language code. Use only ISO 639-1 codes.",
+            "$ref": "#/definitions/LanguageCodeType"
+          }
+        },
+        "required": [
+          "languageCode",
+          "languageText"
+        ]
+      },
+      "AdministrativeDetailType": {
+        "type": "string",
+        "enum": [
+          "ALIAS",
+          "ANNOTATION",
+          "DEFAULTLANGUAGE",
+          "DOCUMENTATION",
+          "LOCALID",
+          "ORIGIN",
+          "URL"
+        ]
+      },
+      "LanguageCodeType": {
+        "type": "string",
+        "enum": [
+          "en",
+          "nb",
+          "nn"
+        ]
+      },
+      "AdministrativeDetails": {
+        "displayName": "A generic and expandable key-value-store for adding present and future AdministrativeDetails-attributes to any information object.",
+        "description": "A generic and expandable key-value-store for adding present and future AdministrativeDetails-attributes to any information object.",
+        "type": "object",
+        "properties": {
+          "values": {
+            "description": "One or more values (a list) for this administrativeDetailType.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "administrativeDetailType": {
+            "description": "The type (key) of the AdministrativeDetails-attribute.",
+            "$ref": "#/definitions/AdministrativeDetailType"
+          }
+        },
+        "required": [
+          "administrativeDetailType",
+          "values"
+        ]
+      },
+      "RankedUrnDetails": {
+        "displayName": "An URN with rank property",
+        "description": "An URN with rank property",
+        "type": "object",
+        "properties": {
+          "urn": {
+            "description": "An URN",
+            "type": "string"
+          },
+          "rank": {
+            "description": "Position in the list",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "rank",
+          "urn"
+        ]
+      },
+      "ClassificationSubset": {
+        "displayName": "A subset of classifications",
+        "description": "A subset of classifications",
+        "type": "object",
+        "properties": {
+          "codes": {
+            "description": "List of urns to classification subsets",
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/RankedUrnDetails"
+            }
+          },
+          "lastUpdatedBy": {
+            "description": "Last updated by.",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "administrativeStatus": {
+            "description": "Indicator for access to an item.",
+            "anyOf": [
+              {
+                "$ref": "#/definitions/AdministrativeStatusType"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "description": {
+            "description": "The description of the information object",
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/MultilingualText"
+                }
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "validFrom": {
+            "format": "date-time",
+            "description": "The date on which the information object is effective or valid. Set this date only once (constant). The same date for all versions of this information object.",
+            "type": "string"
+          },
+          "version": {
+            "description": "Formal versioning of the information object. The version designator of the information object assigned by the owner agency. \"major.minor.patch\", e.g. \"1.12.5\".",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "versionValidFrom": {
+            "format": "date-time",
+            "description": "The date on which the current version of the infomation object is effective or valid.",
+            "type": "string"
+          },
+          "versionRationale": {
+            "description": "The reason for making this version of the information object.",
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/MultilingualText"
+                }
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "lastUpdatedDate": {
+            "description": "The date on which the object was last updated.",
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "createdDate": {
+            "format": "date-time",
+            "description": "The date on which the information object was created",
+            "type": "string"
+          },
+          "createdBy": {
+            "description": "Information object created by.",
+            "type": "string"
+          },
+          "name": {
+            "description": "A term which designates a concept, in this case an information object. The identifying name will be the preferred designation. There will be many terms to designate the same information object, such as synonyms and terms in other languages.",
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/MultilingualText"
+            }
+          },
+          "validUntil": {
+            "description": "The date on which the information object is no longer effective or valid.",
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "id": {
+            "description": "The global unique identifier (GUID) of the information object assigned by the owner agency.",
+            "type": "string"
+          },
+          "shortName": {
+            "description": "A short technical name. (Avoid special characters not supported as variable names in common programming languages).",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "administrativeDetails": {
+            "description": "Administrative details (e.g. default language, documentation, localID, ...).",
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/AdministrativeDetails"
+                }
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "codes",
+          "createdBy",
+          "createdDate",
+          "id",
+          "name",
+          "validFrom",
+          "versionValidFrom"
+        ]
+      }
+    },
+    "#schema": "http://json-schema.org/draft-04/schema#"
+  },
+  {
+    "$ref": "#/definitions/DescribedValueDomain",
+    "definitions": {
+      "AdministrativeStatusType": {
+        "type": "string",
+        "enum": [
+          "DEPRECATED",
+          "DRAFT",
+          "INTERNAL",
+          "OPEN"
+        ]
+      },
+      "DescribedValueDomain": {
+        "displayName": "A Value Domain defined by an expression.",
+        "description": "A Value Domain defined by an expression.",
+        "type": "object",
+        "properties": {
+          "lastUpdatedBy": {
+            "description": "Last updated by.",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "minDecimals": {
+            "description": "A Value Domain defined by an expression.",
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "administrativeStatus": {
+            "description": "Indicator for access to an item.",
+            "anyOf": [
+              {
+                "$ref": "#/definitions/AdministrativeStatusType"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "maxValue": {
+            "description": "A Value Domain defined by an expression.",
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "dataType": {
+            "description": "The data type for a value domain",
+            "$ref": "#/definitions/DataType"
+          },
+          "minLength": {
+            "description": "A Value Domain defined by an expression.",
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "description": {
+            "description": "The description of the information object",
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/MultilingualText"
+                }
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "_link_property_measurementUnit": {
+            "type": "object",
+            "properties": {
+              "MeasurementUnit": {
+                "type": "null"
+              }
+            }
+          },
+          "validFrom": {
+            "format": "date-time",
+            "description": "The date on which the information object is effective or valid. Set this date only once (constant). The same date for all versions of this information object.",
+            "type": "string"
+          },
+          "version": {
+            "description": "Formal versioning of the information object. The version designator of the information object assigned by the owner agency. \"major.minor.patch\", e.g. \"1.12.5\".",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "measurementUnit": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "versionValidFrom": {
+            "format": "date-time",
+            "description": "The date on which the current version of the infomation object is effective or valid.",
+            "type": "string"
+          },
+          "maxDecimals": {
+            "description": "A Value Domain defined by an expression.",
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "versionRationale": {
+            "description": "The reason for making this version of the information object.",
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/MultilingualText"
+                }
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "lastUpdatedDate": {
+            "description": "The date on which the object was last updated.",
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "minValue": {
+            "description": "A Value Domain defined by an expression.",
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "createdDate": {
+            "format": "date-time",
+            "description": "The date on which the information object was created",
+            "type": "string"
+          },
+          "createdBy": {
+            "description": "Information object created by.",
+            "type": "string"
+          },
+          "name": {
+            "description": "A term which designates a concept, in this case an information object. The identifying name will be the preferred designation. There will be many terms to designate the same information object, such as synonyms and terms in other languages.",
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/MultilingualText"
+            }
+          },
+          "validUntil": {
+            "description": "The date on which the information object is no longer effective or valid.",
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "id": {
+            "description": "The global unique identifier (GUID) of the information object assigned by the owner agency.",
+            "type": "string"
+          },
+          "shortName": {
+            "description": "A short technical name. (Avoid special characters not supported as variable names in common programming languages).",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "maxLength": {
+            "description": "A Value Domain defined by an expression.",
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "administrativeDetails": {
+            "description": "Administrative details (e.g. default language, documentation, localID, ...).",
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/AdministrativeDetails"
+                }
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "createdBy",
+          "createdDate",
+          "dataType",
+          "id",
+          "name",
+          "validFrom",
+          "versionValidFrom"
+        ]
+      },
+      "MultilingualText": {
+        "displayName": "A reusable type for supporting multilingual texts.",
+        "description": "A reusable type for supporting multilingual texts.",
+        "type": "object",
+        "properties": {
+          "languageText": {
+            "description": "The text (e.g. label, title, description)",
+            "type": "string"
+          },
+          "languageCode": {
+            "description": "The language code. Use only ISO 639-1 codes.",
+            "$ref": "#/definitions/LanguageCodeType"
+          }
+        },
+        "required": [
+          "languageCode",
+          "languageText"
+        ]
+      },
+      "AdministrativeDetailType": {
+        "type": "string",
+        "enum": [
+          "ALIAS",
+          "ANNOTATION",
+          "DEFAULTLANGUAGE",
+          "DOCUMENTATION",
+          "LOCALID",
+          "ORIGIN",
+          "URL"
+        ]
+      },
+      "LanguageCodeType": {
+        "type": "string",
+        "enum": [
+          "en",
+          "nb",
+          "nn"
+        ]
+      },
+      "AdministrativeDetails": {
+        "displayName": "A generic and expandable key-value-store for adding present and future AdministrativeDetails-attributes to any information object.",
+        "description": "A generic and expandable key-value-store for adding present and future AdministrativeDetails-attributes to any information object.",
+        "type": "object",
+        "properties": {
+          "values": {
+            "description": "One or more values (a list) for this administrativeDetailType.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "administrativeDetailType": {
+            "description": "The type (key) of the AdministrativeDetails-attribute.",
+            "$ref": "#/definitions/AdministrativeDetailType"
+          }
+        },
+        "required": [
+          "administrativeDetailType",
+          "values"
+        ]
+      },
+      "DataType": {
+        "type": "string",
+        "enum": [
+          "BOOLEAN",
+          "DATETIME",
+          "FLOAT",
+          "INTEGER",
+          "STRING"
+        ]
+      }
+    },
+    "#schema": "http://json-schema.org/draft-04/schema#"
+  },
+  {
+    "$ref": "#/definitions/EnumeratedValueDomain",
+    "definitions": {
+      "AdministrativeStatusType": {
+        "type": "string",
+        "enum": [
+          "DEPRECATED",
+          "DRAFT",
+          "INTERNAL",
+          "OPEN"
+        ]
+      },
+      "EnumeratedValueDomain": {
+        "displayName": "A Value Domain expressed as a list of Categories and associated Codes.",
+        "description": "A Value Domain expressed as a list of Categories and associated Codes.",
+        "type": "object",
+        "properties": {
+          "lastUpdatedBy": {
+            "description": "Last updated by.",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "administrativeStatus": {
+            "description": "Indicator for access to an item.",
+            "anyOf": [
+              {
+                "$ref": "#/definitions/AdministrativeStatusType"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "dataType": {
+            "description": "The data type for a value domain",
+            "$ref": "#/definitions/DataType"
+          },
+          "description": {
+            "description": "The description of the information object",
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/MultilingualText"
+                }
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "_link_property_measurementUnit": {
+            "type": "object",
+            "properties": {
+              "MeasurementUnit": {
+                "type": "null"
+              }
+            }
+          },
+          "validFrom": {
+            "format": "date-time",
+            "description": "The date on which the information object is effective or valid. Set this date only once (constant). The same date for all versions of this information object.",
+            "type": "string"
+          },
+          "version": {
+            "description": "Formal versioning of the information object. The version designator of the information object assigned by the owner agency. \"major.minor.patch\", e.g. \"1.12.5\".",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "measurementUnit": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "versionValidFrom": {
+            "format": "date-time",
+            "description": "The date on which the current version of the infomation object is effective or valid.",
+            "type": "string"
+          },
+          "versionRationale": {
+            "description": "The reason for making this version of the information object.",
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/MultilingualText"
+                }
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "lastUpdatedDate": {
+            "description": "The date on which the object was last updated.",
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "createdDate": {
+            "format": "date-time",
+            "description": "The date on which the information object was created",
+            "type": "string"
+          },
+          "createdBy": {
+            "description": "Information object created by.",
+            "type": "string"
+          },
+          "name": {
+            "description": "A term which designates a concept, in this case an information object. The identifying name will be the preferred designation. There will be many terms to designate the same information object, such as synonyms and terms in other languages.",
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/MultilingualText"
+            }
+          },
+          "validUntil": {
+            "description": "The date on which the information object is no longer effective or valid.",
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "id": {
+            "description": "The global unique identifier (GUID) of the information object assigned by the owner agency.",
+            "type": "string"
+          },
+          "shortName": {
+            "description": "A short technical name. (Avoid special characters not supported as variable names in common programming languages).",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "administrativeDetails": {
+            "description": "Administrative details (e.g. default language, documentation, localID, ...).",
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/AdministrativeDetails"
+                }
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "klassUrn": {
+            "description": "The urn to KLASS codelist",
+            "type": "string"
+          }
+        },
+        "required": [
+          "createdBy",
+          "createdDate",
+          "dataType",
+          "id",
+          "klassUrn",
+          "name",
+          "validFrom",
+          "versionValidFrom"
+        ]
+      },
+      "MultilingualText": {
+        "displayName": "A reusable type for supporting multilingual texts.",
+        "description": "A reusable type for supporting multilingual texts.",
+        "type": "object",
+        "properties": {
+          "languageText": {
+            "description": "The text (e.g. label, title, description)",
+            "type": "string"
+          },
+          "languageCode": {
+            "description": "The language code. Use only ISO 639-1 codes.",
+            "$ref": "#/definitions/LanguageCodeType"
+          }
+        },
+        "required": [
+          "languageCode",
+          "languageText"
+        ]
+      },
+      "AdministrativeDetailType": {
+        "type": "string",
+        "enum": [
+          "ALIAS",
+          "ANNOTATION",
+          "DEFAULTLANGUAGE",
+          "DOCUMENTATION",
+          "LOCALID",
+          "ORIGIN",
+          "URL"
+        ]
+      },
+      "LanguageCodeType": {
+        "type": "string",
+        "enum": [
+          "en",
+          "nb",
+          "nn"
+        ]
+      },
+      "AdministrativeDetails": {
+        "displayName": "A generic and expandable key-value-store for adding present and future AdministrativeDetails-attributes to any information object.",
+        "description": "A generic and expandable key-value-store for adding present and future AdministrativeDetails-attributes to any information object.",
+        "type": "object",
+        "properties": {
+          "values": {
+            "description": "One or more values (a list) for this administrativeDetailType.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "administrativeDetailType": {
+            "description": "The type (key) of the AdministrativeDetails-attribute.",
+            "$ref": "#/definitions/AdministrativeDetailType"
+          }
+        },
+        "required": [
+          "administrativeDetailType",
+          "values"
+        ]
+      },
+      "DataType": {
+        "type": "string",
+        "enum": [
+          "BOOLEAN",
+          "DATETIME",
+          "FLOAT",
+          "INTEGER",
+          "STRING"
+        ]
+      }
+    },
+    "#schema": "http://json-schema.org/draft-04/schema#"
+  },
+  {
+    "$ref": "#/definitions/MeasurementType",
+    "definitions": {
+      "AdministrativeStatusType": {
+        "type": "string",
+        "enum": [
+          "DEPRECATED",
+          "DRAFT",
+          "INTERNAL",
+          "OPEN"
+        ]
+      },
+      "MultilingualText": {
+        "displayName": "A reusable type for supporting multilingual texts.",
+        "description": "A reusable type for supporting multilingual texts.",
+        "type": "object",
+        "properties": {
+          "languageText": {
+            "description": "The text (e.g. label, title, description)",
+            "type": "string"
+          },
+          "languageCode": {
+            "description": "The language code. Use only ISO 639-1 codes.",
+            "$ref": "#/definitions/LanguageCodeType"
+          }
+        },
+        "required": [
+          "languageCode",
+          "languageText"
+        ]
+      },
+      "MeasurementType": {
+        "displayName": "The Measurement Type defines the type of a measure e.g. mass or currency. The Measurement Type groups all Measurement Units, which can be converted into each other. A Measurement Type can have a standard Measurement Unit, which can be used for conversion between different Measurement Units.",
+        "description": "The Measurement Type defines the type of a measure e.g. mass or currency. The Measurement Type groups all Measurement Units, which can be converted into each other. A Measurement Type can have a standard Measurement Unit, which can be used for conversion between different Measurement Units.",
+        "type": "object",
+        "properties": {
+          "lastUpdatedBy": {
+            "description": "Last updated by.",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "administrativeStatus": {
+            "description": "Indicator for access to an item.",
+            "anyOf": [
+              {
+                "$ref": "#/definitions/AdministrativeStatusType"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "description": {
+            "description": "The description of the information object",
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/MultilingualText"
+                }
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "validFrom": {
+            "format": "date-time",
+            "description": "The date on which the information object is effective or valid. Set this date only once (constant). The same date for all versions of this information object.",
+            "type": "string"
+          },
+          "version": {
+            "description": "Formal versioning of the information object. The version designator of the information object assigned by the owner agency. \"major.minor.patch\", e.g. \"1.12.5\".",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "versionValidFrom": {
+            "format": "date-time",
+            "description": "The date on which the current version of the infomation object is effective or valid.",
+            "type": "string"
+          },
+          "versionRationale": {
+            "description": "The reason for making this version of the information object.",
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/MultilingualText"
+                }
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "lastUpdatedDate": {
+            "description": "The date on which the object was last updated.",
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "createdDate": {
+            "format": "date-time",
+            "description": "The date on which the information object was created",
+            "type": "string"
+          },
+          "createdBy": {
+            "description": "Information object created by.",
+            "type": "string"
+          },
+          "name": {
+            "description": "A term which designates a concept, in this case an information object. The identifying name will be the preferred designation. There will be many terms to designate the same information object, such as synonyms and terms in other languages.",
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/MultilingualText"
+            }
+          },
+          "validUntil": {
+            "description": "The date on which the information object is no longer effective or valid.",
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "id": {
+            "description": "The global unique identifier (GUID) of the information object assigned by the owner agency.",
+            "type": "string"
+          },
+          "shortName": {
+            "description": "A short technical name. (Avoid special characters not supported as variable names in common programming languages).",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "administrativeDetails": {
+            "description": "Administrative details (e.g. default language, documentation, localID, ...).",
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/AdministrativeDetails"
+                }
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "createdBy",
+          "createdDate",
+          "id",
+          "name",
+          "validFrom",
+          "versionValidFrom"
+        ]
+      },
+      "AdministrativeDetailType": {
+        "type": "string",
+        "enum": [
+          "ALIAS",
+          "ANNOTATION",
+          "DEFAULTLANGUAGE",
+          "DOCUMENTATION",
+          "LOCALID",
+          "ORIGIN",
+          "URL"
+        ]
+      },
+      "LanguageCodeType": {
+        "type": "string",
+        "enum": [
+          "en",
+          "nb",
+          "nn"
+        ]
+      },
+      "AdministrativeDetails": {
+        "displayName": "A generic and expandable key-value-store for adding present and future AdministrativeDetails-attributes to any information object.",
+        "description": "A generic and expandable key-value-store for adding present and future AdministrativeDetails-attributes to any information object.",
+        "type": "object",
+        "properties": {
+          "values": {
+            "description": "One or more values (a list) for this administrativeDetailType.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "administrativeDetailType": {
+            "description": "The type (key) of the AdministrativeDetails-attribute.",
+            "$ref": "#/definitions/AdministrativeDetailType"
+          }
+        },
+        "required": [
+          "administrativeDetailType",
+          "values"
+        ]
+      }
+    },
+    "#schema": "http://json-schema.org/draft-04/schema#"
+  },
+  {
+    "$ref": "#/definitions/MeasurementUnit",
+    "definitions": {
+      "MeasurementUnit": {
+        "displayName": "A Measurement Unit is the metric for a measurement in terms of an official unit of measurement.",
+        "description": "A Measurement Unit is the metric for a measurement in terms of an official unit of measurement.",
+        "type": "object",
+        "properties": {
+          "lastUpdatedBy": {
+            "description": "Last updated by.",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "administrativeStatus": {
+            "description": "Indicator for access to an item.",
+            "anyOf": [
+              {
+                "$ref": "#/definitions/AdministrativeStatusType"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "_link_property_measurementType": {
+            "type": "object",
+            "properties": {
+              "MeasurementType": {
+                "type": "null"
+              }
+            }
+          },
+          "conversionRule": {
+            "description": "Rule for conversion to the standard Measurement Unit, if this exists.",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "description": {
+            "description": "The description of the information object",
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/MultilingualText"
+                }
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "validFrom": {
+            "format": "date-time",
+            "description": "The date on which the information object is effective or valid. Set this date only once (constant). The same date for all versions of this information object.",
+            "type": "string"
+          },
+          "abbreviation": {
+            "description": "Abbreviation for the Measurement Unit e.g. kg for kilograms",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "version": {
+            "description": "Formal versioning of the information object. The version designator of the information object assigned by the owner agency. \"major.minor.patch\", e.g. \"1.12.5\".",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "versionValidFrom": {
+            "format": "date-time",
+            "description": "The date on which the current version of the infomation object is effective or valid.",
+            "type": "string"
+          },
+          "versionRationale": {
+            "description": "The reason for making this version of the information object.",
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/MultilingualText"
+                }
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "lastUpdatedDate": {
+            "description": "The date on which the object was last updated.",
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "createdDate": {
+            "format": "date-time",
+            "description": "The date on which the information object was created",
+            "type": "string"
+          },
+          "createdBy": {
+            "description": "Information object created by.",
+            "type": "string"
+          },
+          "measurementType": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "name": {
+            "description": "A term which designates a concept, in this case an information object. The identifying name will be the preferred designation. There will be many terms to designate the same information object, such as synonyms and terms in other languages.",
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/MultilingualText"
+            }
+          },
+          "validUntil": {
+            "description": "The date on which the information object is no longer effective or valid.",
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "id": {
+            "description": "The global unique identifier (GUID) of the information object assigned by the owner agency.",
+            "type": "string"
+          },
+          "shortName": {
+            "description": "A short technical name. (Avoid special characters not supported as variable names in common programming languages).",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "administrativeDetails": {
+            "description": "Administrative details (e.g. default language, documentation, localID, ...).",
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/AdministrativeDetails"
+                }
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "createdBy",
+          "createdDate",
+          "id",
+          "name",
+          "validFrom",
+          "versionValidFrom"
+        ]
+      },
+      "AdministrativeStatusType": {
+        "type": "string",
+        "enum": [
+          "DEPRECATED",
+          "DRAFT",
+          "INTERNAL",
+          "OPEN"
+        ]
+      },
+      "MultilingualText": {
+        "displayName": "A reusable type for supporting multilingual texts.",
+        "description": "A reusable type for supporting multilingual texts.",
+        "type": "object",
+        "properties": {
+          "languageText": {
+            "description": "The text (e.g. label, title, description)",
+            "type": "string"
+          },
+          "languageCode": {
+            "description": "The language code. Use only ISO 639-1 codes.",
+            "$ref": "#/definitions/LanguageCodeType"
+          }
+        },
+        "required": [
+          "languageCode",
+          "languageText"
+        ]
+      },
+      "AdministrativeDetailType": {
+        "type": "string",
+        "enum": [
+          "ALIAS",
+          "ANNOTATION",
+          "DEFAULTLANGUAGE",
+          "DOCUMENTATION",
+          "LOCALID",
+          "ORIGIN",
+          "URL"
+        ]
+      },
+      "LanguageCodeType": {
+        "type": "string",
+        "enum": [
+          "en",
+          "nb",
+          "nn"
+        ]
+      },
+      "AdministrativeDetails": {
+        "displayName": "A generic and expandable key-value-store for adding present and future AdministrativeDetails-attributes to any information object.",
+        "description": "A generic and expandable key-value-store for adding present and future AdministrativeDetails-attributes to any information object.",
+        "type": "object",
+        "properties": {
+          "values": {
+            "description": "One or more values (a list) for this administrativeDetailType.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "administrativeDetailType": {
+            "description": "The type (key) of the AdministrativeDetails-attribute.",
+            "$ref": "#/definitions/AdministrativeDetailType"
+          }
+        },
+        "required": [
+          "administrativeDetailType",
+          "values"
+        ]
+      }
+    },
+    "#schema": "http://json-schema.org/draft-04/schema#"
+  },
+  {
+    "$ref": "#/definitions/Population",
+    "definitions": {
+      "AdministrativeStatusType": {
+        "type": "string",
+        "enum": [
+          "DEPRECATED",
+          "DRAFT",
+          "INTERNAL",
+          "OPEN"
+        ]
+      },
+      "MultilingualText": {
+        "displayName": "A reusable type for supporting multilingual texts.",
+        "description": "A reusable type for supporting multilingual texts.",
+        "type": "object",
+        "properties": {
+          "languageText": {
+            "description": "The text (e.g. label, title, description)",
+            "type": "string"
+          },
+          "languageCode": {
+            "description": "The language code. Use only ISO 639-1 codes.",
+            "$ref": "#/definitions/LanguageCodeType"
+          }
+        },
+        "required": [
+          "languageCode",
+          "languageText"
+        ]
+      },
+      "AdministrativeDetailType": {
+        "type": "string",
+        "enum": [
+          "ALIAS",
+          "ANNOTATION",
+          "DEFAULTLANGUAGE",
+          "DOCUMENTATION",
+          "LOCALID",
+          "ORIGIN",
+          "URL"
+        ]
+      },
+      "LanguageCodeType": {
+        "type": "string",
+        "enum": [
+          "en",
+          "nb",
+          "nn"
+        ]
+      },
+      "GeographyType": {
+        "type": "string",
+        "enum": [
+          "ADRESS",
+          "CADASTRE",
+          "CONTINENT",
+          "COUNTRY",
+          "COUNTY",
+          "GEOLOCATION",
+          "MUNICIPALITY",
+          "REGION"
+        ]
+      },
+      "Population": {
+        "displayName": "The total membership of a defined class of people, objects or events.",
+        "description": "The total membership of a defined class of people, objects or events.",
+        "type": "object",
+        "properties": {
+          "parentPopulations": {
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "nationalConceptsCatalogURI": {
+            "description": "Link to national concepts catalog",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "administrativeStatus": {
+            "description": "Indicator for access to an item.",
+            "anyOf": [
+              {
+                "$ref": "#/definitions/AdministrativeStatusType"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "description": {
+            "description": "The description of the information object",
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/MultilingualText"
+                }
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "validFrom": {
+            "format": "date-time",
+            "description": "The date on which the information object is effective or valid. Set this date only once (constant). The same date for all versions of this information object.",
+            "type": "string"
+          },
+          "versionValidFrom": {
+            "format": "date-time",
+            "description": "The date on which the current version of the infomation object is effective or valid.",
+            "type": "string"
+          },
+          "geography": {
+            "description": "The geographical area to which the population is associated.",
+            "anyOf": [
+              {
+                "$ref": "#/definitions/GeographyType"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "subjectFields": {
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "referencePeriodStartDate": {
+            "format": "date-time",
+            "description": "The time period to which the population is associated.",
+            "type": "string"
+          },
+          "universes": {
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "id": {
+            "description": "The global unique identifier (GUID) of the information object assigned by the owner agency.",
+            "type": "string"
+          },
+          "lastUpdatedBy": {
+            "description": "Last updated by.",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "version": {
+            "description": "Formal versioning of the information object. The version designator of the information object assigned by the owner agency. \"major.minor.patch\", e.g. \"1.12.5\".",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "_link_property_subjectFields": {
+            "type": "object",
+            "properties": {
+              "SubjectField": {
+                "type": "null"
+              }
+            }
+          },
+          "_link_property_parentPopulations": {
+            "type": "object",
+            "properties": {
+              "Population": {
+                "type": "null"
+              }
+            }
+          },
+          "populationType": {
+            "description": "The type og pupulation.",
+            "$ref": "#/definitions/PopulationType"
+          },
+          "versionRationale": {
+            "description": "The reason for making this version of the information object.",
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/MultilingualText"
+                }
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "lastUpdatedDate": {
+            "description": "The date on which the object was last updated.",
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "createdDate": {
+            "format": "date-time",
+            "description": "The date on which the information object was created",
+            "type": "string"
+          },
+          "createdBy": {
+            "description": "Information object created by.",
+            "type": "string"
+          },
+          "name": {
+            "description": "A term which designates a concept, in this case an information object. The identifying name will be the preferred designation. There will be many terms to designate the same information object, such as synonyms and terms in other languages.",
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/MultilingualText"
+            }
+          },
+          "validUntil": {
+            "description": "The date on which the information object is no longer effective or valid.",
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "_link_property_universes": {
+            "type": "object",
+            "properties": {
+              "Universe": {
+                "type": "null"
+              }
+            }
+          },
+          "shortName": {
+            "description": "A short technical name. (Avoid special characters not supported as variable names in common programming languages).",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "administrativeDetails": {
+            "description": "Administrative details (e.g. default language, documentation, localID, ...).",
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/AdministrativeDetails"
+                }
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "referencePeriodEndDate": {
+            "format": "date-time",
+            "description": "The time period to which the population is associated.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "createdBy",
+          "createdDate",
+          "id",
+          "name",
+          "populationType",
+          "referencePeriodEndDate",
+          "referencePeriodStartDate",
+          "universes",
+          "validFrom",
+          "versionValidFrom"
+        ]
+      },
+      "AdministrativeDetails": {
+        "displayName": "A generic and expandable key-value-store for adding present and future AdministrativeDetails-attributes to any information object.",
+        "description": "A generic and expandable key-value-store for adding present and future AdministrativeDetails-attributes to any information object.",
+        "type": "object",
+        "properties": {
+          "values": {
+            "description": "One or more values (a list) for this administrativeDetailType.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "administrativeDetailType": {
+            "description": "The type (key) of the AdministrativeDetails-attribute.",
+            "$ref": "#/definitions/AdministrativeDetailType"
+          }
+        },
+        "required": [
+          "administrativeDetailType",
+          "values"
+        ]
+      },
+      "PopulationType": {
+        "type": "string",
+        "enum": [
+          "SURVEY",
+          "TARGET"
+        ]
+      }
+    },
+    "#schema": "http://json-schema.org/draft-04/schema#"
+  },
+  {
+    "$ref": "#/definitions/RepresentedVariable",
+    "definitions": {
+      "AdministrativeStatusType": {
+        "type": "string",
+        "enum": [
+          "DEPRECATED",
+          "DRAFT",
+          "INTERNAL",
+          "OPEN"
+        ]
+      },
+      "RepresentedVariable": {
+        "displayName": "A combination of a characteristic of a population to be measured and how that measure will be represented.",
+        "description": "A combination of a characteristic of a population to be measured and how that measure will be represented.",
+        "type": "object",
+        "properties": {
+          "lastUpdatedBy": {
+            "description": "Last updated by.",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "administrativeStatus": {
+            "description": "Indicator for access to an item.",
+            "anyOf": [
+              {
+                "$ref": "#/definitions/AdministrativeStatusType"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "description": {
+            "description": "The description of the information object",
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/MultilingualText"
+                }
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "_link_property_universe": {
+            "type": "object",
+            "properties": {
+              "Universe": {
+                "type": "null"
+              }
+            }
+          },
+          "_link_property_substantiveValueDomain": {
+            "type": "object",
+            "properties": {
+              "DescribedValueDomain": {
+                "type": "null"
+              },
+              "EnumeratedValueDomain": {
+                "type": "null"
+              }
+            }
+          },
+          "validFrom": {
+            "format": "date-time",
+            "description": "The date on which the information object is effective or valid. Set this date only once (constant). The same date for all versions of this information object.",
+            "type": "string"
+          },
+          "version": {
+            "description": "Formal versioning of the information object. The version designator of the information object assigned by the owner agency. \"major.minor.patch\", e.g. \"1.12.5\".",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "versionValidFrom": {
+            "format": "date-time",
+            "description": "The date on which the current version of the infomation object is effective or valid.",
+            "type": "string"
+          },
+          "versionRationale": {
+            "description": "The reason for making this version of the information object.",
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/MultilingualText"
+                }
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "lastUpdatedDate": {
+            "description": "The date on which the object was last updated.",
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "createdDate": {
+            "format": "date-time",
+            "description": "The date on which the information object was created",
+            "type": "string"
+          },
+          "_link_property_variable": {
+            "type": "object",
+            "properties": {
+              "Variable": {
+                "type": "null"
+              }
+            }
+          },
+          "createdBy": {
+            "description": "Information object created by.",
+            "type": "string"
+          },
+          "universe": {
+            "type": "string"
+          },
+          "name": {
+            "description": "A term which designates a concept, in this case an information object. The identifying name will be the preferred designation. There will be many terms to designate the same information object, such as synonyms and terms in other languages.",
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/MultilingualText"
+            }
+          },
+          "substantiveValueDomain": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "variable": {
+            "type": "string"
+          },
+          "validUntil": {
+            "description": "The date on which the information object is no longer effective or valid.",
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "id": {
+            "description": "The global unique identifier (GUID) of the information object assigned by the owner agency.",
+            "type": "string"
+          },
+          "shortName": {
+            "description": "A short technical name. (Avoid special characters not supported as variable names in common programming languages).",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "administrativeDetails": {
+            "description": "Administrative details (e.g. default language, documentation, localID, ...).",
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/AdministrativeDetails"
+                }
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "createdBy",
+          "createdDate",
+          "id",
+          "name",
+          "universe",
+          "validFrom",
+          "variable",
+          "versionValidFrom"
+        ]
+      },
+      "MultilingualText": {
+        "displayName": "A reusable type for supporting multilingual texts.",
+        "description": "A reusable type for supporting multilingual texts.",
+        "type": "object",
+        "properties": {
+          "languageText": {
+            "description": "The text (e.g. label, title, description)",
+            "type": "string"
+          },
+          "languageCode": {
+            "description": "The language code. Use only ISO 639-1 codes.",
+            "$ref": "#/definitions/LanguageCodeType"
+          }
+        },
+        "required": [
+          "languageCode",
+          "languageText"
+        ]
+      },
+      "AdministrativeDetailType": {
+        "type": "string",
+        "enum": [
+          "ALIAS",
+          "ANNOTATION",
+          "DEFAULTLANGUAGE",
+          "DOCUMENTATION",
+          "LOCALID",
+          "ORIGIN",
+          "URL"
+        ]
+      },
+      "LanguageCodeType": {
+        "type": "string",
+        "enum": [
+          "en",
+          "nb",
+          "nn"
+        ]
+      },
+      "AdministrativeDetails": {
+        "displayName": "A generic and expandable key-value-store for adding present and future AdministrativeDetails-attributes to any information object.",
+        "description": "A generic and expandable key-value-store for adding present and future AdministrativeDetails-attributes to any information object.",
+        "type": "object",
+        "properties": {
+          "values": {
+            "description": "One or more values (a list) for this administrativeDetailType.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "administrativeDetailType": {
+            "description": "The type (key) of the AdministrativeDetails-attribute.",
+            "$ref": "#/definitions/AdministrativeDetailType"
+          }
+        },
+        "required": [
+          "administrativeDetailType",
+          "values"
+        ]
+      }
+    },
+    "#schema": "http://json-schema.org/draft-04/schema#"
+  },
+  {
+    "$ref": "#/definitions/SubjectField",
+    "definitions": {
+      "SubjectField": {
+        "displayName": "One or more Concept Systems used for the grouping of Concepts and Categories for the production of statistics.",
+        "description": "One or more Concept Systems used for the grouping of Concepts and Categories for the production of statistics.",
+        "type": "object",
+        "properties": {
+          "lastUpdatedBy": {
+            "description": "Last updated by.",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "administrativeStatus": {
+            "description": "Indicator for access to an item.",
+            "anyOf": [
+              {
+                "$ref": "#/definitions/AdministrativeStatusType"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "description": {
+            "description": "The description of the information object",
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/MultilingualText"
+                }
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "validFrom": {
+            "format": "date-time",
+            "description": "The date on which the information object is effective or valid. Set this date only once (constant). The same date for all versions of this information object.",
+            "type": "string"
+          },
+          "version": {
+            "description": "Formal versioning of the information object. The version designator of the information object assigned by the owner agency. \"major.minor.patch\", e.g. \"1.12.5\".",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "versionValidFrom": {
+            "format": "date-time",
+            "description": "The date on which the current version of the infomation object is effective or valid.",
+            "type": "string"
+          },
+          "versionRationale": {
+            "description": "The reason for making this version of the information object.",
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/MultilingualText"
+                }
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "lastUpdatedDate": {
+            "description": "The date on which the object was last updated.",
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "createdDate": {
+            "format": "date-time",
+            "description": "The date on which the information object was created",
+            "type": "string"
+          },
+          "createdBy": {
+            "description": "Information object created by.",
+            "type": "string"
+          },
+          "name": {
+            "description": "A term which designates a concept, in this case an information object. The identifying name will be the preferred designation. There will be many terms to designate the same information object, such as synonyms and terms in other languages.",
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/MultilingualText"
+            }
+          },
+          "validUntil": {
+            "description": "The date on which the information object is no longer effective or valid.",
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "id": {
+            "description": "The global unique identifier (GUID) of the information object assigned by the owner agency.",
+            "type": "string"
+          },
+          "shortName": {
+            "description": "A short technical name. (Avoid special characters not supported as variable names in common programming languages).",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "administrativeDetails": {
+            "description": "Administrative details (e.g. default language, documentation, localID, ...).",
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/AdministrativeDetails"
+                }
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "createdBy",
+          "createdDate",
+          "id",
+          "name",
+          "validFrom",
+          "versionValidFrom"
+        ]
+      },
+      "AdministrativeStatusType": {
+        "type": "string",
+        "enum": [
+          "DEPRECATED",
+          "DRAFT",
+          "INTERNAL",
+          "OPEN"
+        ]
+      },
+      "MultilingualText": {
+        "displayName": "A reusable type for supporting multilingual texts.",
+        "description": "A reusable type for supporting multilingual texts.",
+        "type": "object",
+        "properties": {
+          "languageText": {
+            "description": "The text (e.g. label, title, description)",
+            "type": "string"
+          },
+          "languageCode": {
+            "description": "The language code. Use only ISO 639-1 codes.",
+            "$ref": "#/definitions/LanguageCodeType"
+          }
+        },
+        "required": [
+          "languageCode",
+          "languageText"
+        ]
+      },
+      "AdministrativeDetailType": {
+        "type": "string",
+        "enum": [
+          "ALIAS",
+          "ANNOTATION",
+          "DEFAULTLANGUAGE",
+          "DOCUMENTATION",
+          "LOCALID",
+          "ORIGIN",
+          "URL"
+        ]
+      },
+      "LanguageCodeType": {
+        "type": "string",
+        "enum": [
+          "en",
+          "nb",
+          "nn"
+        ]
+      },
+      "AdministrativeDetails": {
+        "displayName": "A generic and expandable key-value-store for adding present and future AdministrativeDetails-attributes to any information object.",
+        "description": "A generic and expandable key-value-store for adding present and future AdministrativeDetails-attributes to any information object.",
+        "type": "object",
+        "properties": {
+          "values": {
+            "description": "One or more values (a list) for this administrativeDetailType.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "administrativeDetailType": {
+            "description": "The type (key) of the AdministrativeDetails-attribute.",
+            "$ref": "#/definitions/AdministrativeDetailType"
+          }
+        },
+        "required": [
+          "administrativeDetailType",
+          "values"
+        ]
+      }
+    },
+    "#schema": "http://json-schema.org/draft-04/schema#"
+  },
+  {
+    "$ref": "#/definitions/UnitType",
+    "definitions": {
+      "AdministrativeStatusType": {
+        "type": "string",
+        "enum": [
+          "DEPRECATED",
+          "DRAFT",
+          "INTERNAL",
+          "OPEN"
+        ]
+      },
+      "UnitType": {
+        "displayName": "A Unit Type is a class of objects of interest",
+        "description": "A Unit Type is a class of objects of interest",
+        "type": "object",
+        "properties": {
+          "lastUpdatedBy": {
+            "description": "Last updated by.",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "nationalConceptsCatalogURI": {
+            "description": "Link to national concepts catalog",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "administrativeStatus": {
+            "description": "Indicator for access to an item.",
+            "anyOf": [
+              {
+                "$ref": "#/definitions/AdministrativeStatusType"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "typeOfStatisticalUnit": {
+            "description": "Type of unit.",
+            "$ref": "#/definitions/TypeOfStatisticalUnitType"
+          },
+          "description": {
+            "description": "The description of the information object",
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/MultilingualText"
+                }
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "validFrom": {
+            "format": "date-time",
+            "description": "The date on which the information object is effective or valid. Set this date only once (constant). The same date for all versions of this information object.",
+            "type": "string"
+          },
+          "version": {
+            "description": "Formal versioning of the information object. The version designator of the information object assigned by the owner agency. \"major.minor.patch\", e.g. \"1.12.5\".",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "_link_property_subjectFields": {
+            "type": "object",
+            "properties": {
+              "SubjectField": {
+                "type": "null"
+              }
+            }
+          },
+          "versionValidFrom": {
+            "format": "date-time",
+            "description": "The date on which the current version of the infomation object is effective or valid.",
+            "type": "string"
+          },
+          "versionRationale": {
+            "description": "The reason for making this version of the information object.",
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/MultilingualText"
+                }
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "lastUpdatedDate": {
+            "description": "The date on which the object was last updated.",
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "createdDate": {
+            "format": "date-time",
+            "description": "The date on which the information object was created",
+            "type": "string"
+          },
+          "createdBy": {
+            "description": "Information object created by.",
+            "type": "string"
+          },
+          "subjectFields": {
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "name": {
+            "description": "A term which designates a concept, in this case an information object. The identifying name will be the preferred designation. There will be many terms to designate the same information object, such as synonyms and terms in other languages.",
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/MultilingualText"
+            }
+          },
+          "validUntil": {
+            "description": "The date on which the information object is no longer effective or valid.",
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "id": {
+            "description": "The global unique identifier (GUID) of the information object assigned by the owner agency.",
+            "type": "string"
+          },
+          "_link_property_parentUnitTypes": {
+            "type": "object",
+            "properties": {
+              "UnitType": {
+                "type": "null"
+              }
+            }
+          },
+          "shortName": {
+            "description": "A short technical name. (Avoid special characters not supported as variable names in common programming languages).",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "parentUnitTypes": {
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "administrativeDetails": {
+            "description": "Administrative details (e.g. default language, documentation, localID, ...).",
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/AdministrativeDetails"
+                }
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "createdBy",
+          "createdDate",
+          "id",
+          "name",
+          "typeOfStatisticalUnit",
+          "validFrom",
+          "versionValidFrom"
+        ]
+      },
+      "MultilingualText": {
+        "displayName": "A reusable type for supporting multilingual texts.",
+        "description": "A reusable type for supporting multilingual texts.",
+        "type": "object",
+        "properties": {
+          "languageText": {
+            "description": "The text (e.g. label, title, description)",
+            "type": "string"
+          },
+          "languageCode": {
+            "description": "The language code. Use only ISO 639-1 codes.",
+            "$ref": "#/definitions/LanguageCodeType"
+          }
+        },
+        "required": [
+          "languageCode",
+          "languageText"
+        ]
+      },
+      "AdministrativeDetailType": {
+        "type": "string",
+        "enum": [
+          "ALIAS",
+          "ANNOTATION",
+          "DEFAULTLANGUAGE",
+          "DOCUMENTATION",
+          "LOCALID",
+          "ORIGIN",
+          "URL"
+        ]
+      },
+      "LanguageCodeType": {
+        "type": "string",
+        "enum": [
+          "en",
+          "nb",
+          "nn"
+        ]
+      },
+      "AdministrativeDetails": {
+        "displayName": "A generic and expandable key-value-store for adding present and future AdministrativeDetails-attributes to any information object.",
+        "description": "A generic and expandable key-value-store for adding present and future AdministrativeDetails-attributes to any information object.",
+        "type": "object",
+        "properties": {
+          "values": {
+            "description": "One or more values (a list) for this administrativeDetailType.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "administrativeDetailType": {
+            "description": "The type (key) of the AdministrativeDetails-attribute.",
+            "$ref": "#/definitions/AdministrativeDetailType"
+          }
+        },
+        "required": [
+          "administrativeDetailType",
+          "values"
+        ]
+      },
+      "TypeOfStatisticalUnitType": {
+        "type": "string",
+        "enum": [
+          "ENTERPRISE",
+          "ESTABLISHMENT",
+          "FAMILY",
+          "HOUSEHOLD",
+          "MUNICIPALITY",
+          "NOT_APPLICABLE",
+          "PERSON",
+          "SHAREHOLDER"
+        ]
+      }
+    },
+    "#schema": "http://json-schema.org/draft-04/schema#"
+  },
+  {
+    "$ref": "#/definitions/Universe",
+    "definitions": {
+      "AdministrativeStatusType": {
+        "type": "string",
+        "enum": [
+          "DEPRECATED",
+          "DRAFT",
+          "INTERNAL",
+          "OPEN"
+        ]
+      },
+      "MultilingualText": {
+        "displayName": "A reusable type for supporting multilingual texts.",
+        "description": "A reusable type for supporting multilingual texts.",
+        "type": "object",
+        "properties": {
+          "languageText": {
+            "description": "The text (e.g. label, title, description)",
+            "type": "string"
+          },
+          "languageCode": {
+            "description": "The language code. Use only ISO 639-1 codes.",
+            "$ref": "#/definitions/LanguageCodeType"
+          }
+        },
+        "required": [
+          "languageCode",
+          "languageText"
+        ]
+      },
+      "AdministrativeDetailType": {
+        "type": "string",
+        "enum": [
+          "ALIAS",
+          "ANNOTATION",
+          "DEFAULTLANGUAGE",
+          "DOCUMENTATION",
+          "LOCALID",
+          "ORIGIN",
+          "URL"
+        ]
+      },
+      "LanguageCodeType": {
+        "type": "string",
+        "enum": [
+          "en",
+          "nb",
+          "nn"
+        ]
+      },
+      "Universe": {
+        "displayName": "A defined class of people, entities, events, or objects, with no specification of time and geography, contextualizing a Unit Type.",
+        "description": "A defined class of people, entities, events, or objects, with no specification of time and geography, contextualizing a Unit Type.",
+        "type": "object",
+        "properties": {
+          "lastUpdatedBy": {
+            "description": "Last updated by.",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "nationalConceptsCatalogURI": {
+            "description": "Link to national concepts catalog",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "administrativeStatus": {
+            "description": "Indicator for access to an item.",
+            "anyOf": [
+              {
+                "$ref": "#/definitions/AdministrativeStatusType"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "description": {
+            "description": "The description of the information object",
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/MultilingualText"
+                }
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "_link_property_unitTypes": {
+            "type": "object",
+            "properties": {
+              "UnitType": {
+                "type": "null"
+              }
+            }
+          },
+          "validFrom": {
+            "format": "date-time",
+            "description": "The date on which the information object is effective or valid. Set this date only once (constant). The same date for all versions of this information object.",
+            "type": "string"
+          },
+          "version": {
+            "description": "Formal versioning of the information object. The version designator of the information object assigned by the owner agency. \"major.minor.patch\", e.g. \"1.12.5\".",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "_link_property_subjectFields": {
+            "type": "object",
+            "properties": {
+              "SubjectField": {
+                "type": "null"
+              }
+            }
+          },
+          "versionValidFrom": {
+            "format": "date-time",
+            "description": "The date on which the current version of the infomation object is effective or valid.",
+            "type": "string"
+          },
+          "versionRationale": {
+            "description": "The reason for making this version of the information object.",
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/MultilingualText"
+                }
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "lastUpdatedDate": {
+            "description": "The date on which the object was last updated.",
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "createdDate": {
+            "format": "date-time",
+            "description": "The date on which the information object was created",
+            "type": "string"
+          },
+          "createdBy": {
+            "description": "Information object created by.",
+            "type": "string"
+          },
+          "unitTypes": {
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "subjectFields": {
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "name": {
+            "description": "A term which designates a concept, in this case an information object. The identifying name will be the preferred designation. There will be many terms to designate the same information object, such as synonyms and terms in other languages.",
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/MultilingualText"
+            }
+          },
+          "validUntil": {
+            "description": "The date on which the information object is no longer effective or valid.",
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "id": {
+            "description": "The global unique identifier (GUID) of the information object assigned by the owner agency.",
+            "type": "string"
+          },
+          "shortName": {
+            "description": "A short technical name. (Avoid special characters not supported as variable names in common programming languages).",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "administrativeDetails": {
+            "description": "Administrative details (e.g. default language, documentation, localID, ...).",
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/AdministrativeDetails"
+                }
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "createdBy",
+          "createdDate",
+          "id",
+          "name",
+          "unitTypes",
+          "validFrom",
+          "versionValidFrom"
+        ]
+      },
+      "AdministrativeDetails": {
+        "displayName": "A generic and expandable key-value-store for adding present and future AdministrativeDetails-attributes to any information object.",
+        "description": "A generic and expandable key-value-store for adding present and future AdministrativeDetails-attributes to any information object.",
+        "type": "object",
+        "properties": {
+          "values": {
+            "description": "One or more values (a list) for this administrativeDetailType.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "administrativeDetailType": {
+            "description": "The type (key) of the AdministrativeDetails-attribute.",
+            "$ref": "#/definitions/AdministrativeDetailType"
+          }
+        },
+        "required": [
+          "administrativeDetailType",
+          "values"
+        ]
+      }
+    },
+    "#schema": "http://json-schema.org/draft-04/schema#"
+  },
+  {
+    "$ref": "#/definitions/Variable",
+    "definitions": {
+      "AdministrativeStatusType": {
+        "type": "string",
+        "enum": [
+          "DEPRECATED",
+          "DRAFT",
+          "INTERNAL",
+          "OPEN"
+        ]
+      },
+      "Variable": {
+        "displayName": "The use of a Concept as a characteristic of a Population intended to be measured.",
+        "description": "The use of a Concept as a characteristic of a Population intended to be measured.",
+        "type": "object",
+        "properties": {
+          "lastUpdatedBy": {
+            "description": "Last updated by.",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "nationalConceptsCatalogURI": {
+            "description": "Link to national concepts catalog",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "administrativeStatus": {
+            "description": "Indicator for access to an item.",
+            "anyOf": [
+              {
+                "$ref": "#/definitions/AdministrativeStatusType"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "description": {
+            "description": "The description of the information object",
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/MultilingualText"
+                }
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "validFrom": {
+            "format": "date-time",
+            "description": "The date on which the information object is effective or valid. Set this date only once (constant). The same date for all versions of this information object.",
+            "type": "string"
+          },
+          "version": {
+            "description": "Formal versioning of the information object. The version designator of the information object assigned by the owner agency. \"major.minor.patch\", e.g. \"1.12.5\".",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "_link_property_subjectFields": {
+            "type": "object",
+            "properties": {
+              "SubjectField": {
+                "type": "null"
+              }
+            }
+          },
+          "versionValidFrom": {
+            "format": "date-time",
+            "description": "The date on which the current version of the infomation object is effective or valid.",
+            "type": "string"
+          },
+          "unitType": {
+            "type": "string"
+          },
+          "versionRationale": {
+            "description": "The reason for making this version of the information object.",
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/MultilingualText"
+                }
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "lastUpdatedDate": {
+            "description": "The date on which the object was last updated.",
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "createdDate": {
+            "format": "date-time",
+            "description": "The date on which the information object was created",
+            "type": "string"
+          },
+          "createdBy": {
+            "description": "Information object created by.",
+            "type": "string"
+          },
+          "subjectFields": {
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "name": {
+            "description": "A term which designates a concept, in this case an information object. The identifying name will be the preferred designation. There will be many terms to designate the same information object, such as synonyms and terms in other languages.",
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/MultilingualText"
+            }
+          },
+          "validUntil": {
+            "description": "The date on which the information object is no longer effective or valid.",
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "id": {
+            "description": "The global unique identifier (GUID) of the information object assigned by the owner agency.",
+            "type": "string"
+          },
+          "shortName": {
+            "description": "A short technical name. (Avoid special characters not supported as variable names in common programming languages).",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "_link_property_unitType": {
+            "type": "object",
+            "properties": {
+              "UnitType": {
+                "type": "null"
+              }
+            }
+          },
+          "administrativeDetails": {
+            "description": "Administrative details (e.g. default language, documentation, localID, ...).",
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/AdministrativeDetails"
+                }
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "createdBy",
+          "createdDate",
+          "id",
+          "name",
+          "unitType",
+          "validFrom",
+          "versionValidFrom"
+        ]
+      },
+      "MultilingualText": {
+        "displayName": "A reusable type for supporting multilingual texts.",
+        "description": "A reusable type for supporting multilingual texts.",
+        "type": "object",
+        "properties": {
+          "languageText": {
+            "description": "The text (e.g. label, title, description)",
+            "type": "string"
+          },
+          "languageCode": {
+            "description": "The language code. Use only ISO 639-1 codes.",
+            "$ref": "#/definitions/LanguageCodeType"
+          }
+        },
+        "required": [
+          "languageCode",
+          "languageText"
+        ]
+      },
+      "AdministrativeDetailType": {
+        "type": "string",
+        "enum": [
+          "ALIAS",
+          "ANNOTATION",
+          "DEFAULTLANGUAGE",
+          "DOCUMENTATION",
+          "LOCALID",
+          "ORIGIN",
+          "URL"
+        ]
+      },
+      "LanguageCodeType": {
+        "type": "string",
+        "enum": [
+          "en",
+          "nb",
+          "nn"
+        ]
+      },
+      "AdministrativeDetails": {
+        "displayName": "A generic and expandable key-value-store for adding present and future AdministrativeDetails-attributes to any information object.",
+        "description": "A generic and expandable key-value-store for adding present and future AdministrativeDetails-attributes to any information object.",
+        "type": "object",
+        "properties": {
+          "values": {
+            "description": "One or more values (a list) for this administrativeDetailType.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "administrativeDetailType": {
+            "description": "The type (key) of the AdministrativeDetails-attribute.",
+            "$ref": "#/definitions/AdministrativeDetailType"
+          }
+        },
+        "required": [
+          "administrativeDetailType",
+          "values"
+        ]
+      }
+    },
+    "#schema": "http://json-schema.org/draft-04/schema#"
+  }
+]
