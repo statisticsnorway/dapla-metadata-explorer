@@ -4,10 +4,10 @@ const errorString = 'A problem occured'
 
 export const TEST_CONFIGURATIONS = {
   alternativeApi: 'http://localhost:29999',
-  apiContext: (initialApi, fn1, fn2) => ({
+  apiContext: (initialApi, fn1, fn2, readOnly = true) => ({
     ldsApi: initialApi,
     setLdsApi: fn1,
-    apiReadOnly: true,
+    apiReadOnly: readOnly,
     setApiReadOnly: fn2
   }),
   userContext: fn => ({

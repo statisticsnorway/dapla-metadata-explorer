@@ -1,0 +1,244 @@
+[
+  {
+    "id": "03ff807e-3d11-456e-8030-4f7319389405",
+    "name": [
+      {
+        "languageCode": "nb",
+        "languageText": "Desimaltall, todesimaler"
+      },
+      {
+        "languageCode": "en",
+        "languageText": "Decimal, two digits"
+      }
+    ],
+    "description": [
+      {
+        "languageCode": "nb",
+        "languageText": "Desimaltall, todesimaler, Tom ikke tillatt"
+      },
+      {
+        "languageCode": "en",
+        "languageText": "Decimal, two digits, non empty"
+      }
+    ],
+    "administrativeStatus": "OPEN",
+    "version": "1.0.0",
+    "versionValidFrom": "1985-01-01T15:00:00.000Z",
+    "validFrom": "1985-01-01T15:00:00.000Z",
+    "createdDate": "1985-01-01T15:00:00.000Z",
+    "createdBy": "OHV",
+    "dataType": "FLOAT",
+    "minDecimals": 2,
+    "maxDecimals": 2
+  },
+  {
+    "id": "42c799a6-952f-4504-abe2-92f2bd478273",
+    "name": [
+      {
+        "languageCode": "nb",
+        "languageText": "Heltall"
+      },
+      {
+        "languageCode": "en",
+        "languageText": "Integer"
+      }
+    ],
+    "description": [
+      {
+        "languageCode": "nb",
+        "languageText": "Heltall, Tom ikke tillatt"
+      },
+      {
+        "languageCode": "en",
+        "languageText": "INTEGER, Empty not allowed"
+      }
+    ],
+    "administrativeStatus": "OPEN",
+    "version": "1.0.0",
+    "versionValidFrom": "1985-01-01T15:00:00.000Z",
+    "validFrom": "1985-01-01T15:00:00.000Z",
+    "createdDate": "1985-01-01T15:00:00.000Z",
+    "createdBy": "OHV",
+    "dataType": "INTEGER"
+  },
+  {
+    "id": "49c54ebc-e742-488a-8a8a-c6fe63410e4f",
+    "name": [
+      {
+        "languageCode": "nb",
+        "languageText": "FamilyIdentifierNumber"
+      },
+      {
+        "languageCode": "en",
+        "languageText": "Norwegian National Family identifier number"
+      }
+    ],
+    "description": [
+      {
+        "languageCode": "nb",
+        "languageText": "Et familienummer er et åttesifret identifikasjonsnummer."
+      },
+      {
+        "languageCode": "en",
+        "languageText": "The Norwegian national identity number for families is an 8-digit isUnique identifier."
+      }
+    ],
+    "administrativeStatus": "OPEN",
+    "version": "1.0.0",
+    "versionValidFrom": "1985-01-01T15:00:00.000Z",
+    "validFrom": "1985-01-01T15:00:00.000Z",
+    "createdDate": "1985-01-01T15:00:00.000Z",
+    "createdBy": "OHV",
+    "dataType": "STRING"
+  },
+  {
+    "id": "72d3ea5e-4c7b-43f9-9b49-d4bbc945fb97",
+    "name": [
+      {
+        "languageCode": "nb",
+        "languageText": "Tolvdeler"
+      },
+      {
+        "languageCode": "en",
+        "languageText": "Twelve parts"
+      }
+    ],
+    "description": [
+      {
+        "languageCode": "nb",
+        "languageText": "Tolvdeler heltall, Tom ikke tillatt"
+      },
+      {
+        "languageCode": "nb",
+        "languageText": "Twelve parts, Integer, Empty not allowed"
+      }
+    ],
+    "administrativeStatus": "OPEN",
+    "version": "1.0.0",
+    "versionValidFrom": "1985-01-01T15:00:00.000Z",
+    "validFrom": "1985-01-01T15:00:00.000Z",
+    "createdDate": "1985-01-01T15:00:00.000Z",
+    "createdBy": "OHV",
+    "dataType": "INTEGER",
+    "minValue": 1,
+    "maxValue": 12
+  },
+  {
+    "id": "7c2c5846-0727-4a5d-8d07-c832bb14f9e2",
+    "name": [
+      {
+        "languageCode": "en",
+        "languageText": "Amount"
+      },
+      {
+        "languageCode": "nb",
+        "languageText": "Beløp"
+      }
+    ],
+    "description": [
+      {
+        "languageCode": "en",
+        "languageText": "Amount"
+      },
+      {
+        "languageCode": "nb",
+        "languageText": "Beløp"
+      }
+    ],
+    "administrativeStatus": "OPEN",
+    "version": "1.0.0",
+    "versionValidFrom": "1985-01-01T15:00:00.000Z",
+    "validFrom": "1985-01-01T15:00:00.000Z",
+    "createdDate": "1985-01-01T15:00:00.000Z",
+    "createdBy": "BNJ",
+    "dataType": "INTEGER",
+    "minValue": 0,
+    "maxValue": 999999999,
+    "measurementUnit": "/MeasurementUnit/ab1ac77e-6f3c-4418-a26c-ec9ae2137c30"
+  },
+  {
+    "id": "a52fc2be-0fb5-41d2-9183-82b2f6929700",
+    "name": [
+      {
+        "languageCode": "nb",
+        "languageText": "Year"
+      }
+    ],
+    "description": [
+      {
+        "languageCode": "nb",
+        "languageText": "Years between 1850 and 2100"
+      }
+    ],
+    "administrativeStatus": "OPEN",
+    "version": "1.0.0",
+    "versionValidFrom": "1985-01-01T15:00:00.000Z",
+    "validFrom": "1985-01-01T15:00:00.000Z",
+    "createdDate": "1985-01-01T15:00:00.000Z",
+    "createdBy": "OHV",
+    "dataType": "INTEGER",
+    "minValue": 1850,
+    "maxValue": 2100
+  },
+  {
+    "id": "ae8edf6a-be4d-4c1c-930f-e6c9473cff95",
+    "name": [
+      {
+        "languageCode": "nb",
+        "languageText": "Dato"
+      },
+      {
+        "languageCode": "en",
+        "languageText": "Date"
+      }
+    ],
+    "description": [
+      {
+        "languageCode": "nb",
+        "languageText": "Dato domene, obligatorisk"
+      },
+      {
+        "languageCode": "en",
+        "languageText": "Dates, mandatory"
+      }
+    ],
+    "administrativeStatus": "OPEN",
+    "version": "1.0.0",
+    "versionValidFrom": "1985-01-01T15:00:00.000Z",
+    "validFrom": "1985-01-01T15:00:00.000Z",
+    "createdDate": "1985-01-01T15:00:00.000Z",
+    "createdBy": "OHV",
+    "dataType": "DATETIME"
+  },
+  {
+    "id": "c14bf95e-a116-489b-827b-686650024930",
+    "name": [
+      {
+        "languageCode": "nb",
+        "languageText": "Fødselsnummer"
+      },
+      {
+        "languageCode": "en",
+        "languageText": "Norwegian National identity number"
+      }
+    ],
+    "description": [
+      {
+        "languageCode": "nb",
+        "languageText": "Et fødselsnummer er et ellevesifret identifikasjonsnummer. Alle som er folkeregistrert i Norge har et fødselsnummer."
+      },
+      {
+        "languageCode": "en",
+        "languageText": "The Norwegian national identity number is an 11-digit personal identifier. Everyone on the Norwegian National Registry has a national identity number."
+      }
+    ],
+    "maxDecimals": 4,
+    "administrativeStatus": "OPEN",
+    "version": "1.0.0",
+    "versionValidFrom": "1985-01-01T15:00:00.000Z",
+    "validFrom": "1985-01-01T15:00:00.000Z",
+    "createdDate": "1985-01-01T15:00:00.000Z",
+    "createdBy": "OHV",
+    "dataType": "STRING"
+  }
+]

@@ -50,7 +50,7 @@ const setup = () => {
 
 describe('Common mock', () => {
   beforeEach(() => {
-    useAxios.mockReturnValue([{ loading: false, error: undefined, data: UnitTypeAllData}, refetch])
+    useAxios.mockReturnValue([{ loading: false, error: undefined, data: UnitTypeAllData }, refetch])
   })
 
   test('Renders basics', () => {

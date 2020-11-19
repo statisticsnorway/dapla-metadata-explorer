@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Form } from 'semantic-ui-react'
 import useAxios from 'axios-hooks'
+import { Form } from 'semantic-ui-react'
 import { getLocalizedGsimObjectText } from '@statisticsnorway/dapla-js-utilities'
 
 import { ApiContext, LanguageContext } from '../../context/AppContext'

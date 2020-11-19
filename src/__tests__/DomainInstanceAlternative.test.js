@@ -9,15 +9,15 @@ import { ApiContext, LanguageContext, SchemasContext } from '../context/AppConte
 import { camelToTitle, sortSchemas } from '../utilities'
 import { GSIM, ROUTING, TEST_CONFIGURATIONS } from '../configurations'
 
-import Schemas from './test-data/Schemas.json'
-import PopulationAllData from './test-data/PopulationAllData.json'
+import Schema from './test-data/AgentSchema.json'
+import AgentData from './test-data/AgentData.json'
 
 // https://stackoverflow.com/questions/58117890/how-to-test-components-using-new-react-router-hooks
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
   useParams: () => ({
-    domain: 'Population',
-    id: 'dfb6eecf-c4f4-4fa6-82a1-8b8684d560f4c'
+    domain: 'Agent',
+    id: '91712998-84a5-4f6c-8053-4dfaafa7c0e3'
   })
 }))
 
@@ -27,9 +27,9 @@ jest.mock('../components/domain/DomainInstanceEdit', () => () => null)
 const { language, apiContext } = TEST_CONFIGURATIONS
 
 const refetch = jest.fn()
-const domain = 'Population'
-const domainId = 'dfb6eecf-c4f4-4fa6-82a1-8b8684d560f4c'
-const sortedSchemas = sortSchemas(Schemas)
+const domain = 'Agent'
+const domainId = '91712998-84a5-4f6c-8053-4dfaafa7c0e3'
+const sortedSchemas = sortSchemas([Schema])
 
 const setup = () => {
   const { getAllByText, getByText } = render(
@@ -48,10 +48,10 @@ const setup = () => {
 }
 
 test('Renders basics', () => {
-  useAxios.mockReturnValue([{ loading: false, error: undefined, data: PopulationAllData[1] }, refetch])
+  useAxios.mockReturnValue([{ loading: false, error: undefined, data: AgentData }, refetch])
 
   const { getAllByText, getByText } = setup()
 
-  expect(getAllByText(getLocalizedGsimObjectText(language, PopulationAllData[1][GSIM.NAME]))).toHaveLength(2)
+  expect(getAllByText(getLocalizedGsimObjectText(language, AgentData[GSIM.NAME]))).toHaveLength(2)
   expect(getByText(camelToTitle(domain))).toBeInTheDocument()
 })
