@@ -85,11 +85,11 @@ function Domain () {
             trigger={
               <Icon
                 link
-                name='sync alternate'
                 size='large'
                 onClick={refetch}
                 loading={loading}
                 disabled={loading}
+                name='sync alternate'
                 style={{ color: SSB_COLORS.BLUE }}
               />
             }

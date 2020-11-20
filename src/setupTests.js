@@ -10,3 +10,5 @@ window._env = {
   REACT_APP_CONCEPT_LDS: process.env.REACT_APP_CONCEPT_LDS,
   REACT_APP_EXPLORATION_LDS: process.env.REACT_APP_EXPLORATION_LDS
 }
+
+global.window.scrollTo = jest.fn()

@@ -17,13 +17,13 @@ function DomainTable ({ columns, data, loading }) {
       loading={loading}
       defaultPageSize={20}
       className='-highlight'
-      defaultFilterMethod={reactTableCustomFilterMethod}
       ofText={REACT_TABLE_TEXT.OF[language]}
       nextText={REACT_TABLE_TEXT.NEXT[language]}
       pageText={REACT_TABLE_TEXT.PAGE[language]}
       rowsText={REACT_TABLE_TEXT.ROWS[language]}
       loadingText={REACT_TABLE_TEXT.LOADING[language]}
       previousText={REACT_TABLE_TEXT.PREVIOUS[language]}
+      defaultFilterMethod={reactTableCustomFilterMethod}
       noDataText={REACT_TABLE_TEXT.NOTHING_FOUND[language]}
     />
   )

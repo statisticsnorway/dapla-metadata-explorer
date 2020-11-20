@@ -6,7 +6,7 @@ import { InfoText } from '@statisticsnorway/dapla-js-utilities'
 import AppSearch from './AppSearch'
 import { DomainsList } from './domains'
 import { LanguageContext, SchemasContext } from '../context/AppContext'
-import { HOME } from '../enums'
+import { HOME, TEST_IDS } from '../enums'
 
 function AppHome () {
   const { schemas } = useContext(SchemasContext)
@@ -75,6 +75,7 @@ function AppHome () {
             attached='bottom'
             onClick={() => setVisible(false)}
             style={{ width: '15%', left: '42.5%' }}
+            data-testid={TEST_IDS.HIDE_APP_HOME_BUTTON}
           />
         </div>
       </Transition>
@@ -83,6 +84,7 @@ function AppHome () {
         link
         size='big'
         name='bars'
+        data-testid={TEST_IDS.SHOW_APP_HOME_BUTTON}
         onClick={() => {
           setVisible(!visible)
           setBurgerVisible(false)

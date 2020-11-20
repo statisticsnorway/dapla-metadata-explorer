@@ -28,9 +28,9 @@ function DomainInstanceNew ({ isNew = true, data = {}, refetch = () => null }) {
 
   const { domain } = useParams()
 
-  const [id] = useState(isNew ? uuidv4() : data.id)
   const [saved, setSaved] = useState(false)
   const [edited, setEdited] = useState(false)
+  const [id] = useState(isNew ? uuidv4() : data.id)
   const [schema] = useState(getDomainSchema(domain, schemas))
   const [formHelpOpen, setFormHelpOpen] = useState(false)
   const [formConfiguration] = useState(convertSchemaToEdit({}, schema))

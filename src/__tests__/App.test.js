@@ -10,6 +10,8 @@ import { AppContextProvider } from '../context/AppContext'
 import { TEST_CONFIGURATIONS } from '../configurations'
 import { SETTINGS, TEST_IDS, UI } from '../enums'
 
+import Schemas from './test-data/Schemas.json'
+
 jest.mock('../components/AppHome', () => () => null)
 jest.mock('../components/domain/Domain', () => () => null)
 jest.mock('../components/domains/Import', () => () => null)
@@ -32,7 +34,7 @@ const setup = () => {
 
 describe('Common mock', () => {
   beforeEach(() => {
-    useAxios.mockReturnValue([{ loading: false, error: undefined, data: [] }])
+    useAxios.mockReturnValue([{ loading: false, error: undefined, data: Schemas }])
   })
 
   test('Renders basics', () => {

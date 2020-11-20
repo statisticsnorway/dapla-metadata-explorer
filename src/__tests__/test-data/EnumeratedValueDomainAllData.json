@@ -1,0 +1,244 @@
+[
+  {
+    "id": "29e2238b-1e5d-46cc-b9dc-1a0f5ec5060d",
+    "name": [
+      {
+        "languageCode": "nb",
+        "languageText": "Standard for kjønn"
+      },
+      {
+        "languageCode": "en",
+        "languageText": "Classification of sex"
+      }
+    ],
+    "description": [
+      {
+        "languageCode": "nb",
+        "languageText": "SSBs standardkoder for kjønn"
+      },
+      {
+        "languageCode": "en",
+        "languageText": "Statistics Norway's official sex codes."
+      }
+    ],
+    "administrativeStatus": "DRAFT",
+    "version": "1.0.5",
+    "versionValidFrom": "2020-11-16T15:51:57.035Z",
+    "validFrom": "1960-01-01T15:00:00.000Z",
+    "createdDate": "1985-01-01T15:00:00.000Z",
+    "createdBy": "OHV",
+    "dataType": "DATETIME",
+    "klassUrn": "klass:klassifikasjoner:2",
+    "lastUpdatedDate": "2020-11-16T15:51:57.035Z",
+    "lastUpdatedBy": "Magnus"
+  },
+  {
+    "id": "49796e15-26a2-420a-aa3b-35c9f72cd125",
+    "name": [
+      {
+        "languageCode": "nb",
+        "languageText": "Quality"
+      },
+      {
+        "languageCode": "en",
+        "languageText": "Classification of quality"
+      }
+    ],
+    "description": [
+      {
+        "languageCode": "nb",
+        "languageText": "SSBs standardkoder for kvalitet"
+      },
+      {
+        "languageCode": "en",
+        "languageText": "Statistics Norway's official quality codes."
+      }
+    ],
+    "administrativeStatus": "OPEN",
+    "version": "1.0.0",
+    "versionValidFrom": "1985-01-01T15:00:00.000Z",
+    "validFrom": "1960-01-01T15:00:00.000Z",
+    "createdDate": "1985-01-01T15:00:00.000Z",
+    "createdBy": "OHV",
+    "dataType": "STRING",
+    "klassUrn": "klass:klassifikasjoner:?"
+  },
+  {
+    "id": "5b30542b-3ed0-4136-8d1e-ebb5097d35af",
+    "name": [
+      {
+        "languageCode": "en",
+        "languageText": "Classification of municipalities"
+      }
+    ],
+    "description": [
+      {
+        "languageCode": "en",
+        "languageText": "Municipality is both a term for a political and an administrative level in Norway and a regional level in the publication of statistics."
+      }
+    ],
+    "administrativeStatus": "OPEN",
+    "version": "1.0.0",
+    "versionValidFrom": "1985-01-01T15:00:00.000Z",
+    "validFrom": "1985-01-01T15:00:00.000Z",
+    "createdDate": "1985-01-01T15:00:00.000Z",
+    "createdBy": "BNJ",
+    "dataType": "STRING",
+    "klassUrn": "klass:klassifikasjoner:131"
+  },
+  {
+    "id": "9096149f-2bc2-4be9-a190-435570ca924a",
+    "name": [
+      {
+        "languageCode": "nb",
+        "languageText": "Standard for sivilstand"
+      },
+      {
+        "languageCode": "en",
+        "languageText": "Marital status"
+      }
+    ],
+    "description": [
+      {
+        "languageCode": "nb",
+        "languageText": "Sivilstand brukt i befolkningsstatistikken"
+      },
+      {
+        "languageCode": "en",
+        "languageText": "Marital status used in population statistics"
+      }
+    ],
+    "administrativeStatus": "OPEN",
+    "version": "1.0.0",
+    "versionValidFrom": "1985-01-01T15:00:00.000Z",
+    "validFrom": "1985-01-01T15:00:00.000Z",
+    "createdDate": "1985-01-01T15:00:00.000Z",
+    "createdBy": "OHV",
+    "dataType": "STRING",
+    "klassUrn": "klass:klassifikasjoner:19"
+  },
+  {
+    "id": "a6f6d20d-e5eb-449b-8d52-b65c1b22c8ed",
+    "name": [
+      {
+        "languageCode": "nb",
+        "languageText": "Standard for gruppering av familier"
+      },
+      {
+        "languageCode": "en",
+        "languageText": "Classification of families"
+      }
+    ],
+    "description": [
+      {
+        "languageCode": "nb",
+        "languageText": "Standarden beskriver de ulike familitypene som i dag brukes i SSBs familistatistikk"
+      },
+      {
+        "languageCode": "en",
+        "languageText": "The classification describes the different types of families used in family statistics in Statistics Norway today."
+      }
+    ],
+    "administrativeStatus": "OPEN",
+    "version": "1.0.0",
+    "versionValidFrom": "1985-01-01T15:00:00.000Z",
+    "validFrom": "1985-01-01T15:00:00.000Z",
+    "createdDate": "1985-01-01T15:00:00.000Z",
+    "createdBy": "OHV",
+    "dataType": "STRING",
+    "klassUrn": "klass:klassifikasjoner:17"
+  },
+  {
+    "id": "c1a40b5c-f8d4-4ed8-b137-60afc71afa0c",
+    "name": [
+      {
+        "languageCode": "nb",
+        "languageText": "Sentinelle verdier"
+      },
+      {
+        "languageCode": "en",
+        "languageText": "Sentinal value"
+      }
+    ],
+    "description": [
+      {
+        "languageCode": "nb",
+        "languageText": "Sentinelle(Ikke substansielle) verdier"
+      },
+      {
+        "languageCode": "en",
+        "languageText": "Sentinal(non substansial) values"
+      }
+    ],
+    "administrativeStatus": "OPEN",
+    "version": "1.0.0",
+    "versionValidFrom": "1985-01-01T15:00:00.000Z",
+    "validFrom": "1985-01-01T15:00:00.000Z",
+    "createdDate": "1985-01-01T15:00:00.000Z",
+    "createdBy": "OHV",
+    "dataType": "STRING",
+    "klassUrn": "klass:klassifikasjoner:sentinelvalues"
+  },
+  {
+    "id": "d8358911-7f2d-45b6-83d0-9665e793448a",
+    "name": [
+      {
+        "languageCode": "nb",
+        "languageText": "Standard for gruppering av husholdninger"
+      },
+      {
+        "languageCode": "en",
+        "languageText": "Classification of households"
+      }
+    ],
+    "description": [
+      {
+        "languageCode": "nb",
+        "languageText": "Standarden beskriver de ulike husholdningstypene som i dag brukes i SSBs husholdningsstatistikk"
+      },
+      {
+        "languageCode": "en",
+        "languageText": "The classification describes the different types of households used in household statistics in Statistics Norway today"
+      }
+    ],
+    "administrativeStatus": "OPEN",
+    "version": "1.0.0",
+    "versionValidFrom": "1985-01-01T15:00:00.000Z",
+    "validFrom": "1985-01-01T15:00:00.000Z",
+    "createdDate": "1985-01-01T15:00:00.000Z",
+    "createdBy": "OHV",
+    "dataType": "STRING",
+    "klassUrn": "klass:klassifikasjoner:37"
+  },
+  {
+    "id": "e2db994a-c16a-45cf-92e6-e4f1e39581f4",
+    "name": [
+      {
+        "languageCode": "nb",
+        "languageText": "Standard for land og statsborgerskap i personstatistikk"
+      },
+      {
+        "languageCode": "en",
+        "languageText": "Classification of country and citizenship in population statistics"
+      }
+    ],
+    "description": [
+      {
+        "languageCode": "nb",
+        "languageText": "Standarden ble tatt i bruk i SSB i 1974/75. Da erstattet den ulike kodesett på ett eller to siffer. Standarden ble brukt både i folkeregistret og i befolkningsstatistikken. Etter 1975 har navn blitt endret, nye koder er lagt til og noen har utgått. Folkeregistreringssystemet ble skilt ut fra SSB i 1991, men beholdt kodene fra SSB-tida. Midt på 1990-tallet bestemte Sentralkontoret for folkeregistrering at det i folkeregisteret ikke skulle registreres andre land enn dem som har egen kode i ISO-standarden. I SSB har det imidlertid eksistert koder ut over det."
+      },
+      {
+        "languageCode": "en",
+        "languageText": "The standard classification was adopted in SSB in 1974/1975, replacing simplier code lists. Since 1975, names have been changed, new codes have been added and some have been discarded. The standard was used both in population registration and in the population statistics. The Office of the National Registrar was separated from SSB in 1991, but continued to use and maintain the code set from the SSB period. In the middle of the 1990s, a principle was introduced not to include country elements that did not exist in the ISO standard. Such codes have, however, continued to exist in SSB."
+      }
+    ],
+    "administrativeStatus": "OPEN",
+    "version": "1.0.0",
+    "versionValidFrom": "1985-01-01T15:00:00.000Z",
+    "validFrom": "1985-01-01T15:00:00.000Z",
+    "createdDate": "1985-01-01T15:00:00.000Z",
+    "createdBy": "OHV",
+    "dataType": "STRING",
+    "klassUrn": "klass:klassifikasjoner:91"
+  }
+]
