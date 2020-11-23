@@ -21,9 +21,9 @@ function AppMenu ({ setSettingsOpen, context }) {
         size={menuIsStuck ? 'large' : 'huge'}
         style={{
           padding: menuIsStuck ? 0 : '1rem',
-          backgroundColor: SSB_COLORS.BACKGROUND,
-          border: '1px solid rgba(34,36,38,.15)',
-          boxShadow: '0 1px 2px 0 rgba(34,36,38,.15)'
+          border: !menuIsStuck ? 'none' : '1px solid rgba(34,36,38,.15)',
+          backgroundColor: menuIsStuck ? '#FFFFFF' : SSB_COLORS.BACKGROUND,
+          boxShadow: !menuIsStuck ? 'none' : '0 1px 2px 0 rgba(34,36,38,.15)'
         }}
       >
         <Menu.Item>

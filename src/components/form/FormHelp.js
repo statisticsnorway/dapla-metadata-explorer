@@ -27,22 +27,22 @@ function FormHelp ({ open, setOpen, user }) {
           <Message style={{ opacity: '0.45' }} size='small' info content={FORM.EXAMPLE_MESSAGE[language]} />
           <Divider hidden style={{ marginBottom: '2rem' }} />
           <Form>
-            <Grid divided columns='equal'>
-              <Grid.Column verticalAlign='middle'>
+            <Grid divided>
+              <Grid.Column verticalAlign='middle' width={6}>
                 <Header size='tiny' disabled content={FORM.COLUMN_COMMON[language]} />
                 <Divider hidden />
                 <Form.Field disabled>
                   <Form.Input placeholder={FORM.EXAMPLE[language]} label={FORM.EXAMPLE[language]} />
                 </Form.Field>
               </Grid.Column>
-              <Grid.Column verticalAlign='middle'>
+              <Grid.Column verticalAlign='middle' width={6}>
                 <Header size='tiny' disabled content={FORM.COLUMN_UNIQUE[language]} />
                 <Divider hidden />
                 <Form.Field disabled>
                   <Form.Input required placeholder={FORM.EXAMPLE[language]} label={FORM.EXAMPLE[language]} />
                 </Form.Field>
               </Grid.Column>
-              <Grid.Column verticalAlign='middle'>
+              <Grid.Column verticalAlign='middle' width={4}>
                 <Header size='tiny' disabled content={FORM.COLUMN_AUTOFILLED[language]} />
                 <Divider hidden />
                 <Header disabled size='small'>{FORM.EXAMPLE_AUTOFILLED[language]}</Header>

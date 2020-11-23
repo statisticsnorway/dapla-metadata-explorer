@@ -1,6 +1,6 @@
 import React from 'react'
-import { Form } from 'semantic-ui-react'
-import { InfoPopup } from '@statisticsnorway/dapla-js-utilities'
+import { Form, Icon } from 'semantic-ui-react'
+import { InfoPopup, SSB_COLORS } from '@statisticsnorway/dapla-js-utilities'
 
 import FormInputBoolean from './FormInputBoolean'
 import FormInputUnkown from './FormInputUnkown'
@@ -50,7 +50,23 @@ function FormInputs ({ configuration, register, setValue, value }) {
 
   return (
     <Form.Field required={configuration.required}>
-      <InfoPopup text={configuration.description} trigger={<label>{camelToTitle(configuration.name)}</label>} />
+      <InfoPopup
+        text={configuration.description}
+        trigger={
+          <label>
+            {camelToTitle(configuration.name)}
+            {configuration.configuration.inputType === 'dropdown' &&
+            <Icon
+              name={
+                configuration.configuration.options.isLink ? 'linkify' :
+                  configuration.configuration.options.multiple ? 'tags' : 'tag'
+              }
+              style={{ marginLeft: '0.25rem', marginRight: 0, color: SSB_COLORS.GREY }}
+            />
+            }
+          </label>
+        }
+      />
       {input}
     </Form.Field>
   )

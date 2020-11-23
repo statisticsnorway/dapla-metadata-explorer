@@ -40,7 +40,7 @@ function App () {
     <>
       <AppMenu setSettingsOpen={setSettingsOpen} context={appRefArea} />
       <Ref innerRef={appRefArea}>
-        {loading ? <Loader active inline='centered' /> : !!error ?
+        {loading ? <Loader active inline='centered' /> : error ?
           <Segment basic><ErrorMessage error={UI.API_ERROR_MESSAGE[language]} language={language} /></Segment> : ready ?
             <Segment basic style={{ marginBottom: '2rem' }}>
               <AppHome />
@@ -59,7 +59,7 @@ function App () {
                 </Route>
               </Switch>
             </Segment>
-            : <ErrorMessage error={UI.ERROR_MESSAGE[language]} language={language} />
+            : <Segment basic />
         }
       </Ref>
       <AppSettings error={error} loading={loading} setOpen={setSettingsOpen} open={settingsOpen} />
