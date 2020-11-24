@@ -13,3 +13,9 @@ body {
 .ui.fullscreen.modal {
   left: 2.5% !important;
 }
+
+.ui.table thead tr:first-child > th {
+  position: sticky !important;
+  top: 3.5rem;
+  z-index: 2;
+}

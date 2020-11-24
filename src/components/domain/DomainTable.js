@@ -1,31 +1,49 @@
-import React, { useContext } from 'react'
-import ReactTable from 'react-table-6'
-import { REACT_TABLE_TEXT, reactTableCustomFilterMethod } from '@statisticsnorway/dapla-js-utilities'
+import React from 'react'
+import { Link } from 'react-router-dom'
+import { Table } from 'semantic-ui-react'
 
-import { LanguageContext } from '../../context/AppContext'
+import { camelToTitle } from '../../utilities'
+import { GSIM, ROUTING } from '../../configurations'
 
-function DomainTable ({ columns, data, loading }) {
-  const { language } = useContext(LanguageContext)
+function DomainTable ({ data, domain, tableHeaders }) {
+  const filteredTableHeaders = tableHeaders.filter(header => header !== GSIM.ID)
+
+  const sorter = (a, b) => {
+    if (filteredTableHeaders.indexOf(a[0]) < filteredTableHeaders.indexOf(b[0])) {
+      return -1
+    } else {
+      return 1
+    }
+  }
 
   return (
-    <ReactTable
-      sortable
-      filterable
-      data={data}
-      resizable={false}
-      columns={columns}
-      loading={loading}
-      defaultPageSize={20}
-      className='-highlight'
-      ofText={REACT_TABLE_TEXT.OF[language]}
-      nextText={REACT_TABLE_TEXT.NEXT[language]}
-      pageText={REACT_TABLE_TEXT.PAGE[language]}
-      rowsText={REACT_TABLE_TEXT.ROWS[language]}
-      loadingText={REACT_TABLE_TEXT.LOADING[language]}
-      previousText={REACT_TABLE_TEXT.PREVIOUS[language]}
-      defaultFilterMethod={reactTableCustomFilterMethod}
-      noDataText={REACT_TABLE_TEXT.NOTHING_FOUND[language]}
-    />
+    <Table celled selectable>
+      <Table.Header>
+        <Table.Row>
+          {filteredTableHeaders.map(header =>
+            <Table.HeaderCell key={header}>{camelToTitle(header)}</Table.HeaderCell>
+          )}
+        </Table.Row>
+      </Table.Header>
+      <Table.Body>
+        {data.map(row =>
+          <Table.Row key={row[GSIM.ID]}>
+            {Object.entries(row).filter(([key]) => filteredTableHeaders.includes(key)).sort(sorter)
+              .map(([key, value]) =>
+                <Table.Cell key={key}>
+                  {key === GSIM.NAME || key === GSIM.PROPERTY_DESCRIPTION ?
+                    <Link to={`${ROUTING.DOMAIN_BASE}${domain}/${row.id}`} style={{ color: 'inherit' }}>
+                      {value}
+                    </Link>
+                    : value
+                  }
+                </Table.Cell>
+              )
+            }
+          </Table.Row>
+        )}
+      </Table.Body>
+    </Table>
   )
 }
 

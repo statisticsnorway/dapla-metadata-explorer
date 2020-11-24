@@ -18,7 +18,7 @@ jest.mock('../components/domains/Import', () => () => null)
 jest.mock('../components/domain/DomainInstance', () => () => null)
 jest.mock('../components/domain/DomainInstanceNew', () => () => null)
 
-const { language, otherLanguage } = TEST_CONFIGURATIONS
+const { language, otherLanguage, errorString } = TEST_CONFIGURATIONS
 
 const setup = () => {
   const { getByTestId, getByText } = render(
@@ -58,6 +58,20 @@ describe('Common mock', () => {
 
     expect(getByText(SETTINGS.HEADER[language])).toBeInTheDocument()
   })
+})
+
+test('Loads', () => {
+  useAxios.mockReturnValue([{ loading: true, error: undefined, data: undefined }])
+
+  setup()
+})
+
+test('Shows error', () => {
+  useAxios.mockReturnValue([{ loading: false, error: errorString, data: undefined }])
+
+  const { getByText } = setup()
+
+  expect(getByText(UI.API_ERROR_MESSAGE[language])).toBeInTheDocument()
 })
 
 test('Handles undefined data', () => {

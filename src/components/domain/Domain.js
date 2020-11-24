@@ -7,7 +7,7 @@ import { ErrorMessage, InfoPopup, SSB_COLORS } from '@statisticsnorway/dapla-js-
 import { DomainTable, DomainTableHeaders } from './'
 import { ApiContext, LanguageContext, SchemasContext } from '../../context/AppContext'
 import { camelToTitle, getDomainDescription, getDomainSchema, mapDataToTable } from '../../utilities'
-import { API, GSIM, ROUTING, TABLE_HEADERS } from '../../configurations'
+import { API, GSIM, ROUTING, STORAGE } from '../../configurations'
 import { DOMAIN } from '../../enums'
 
 function Domain () {
@@ -18,16 +18,20 @@ function Domain () {
   const { domain } = useParams()
 
   const [tableData, setTableData] = useState([])
-  const [tableColumns, setTableColumns] = useState([])
   const [schema, setSchema] = useState(getDomainSchema(domain, schemas))
-  const [tableHeaders, setTableHeaders] = useState(GSIM.DEFAULT_TABLE_HEADERS)
-  const [truncationLength, setTruncationLength] = useState(200 / tableHeaders.length)
+  const [tableHeaders, setTableHeaders] = useState(
+    localStorage.hasOwnProperty(STORAGE.DOMAIN_TABLE_HEADERS(domain)) ?
+      localStorage.getItem(STORAGE.DOMAIN_TABLE_HEADERS(domain)).split(',') : GSIM.DEFAULT_TABLE_HEADERS
+  )
 
   const [{ data, loading, error }, refetch] = useAxios(`${ldsApi}${API.GET_DOMAIN_DATA(domain)}`, { useCache: false })
 
   useEffect(() => {
     try {
-      setTableHeaders(GSIM.DEFAULT_TABLE_HEADERS)
+      setTableHeaders(
+        localStorage.hasOwnProperty(STORAGE.DOMAIN_TABLE_HEADERS(domain)) ?
+          localStorage.getItem(STORAGE.DOMAIN_TABLE_HEADERS(domain)).split(',') : GSIM.DEFAULT_TABLE_HEADERS
+      )
       setSchema(getDomainSchema(domain, schemas))
     } catch (e) {
       console.log(e)
@@ -43,14 +47,6 @@ function Domain () {
       }
     }
   }, [data, error, loading, schema])
-
-  useEffect(() => {
-    try {
-      setTableColumns(TABLE_HEADERS(tableHeaders, schema, truncationLength, language))
-    } catch (e) {
-      console.log(e)
-    }
-  }, [language, schema, tableHeaders, truncationLength])
 
   return (
     <>
@@ -102,11 +98,10 @@ function Domain () {
         schema={schema}
         headers={tableHeaders}
         setHeaders={setTableHeaders}
-        setTrunc={setTruncationLength}
       />
       {loading ? <Loader active inline='centered' /> :
         error ? <ErrorMessage error={error} language={language} /> :
-          <DomainTable data={tableData} columns={tableColumns} />
+          <DomainTable data={tableData} domain={domain} tableHeaders={tableHeaders} />
       }
     </>
   )

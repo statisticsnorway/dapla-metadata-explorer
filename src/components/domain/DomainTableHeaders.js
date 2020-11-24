@@ -1,13 +1,13 @@
 import React, { useContext, useState } from 'react'
-import { Accordion, Checkbox, Divider, Grid, Header, Icon, Label, List, Segment } from 'semantic-ui-react'
-import { getNestedObject, InfoPopup, SSB_COLORS } from '@statisticsnorway/dapla-js-utilities'
+import { Accordion, Checkbox, Divider, Grid, Header, Icon, List, Segment } from 'semantic-ui-react'
+import { getNestedObject, InfoPopup, InfoText, SSB_COLORS } from '@statisticsnorway/dapla-js-utilities'
 
 import { LanguageContext } from '../../context/AppContext'
-import { DOMAIN_PROPERTY_GROUPING, GSIM } from '../../configurations'
+import { DOMAIN_PROPERTY_GROUPING, GSIM, STORAGE } from '../../configurations'
 import { DOMAIN, TEST_IDS } from '../../enums'
-import { camelToTitle } from '../../utilities'
+import { camelToTitle, getDomainRef } from '../../utilities'
 
-function DomainTableHeaders ({ headers, schema, setHeaders, setTrunc }) {
+function DomainTableHeaders ({ headers, schema, setHeaders }) {
   const { language } = useContext(LanguageContext)
 
   const [accordionOpen, setAccordionOpen] = useState(false)
@@ -19,24 +19,75 @@ function DomainTableHeaders ({ headers, schema, setHeaders, setTrunc }) {
       const filteredHeaders = headers.filter(element => element !== property)
 
       setHeaders(filteredHeaders)
-      setTrunc(200 / filteredHeaders.length)
+      localStorage.setItem(STORAGE.DOMAIN_TABLE_HEADERS(getDomainRef(schema)), filteredHeaders.join())
     } else {
       const newHeaders = headers.concat([property])
 
       setHeaders(newHeaders)
-      setTrunc(200 / newHeaders.length)
+      localStorage.setItem(STORAGE.DOMAIN_TABLE_HEADERS(getDomainRef(schema)), newHeaders.join())
     }
   }
 
   return (
-    <Accordion>
+    <Accordion styled fluid>
       <Accordion.Title active={accordionOpen} onClick={() => setAccordionOpen(!accordionOpen)}>
         <Icon name='dropdown' />
         {DOMAIN.ADJUST_TABLE_HEADERS[language]}
       </Accordion.Title>
       <Accordion.Content active={accordionOpen}>
-        <Segment>
-          <Label attached='bottom right' style={{ background: 'transparent' }}>
+        <Segment basic style={{ padding: 0, marginBottom: 0 }}>
+          <Grid columns='equal' divided>
+            {DOMAIN_PROPERTY_GROUPING.map(({ name, getName, description, test }) => {
+                const filteredProperties = properties.filter(([property]) => test(property) && property !== GSIM.ID)
+                const indexToSplit = Math.ceil(filteredProperties.length / 2)
+                const firstColumn = filteredProperties.slice(0, indexToSplit)
+                const secondColumn = filteredProperties.slice(indexToSplit)
+
+                return (
+                  <Grid.Column key={name}>
+                    <Header content={getName(language)} subheader={description(language)} />
+                    <Divider hidden />
+                    <Grid columns='equal'>
+                      {[firstColumn, secondColumn].map((column, index) =>
+                        <Grid.Column key={index}>
+                          <List>
+                            {column.filter(([property]) => test(property)).map(([property, object]) => {
+                                const includes = headers.includes(property)
+
+                                return (
+                                  <List.Item key={property}>
+                                    <InfoPopup
+                                      position='top left'
+                                      text={object.description}
+                                      trigger={
+                                        <Checkbox
+                                          key={property}
+                                          checked={includes}
+                                          label={camelToTitle(property)}
+                                          style={{ marginRight: '1rem' }}
+                                          onClick={() => handleCheckbox(includes, property)}
+                                        />
+                                      }
+                                    />
+                                  </List.Item>
+                                )
+                              }
+                            )}
+                          </List>
+                        </Grid.Column>
+                      )}
+                    </Grid>
+                  </Grid.Column>
+                )
+              }
+            )}
+          </Grid>
+        </Segment>
+        <Grid columns='equal'>
+          <Grid.Column>
+            <InfoText text={DOMAIN.COLUMN_CHOICE[language]} />
+          </Grid.Column>
+          <Grid.Column textAlign='right'>
             <InfoPopup
               position='left center'
               text={DOMAIN.RESET_HEADERS[language]}
@@ -50,61 +101,16 @@ function DomainTableHeaders ({ headers, schema, setHeaders, setTrunc }) {
                   data-testid={TEST_IDS.DEFAULT_TABLE_HEADERS}
                   onClick={() => {
                     setHeaders(GSIM.DEFAULT_TABLE_HEADERS)
-                    setTrunc(200 / GSIM.DEFAULT_TABLE_HEADERS.length)
+                    localStorage.setItem(
+                      STORAGE.DOMAIN_TABLE_HEADERS(getDomainRef(schema)),
+                      GSIM.DEFAULT_TABLE_HEADERS.join()
+                    )
                   }}
                 />
               }
             />
-          </Label>
-          <Grid columns='equal' divided>
-            {DOMAIN_PROPERTY_GROUPING.map(({ name, description, test }) => {
-                const filteredProperties = properties.filter(([property]) => test(property))
-                const indexToSplit = filteredProperties.length / 2
-                const firstColumn = filteredProperties.slice(0, indexToSplit)
-                const secondColumn = filteredProperties.slice(indexToSplit + 1)
-
-                return (
-                  <Grid.Column key={name}>
-                    <InfoPopup
-                      text={description(language)}
-                      trigger={<Header content={name} />}
-                    />
-                    <Grid columns='equal'>
-                      {[firstColumn, secondColumn].map((column, index) =>
-                        <Grid.Column key={index}>
-                          <List>
-                            {column.filter(([property]) => test(property)).map(([property, object]) => {
-                                const includes = headers.includes(property)
-
-                                return property === GSIM.ID ? null :
-                                  <List.Item key={property}>
-                                    <InfoPopup
-                                      position='top left'
-                                      text={object.description}
-                                      trigger={
-                                        <Checkbox
-                                          key={property}
-                                          label={camelToTitle(property)}
-                                          checked={includes}
-                                          style={{ marginRight: '1rem' }}
-                                          onClick={() => handleCheckbox(includes, property)}
-                                        />
-                                      }
-                                    />
-                                  </List.Item>
-                              }
-                            )}
-                          </List>
-                        </Grid.Column>
-                      )}
-                    </Grid>
-                  </Grid.Column>
-                )
-              }
-            )}
-          </Grid>
-        </Segment>
-        <Divider hidden style={{ marginBottom: 0 }} />
+          </Grid.Column>
+        </Grid>
       </Accordion.Content>
     </Accordion>
   )

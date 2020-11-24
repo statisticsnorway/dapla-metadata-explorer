@@ -1,9 +1,10 @@
-import React, { useContext, useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useContext, useEffect, useState } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import { Dropdown, Header, Icon, Image, Menu, Sticky } from 'semantic-ui-react'
 import { LANGUAGE, SSB_COLORS, ssb_logo_rgb } from '@statisticsnorway/dapla-js-utilities'
 
 import { ApiContext, LanguageContext, UserContext } from '../context/AppContext'
+import { camelToTitle } from '../utilities'
 import { API, ROUTING, STORAGE } from '../configurations'
 import { TEST_IDS, UI } from '../enums'
 
@@ -12,7 +13,18 @@ function AppMenu ({ setSettingsOpen, context }) {
   const { ldsApi, apiReadOnly } = useContext(ApiContext)
   const { language, setLanguage } = useContext(LanguageContext)
 
+  const { pathname } = useLocation()
+
   const [menuIsStuck, setMenuIsStuck] = useState(false)
+  const [whereAmI, setWhereAmI] = useState('')
+
+  useEffect(() => {
+    if (pathname.startsWith(ROUTING.DOMAIN_BASE)) {
+      setWhereAmI(camelToTitle(pathname.split('/')[2]))
+    } else {
+      setWhereAmI('')
+    }
+  }, [pathname])
 
   return (
     <Sticky onUnstick={() => setMenuIsStuck(false)} onStick={() => setMenuIsStuck(true)} context={context}>
@@ -30,7 +42,10 @@ function AppMenu ({ setSettingsOpen, context }) {
           <Image size={menuIsStuck ? 'small' : 'medium'} src={ssb_logo_rgb} />
         </Menu.Item>
         <Menu.Item>
-          <Header size={menuIsStuck ? 'medium' : 'huge'} content={UI.HEADER[language]} />
+          <Header
+            size={menuIsStuck ? 'medium' : 'huge'}
+            content={`${UI.HEADER[language]}${menuIsStuck && whereAmI !== '' ? ` (${whereAmI})` : ''}`}
+          />
         </Menu.Item>
         <Menu.Menu position='right'>
           <Menu.Item>

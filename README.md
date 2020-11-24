@@ -25,12 +25,10 @@ Run `yarn start` and navigate to `http://localhost:3000`.
 * Navigate to `http://localhost:8000`
 
 **Note** that this application requires [dapla-project localstack](https://github.com/statisticsnorway/dapla-project/blob/master/localstack/README.md)
-running to function locally (or atleast a running instance of [linked-data-store](https://github.com/statisticsnorway/linked-data-store-documentation)).
+running to function locally (or at least a running instance of [linked-data-store](https://github.com/statisticsnorway/linked-data-store-documentation)).
 
 ### TODO
 * Show the number instances of a domain stored in LDS
-* User friendlier table
-* Make form for editing
+* User friendlier table (like reacting to language change etc.)
 * Input validations
 * General refactoring (smaller functions)
-* Write tests
