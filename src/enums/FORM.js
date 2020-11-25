@@ -52,8 +52,8 @@ export const FORM = {
     nb: 'Annen informasjon:'
   },
   POPUP: {
-    en: 'All labels on fields can show a description of that field if you hover the mouse over the label.',
-    nb: 'Alle titlene på inndatafeltene kan vise en beskrivelse av det feltet hvis du holder musen over tittelen.'
+    en: 'All labels on fields can show a description of that field if you hover over the label.',
+    nb: 'Alle titlene på inndatafeltene kan vise en beskrivelse av det feltet hvis du holder musepekeren over tittelen.'
   },
   REQUIRED: {
     en: 'means that a field is required, like you can see in the example above in the middle column',

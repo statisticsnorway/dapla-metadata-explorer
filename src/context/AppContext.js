@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
-import { ClientContext, GraphQLClient } from 'graphql-hooks'
 import { LANGUAGE } from '@statisticsnorway/dapla-js-utilities'
 
-import { API, STORAGE } from '../configurations'
+import { STORAGE } from '../configurations'
 
 export const ApiContext = React.createContext({ ldsApi: window._env.REACT_APP_EXPLORATION_LDS })
 
@@ -19,19 +18,15 @@ export const AppContextProvider = (props) => {
   const [language, setLanguage] = useState(localStorage.hasOwnProperty(STORAGE.LANGUAGE) ? localStorage.getItem(STORAGE.LANGUAGE) : LANGUAGE.LANGUAGES.NORWEGIAN.languageCode)
   const [apiReadOnly, setApiReadOnly] = useState(ldsApi === window._env.REACT_APP_EXPLORATION_LDS)
 
-  const graphqlClient = new GraphQLClient({ url: `${ldsApi}${API.GRAPHQL}` })
-
   return (
-    <ClientContext.Provider value={graphqlClient}>
-      <UserContext.Provider value={{ user, setUser }}>
-        <ApiContext.Provider value={{ ldsApi, setLdsApi, apiReadOnly, setApiReadOnly }}>
-          <LanguageContext.Provider value={{ language, setLanguage }}>
-            <SchemasContext.Provider value={{ schemas, setSchemas }}>
-              {props.children}
-            </SchemasContext.Provider>
-          </LanguageContext.Provider>
-        </ApiContext.Provider>
-      </UserContext.Provider>
-    </ClientContext.Provider>
+    <UserContext.Provider value={{ user, setUser }}>
+      <ApiContext.Provider value={{ ldsApi, setLdsApi, apiReadOnly, setApiReadOnly }}>
+        <LanguageContext.Provider value={{ language, setLanguage }}>
+          <SchemasContext.Provider value={{ schemas, setSchemas }}>
+            {props.children}
+          </SchemasContext.Provider>
+        </LanguageContext.Provider>
+      </ApiContext.Provider>
+    </UserContext.Provider>
   )
 }

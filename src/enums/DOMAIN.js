@@ -1,7 +1,11 @@
 export const DOMAIN = {
   ADJUST_TABLE_HEADERS: {
-    en: 'Adjust table headers',
-    nb: 'Velg tabellkolonner'
+    en: 'Hide/show table headers adjustment',
+    nb: 'Skjul/vis tabellkolonnevalg'
+  },
+  AUTOFILLED_NAME: {
+    en: 'Autofilled',
+    nb: 'Autofylte'
   },
   AUTOFILLED_PROPERTIES: {
     en: 'Domain properties which values are autofilled when actions are taken',
@@ -10,6 +14,14 @@ export const DOMAIN = {
   BACK_TO_LIST: {
     en: 'Go back to the list of ',
     nb: 'Gå tilbake til listen over '
+  },
+  COLUMN_CHOICE: {
+    en: 'Table header choices are remembered between sessions and is set for each domain individually',
+    nb: 'Tabellkolonnevalg huskes mellom sesjoner og settes individuelt for hvert domene'
+  },
+  COMMON_NAME: {
+    en: 'Common',
+    nb: 'Felles'
   },
   COMMON_PROPERTIES: {
     en: 'Domain properties common across all domains',
@@ -46,6 +58,10 @@ export const DOMAIN = {
   SUCCESS: {
     en: 'Success',
     nb: 'Suksess'
+  },
+  UNIQUE_NAME: {
+    en: 'Unique',
+    nb: 'Unike'
   },
   UNIQUE_PROPERTIES: {
     en: 'Domain properties unique for this domain',

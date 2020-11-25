@@ -2,7 +2,6 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter as Router } from 'react-router-dom'
 import 'semantic-ui-css/semantic.min.css'
-import 'react-table-6/react-table.css'
 
 import './index.css'
 import { AppContextProvider } from './context/AppContext'

@@ -1,9 +1,10 @@
-import React, { useContext, useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useContext, useEffect, useState } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import { Dropdown, Header, Icon, Image, Menu, Sticky } from 'semantic-ui-react'
 import { LANGUAGE, SSB_COLORS, ssb_logo_rgb } from '@statisticsnorway/dapla-js-utilities'
 
 import { ApiContext, LanguageContext, UserContext } from '../context/AppContext'
+import { camelToTitle } from '../utilities'
 import { API, ROUTING, STORAGE } from '../configurations'
 import { TEST_IDS, UI } from '../enums'
 
@@ -12,7 +13,18 @@ function AppMenu ({ setSettingsOpen, context }) {
   const { ldsApi, apiReadOnly } = useContext(ApiContext)
   const { language, setLanguage } = useContext(LanguageContext)
 
+  const { pathname } = useLocation()
+
   const [menuIsStuck, setMenuIsStuck] = useState(false)
+  const [whereAmI, setWhereAmI] = useState('')
+
+  useEffect(() => {
+    if (pathname.startsWith(ROUTING.DOMAIN_BASE)) {
+      setWhereAmI(camelToTitle(pathname.split('/')[2]))
+    } else {
+      setWhereAmI('')
+    }
+  }, [pathname])
 
   return (
     <Sticky onUnstick={() => setMenuIsStuck(false)} onStick={() => setMenuIsStuck(true)} context={context}>
@@ -21,16 +33,19 @@ function AppMenu ({ setSettingsOpen, context }) {
         size={menuIsStuck ? 'large' : 'huge'}
         style={{
           padding: menuIsStuck ? 0 : '1rem',
-          backgroundColor: SSB_COLORS.BACKGROUND,
-          border: '1px solid rgba(34,36,38,.15)',
-          boxShadow: '0 1px 2px 0 rgba(34,36,38,.15)'
+          border: !menuIsStuck ? 'none' : '1px solid rgba(34,36,38,.15)',
+          backgroundColor: menuIsStuck ? '#FFFFFF' : SSB_COLORS.BACKGROUND,
+          boxShadow: !menuIsStuck ? 'none' : '0 1px 2px 0 rgba(34,36,38,.15)'
         }}
       >
         <Menu.Item>
           <Image size={menuIsStuck ? 'small' : 'medium'} src={ssb_logo_rgb} />
         </Menu.Item>
         <Menu.Item>
-          <Header size={menuIsStuck ? 'medium' : 'huge'} content={UI.HEADER[language]} />
+          <Header
+            size={menuIsStuck ? 'medium' : 'huge'}
+            content={`${UI.HEADER[language]}${menuIsStuck && whereAmI !== '' ? ` (${whereAmI})` : ''}`}
+          />
         </Menu.Item>
         <Menu.Menu position='right'>
           <Menu.Item>
