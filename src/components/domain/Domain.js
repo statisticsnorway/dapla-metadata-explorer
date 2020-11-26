@@ -24,6 +24,7 @@ function Domain () {
   const { domain } = useParams()
 
   const [tableData, setTableData] = useState([])
+  const [tableFilterValue, setTableFilterValue] = useState('')
   const [schema, setSchema] = useState(getDomainSchema(domain, schemas))
   const [tableHeaders, setTableHeaders] = useState(
     localStorage.hasOwnProperty(STORAGE.DOMAIN_TABLE_HEADERS(domain)) ?
@@ -39,6 +40,7 @@ function Domain () {
           localStorage.getItem(STORAGE.DOMAIN_TABLE_HEADERS(domain)).split(',') : GSIM.DEFAULT_TABLE_HEADERS
       )
       setSchema(getDomainSchema(domain, schemas))
+      setTableFilterValue('')
     } catch (e) {
       console.log(e)
     }
@@ -48,6 +50,7 @@ function Domain () {
     if (!loading && !error && data !== undefined) {
       try {
         setTableData(mapDataToTable(data, schema))
+        setTableFilterValue('')
       } catch (e) {
         console.log(e)
       }
@@ -68,6 +71,8 @@ function Domain () {
         getLocalizedGsimObjectText(LANGUAGE.LANGUAGES.ENGLISH.languageCode, element.name).toUpperCase().startsWith(value.toUpperCase())
       ), schema))
     }
+
+    setTableFilterValue(value)
   }
 
   return (
@@ -85,7 +90,12 @@ function Domain () {
             position='right center'
             text={DOMAIN.SEARCH_TABLE_INFO[language]}
             trigger={
-              <Input icon='search' placeholder={DOMAIN.SEARCH_TABLE[language]} onChange={handleTableFilter} />
+              <Input
+                icon='search'
+                value={tableFilterValue}
+                placeholder={DOMAIN.SEARCH_TABLE[language]}
+                onChange={handleTableFilter}
+              />
             }
           />
         </Grid.Column>
@@ -112,11 +122,14 @@ function Domain () {
               <Icon
                 link
                 size='large'
-                onClick={refetch}
                 loading={loading}
                 disabled={loading}
                 name='sync alternate'
                 style={{ color: SSB_COLORS.BLUE }}
+                onClick={() => {
+                  refetch()
+                  setTableFilterValue('')
+                }}
               />
             }
           />
