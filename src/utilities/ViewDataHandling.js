@@ -193,7 +193,7 @@ export const convertDataToView = (data, schema) => {
 
   return Object.entries(properties).reduce((accumulator, [property]) => {
     if (!property.startsWith(GSIM.LINK_TYPE)) {
-      let newProperty = {
+      const newProperty = {
         name: property,
         description: properties[property][GSIM.PROPERTY_DESCRIPTION],
         value: null
@@ -242,8 +242,8 @@ export const convertDataToView = (data, schema) => {
 }
 
 export const mapDataToTable = (data, schema) => {
-  return data.map(item => {
-    const values = convertDataToView(item, schema)
+  return data.map(element => {
+    const values = convertDataToView(element, schema)
 
     return Object.entries(values).reduce((accumulator, [property, item]) => {
       accumulator[property] = item.value

@@ -40,7 +40,8 @@ const handleArrayForEdit = (array, configuration, properties, property, schema) 
 
   if (configuration.refProperty) {
     if (configuration.refName === GSIM_DEFINITIONS.MULTILINGUAL_TEXT.NAME) {
-      const keyRef = configuration.refProperty[GSIM.PROPERTIES_ELEMENT][GSIM_DEFINITIONS.MULTILINGUAL_TEXT.PROPERTIES.LANGUAGE_CODE][GSIM.SCHEMA.REF].replace(GSIM.SCHEMA.DEFINITIONS, '')
+      const keyRef = configuration.refProperty[GSIM.PROPERTIES_ELEMENT][GSIM_DEFINITIONS.MULTILINGUAL_TEXT.PROPERTIES.LANGUAGE_CODE][GSIM.SCHEMA.REF]
+        .replace(GSIM.SCHEMA.DEFINITIONS, '')
       inputType = 'keyValueInput'
       options.key = {
         name: GSIM_DEFINITIONS.MULTILINGUAL_TEXT.PROPERTIES.LANGUAGE_CODE,
@@ -171,7 +172,9 @@ export const convertSchemaToEdit = (data, schema) => {
 
       switch (configuration.type) {
         case GSIM_PROPERTY_TYPES.TYPES.ARRAY:
-          newProperty.configuration = handleArrayForEdit(data.hasOwnProperty(property) ? data[property] : null, configuration, properties, property, schema)
+          newProperty.configuration = handleArrayForEdit(
+            data.hasOwnProperty(property) ? data[property] : null, configuration, properties, property, schema
+          )
           break
 
         case GSIM_PROPERTY_TYPES.TYPES.BOOLEAN:

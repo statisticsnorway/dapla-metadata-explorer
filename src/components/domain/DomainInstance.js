@@ -72,8 +72,8 @@ function DomainInstance () {
         error ? <ErrorMessage error={error} language={language} /> : ready &&
           <Grid columns='equal' divided>
             <Grid.Row>
-              {DOMAIN_PROPERTY_GROUPING.map(({ name, test }) =>
-                <Grid.Column key={name}>
+              {DOMAIN_PROPERTY_GROUPING.map(({ id, test }) =>
+                <Grid.Column key={id}>
                   <Grid divided>
                     {ready && properties.filter(([property]) => test(property)).map(([property]) => {
                         const { description, name, value } = domainInstanceData[property]

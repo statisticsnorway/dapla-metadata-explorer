@@ -16,12 +16,12 @@ export const getDomainDescription = schema => {
 }
 
 export const getDomainSchema = (domain, schemas) => Object.entries(schemas.groups).reduce((accumulator, group) => {
-  const getSchema = group[1].reduce((accumulator, schema) => {
+  const getSchema = group[1].reduce((groupAccumulator, schema) => {
     if (getDomainRef(schema) === domain) {
-      accumulator = schema
+      groupAccumulator = schema
     }
 
-    return accumulator
+    return groupAccumulator
   }, {})
 
   if (Object.entries(getSchema).length !== 0 && getSchema.constructor === Object) {
