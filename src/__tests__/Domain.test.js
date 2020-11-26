@@ -33,7 +33,7 @@ const objectProperty = camelToTitle('typeOfStatisticalUnit')
 const modelObject = getNestedObject(Schemas[9], ['definitions', domain, 'description'])
 
 const setup = () => {
-  const { getAllByText, getByTestId, getByText } = render(
+  const { getAllByText, getByPlaceholderText, getByTestId, getByText, queryAllByText } = render(
     <ApiContext.Provider value={apiContext(window._env.REACT_APP_EXPLORATION_LDS, jest.fn(), jest.fn())}>
       <LanguageContext.Provider value={{ language: language }}>
         <SchemasContext.Provider value={{ schemas: sortedSchemas }}>
@@ -45,7 +45,7 @@ const setup = () => {
     </ApiContext.Provider>
   )
 
-  return { getAllByText, getByTestId, getByText }
+  return { getAllByText, getByPlaceholderText, getByTestId, getByText, queryAllByText }
 }
 
 describe('Common mock', () => {
@@ -95,5 +95,13 @@ describe('Common mock', () => {
     userEvent.click(getByTestId(TEST_IDS.DEFAULT_TABLE_HEADERS))
 
     expect(getAllByText(objectProperty)).toHaveLength(1)
+  })
+
+  test('Filters table correctly', () => {
+    const { getByPlaceholderText, queryAllByText } = setup()
+
+    userEvent.type(getByPlaceholderText(DOMAIN.SEARCH_TABLE[language]), 'Kommune')
+
+    expect(queryAllByText('Person')).toHaveLength(0)
   })
 })

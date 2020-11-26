@@ -29,6 +29,5 @@ running to function locally (or at least a running instance of [linked-data-stor
 
 ### TODO
 * Show the number instances of a domain stored in LDS
-* User friendlier table (like reacting to language change etc.)
 * Input validations
 * General refactoring (smaller functions)
