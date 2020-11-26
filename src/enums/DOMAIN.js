@@ -55,6 +55,14 @@ export const DOMAIN = {
     en: 'Save',
     nb: 'Lagre'
   },
+  SEARCH_TABLE: {
+    en: 'Search table',
+    nb: 'Søk i tabellen'
+  },
+  SEARCH_TABLE_INFO: {
+    en: 'Filters by the \'Name\' column (matches all languages)',
+    nb: 'Filtrerer på \'Name\' i tabellen (matcher alle språk)'
+  },
   SUCCESS: {
     en: 'Success',
     nb: 'Suksess'

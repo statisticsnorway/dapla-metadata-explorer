@@ -42,7 +42,7 @@ function App () {
       <Ref innerRef={appRefArea}>
         {loading ? <Loader active inline='centered' /> : error ?
           <Segment basic><ErrorMessage error={UI.API_ERROR_MESSAGE[language]} language={language} /></Segment> : ready ?
-            <Segment basic style={{ marginBottom: '2rem' }}>
+            <Segment basic style={{ paddingBottom: '5rem' }}>
               <AppHome />
               <Switch>
                 <Route path={ROUTING.DOMAIN_INSTANCE_NEW}>

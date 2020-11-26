@@ -1,8 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react'
 import useAxios from 'axios-hooks'
 import { Link, useParams } from 'react-router-dom'
-import { Button, Divider, Grid, Header, Icon, Loader } from 'semantic-ui-react'
-import { ErrorMessage, InfoPopup, SSB_COLORS } from '@statisticsnorway/dapla-js-utilities'
+import { Button, Divider, Grid, Header, Icon, Input, Loader } from 'semantic-ui-react'
+import {
+  ErrorMessage,
+  getLocalizedGsimObjectText,
+  InfoPopup,
+  LANGUAGE,
+  SSB_COLORS
+} from '@statisticsnorway/dapla-js-utilities'
 
 import { DomainTable, DomainTableHeaders } from './'
 import { ApiContext, LanguageContext, SchemasContext } from '../../context/AppContext'
@@ -48,6 +54,22 @@ function Domain () {
     }
   }, [data, error, loading, schema])
 
+  const handleTableFilter = (e, { value }) => {
+    if (value.length >= 2) {
+      setTableData(mapDataToTable(data.filter(element =>
+        getLocalizedGsimObjectText(LANGUAGE.LANGUAGES.NORWEGIAN.languageCode, element.name).toUpperCase().includes(value.toUpperCase())
+        ||
+        getLocalizedGsimObjectText(LANGUAGE.LANGUAGES.ENGLISH.languageCode, element.name).toUpperCase().includes(value.toUpperCase())
+      ), schema))
+    } else {
+      setTableData(mapDataToTable(data.filter(element =>
+        getLocalizedGsimObjectText(LANGUAGE.LANGUAGES.NORWEGIAN.languageCode, element.name).toUpperCase().startsWith(value.toUpperCase())
+        ||
+        getLocalizedGsimObjectText(LANGUAGE.LANGUAGES.ENGLISH.languageCode, element.name).toUpperCase().startsWith(value.toUpperCase())
+      ), schema))
+    }
+  }
+
   return (
     <>
       <Grid columns='equal'>
@@ -57,6 +79,14 @@ function Domain () {
             content={camelToTitle(domain)}
             subheader={getDomainDescription(schema)}
             icon={{ name: 'list alternate outline', style: { color: SSB_COLORS.BLUE } }}
+          />
+          <Divider hidden />
+          <InfoPopup
+            position='right center'
+            text={DOMAIN.SEARCH_TABLE_INFO[language]}
+            trigger={
+              <Input icon='search' placeholder={DOMAIN.SEARCH_TABLE[language]} onChange={handleTableFilter} />
+            }
           />
         </Grid.Column>
         <Grid.Column textAlign='right'>
