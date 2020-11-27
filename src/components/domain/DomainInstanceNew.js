@@ -195,7 +195,7 @@ function DomainInstanceNew ({ isNew = true, data = {}, refetch = () => null }) {
           <Message.Header>
             {DOMAIN.SUCCESS[language]}
           </Message.Header>
-          {`${DOMAIN.WAS_SAVED[language]} `}
+          {DOMAIN.WAS_SAVED[language]}
           <br />
           {isNew &&
           <>

@@ -33,7 +33,8 @@ const modelObject = getNestedObject(Schemas[6], ['definitions', domain, 'descrip
 const setup = () => {
   const { getByText } = render(
     <UserContext.Provider value={userContext(jest.fn())}>
-      <ApiContext.Provider value={apiContext(window._env.REACT_APP_CONCEPT_LDS, jest.fn(), jest.fn(), false)}>
+      <ApiContext.Provider
+        value={apiContext(window._env.REACT_APP_CONCEPT_LDS, jest.fn(), jest.fn(), jest.fn(), false)}>
         <LanguageContext.Provider value={{ language: language }}>
           <SchemasContext.Provider value={{ schemas: sortedSchemas }}>
             <MemoryRouter initialEntries={[`${ROUTING.DOMAIN_BASE}${domain}/new`]}>
