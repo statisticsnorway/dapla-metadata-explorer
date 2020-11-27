@@ -23,6 +23,8 @@ jest.mock('react-router-dom', () => ({
 
 jest.mock('../components/domain/DomainLinkResolve', () => () => null)
 jest.mock('../components/domain/DomainInstanceEdit', () => () => null)
+jest.mock('../components/domain/DomainInstanceGraph', () => () => null)
+jest.mock('../components/domain/DomainInstanceDelete', () => () => null)
 
 const { language, apiContext } = TEST_CONFIGURATIONS
 
@@ -33,7 +35,7 @@ const sortedSchemas = sortSchemas(Schemas)
 
 const setup = () => {
   const { getAllByText, getByText } = render(
-    <ApiContext.Provider value={apiContext(window._env.REACT_APP_EXPLORATION_LDS, jest.fn(), jest.fn())}>
+    <ApiContext.Provider value={apiContext(window._env.REACT_APP_EXPLORATION_LDS, jest.fn(), jest.fn(), jest.fn())}>
       <LanguageContext.Provider value={{ language: language }}>
         <SchemasContext.Provider value={{ schemas: sortedSchemas }}>
           <MemoryRouter initialEntries={[`${ROUTING.DOMAIN_BASE}${domain}/${domainId}`]}>

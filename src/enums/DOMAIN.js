@@ -15,6 +15,10 @@ export const DOMAIN = {
     en: 'Go back to the list of ',
     nb: 'Gå tilbake til listen over '
   },
+  CANCEL_DELETE: {
+    en: 'No, cancel delete!',
+    nb: 'Nei, ikke slett!'
+  },
   COLUMN_CHOICE: {
     en: 'Table header choices are remembered between sessions and is set for each domain individually',
     nb: 'Tabellkolonnevalg huskes mellom sesjoner og settes individuelt for hvert domene'
@@ -27,10 +31,34 @@ export const DOMAIN = {
     en: 'Domain properties common across all domains',
     nb: 'Domeneattributter felles for alle domeneobjekter'
   },
+  CONNECTIONS: {
+    en: 'Connections',
+    nb: 'Koblinger'
+  },
+  CONNECTIONS_HEADER: {
+    en: 'Connections for',
+    nb: 'Koblinger for'
+  },
+  CONFIRM_DELETE: {
+    en: 'Yes, I am sure!',
+    nb: 'Ja, jeg er sikker!'
+  },
   CREATE_NEW: {
     en: 'Create new',
     nb: 'Opprett ny'
   },
+  DELETE: {
+    en: 'Delete',
+    nb: 'Slett'
+  },
+  DELETE_CONFIRM_MESSAGE: {
+    en: 'Are you sure?',
+    nb: 'Er du sikker?'
+  },
+  DELETE_HEADER: (domain, name) => ({
+    en: `Deletion of '${name}' (${domain})`,
+    nb: `Sletting av '${name}' (${domain})`
+  }),
   GET_JSON: {
     en: 'Download JSON',
     nb: 'Last ned JSON'
@@ -74,6 +102,10 @@ export const DOMAIN = {
   UNIQUE_PROPERTIES: {
     en: 'Domain properties unique for this domain',
     nb: 'Domeneattributter som er unike for dette domene'
+  },
+  WAS_DELETED: {
+    en: 'Domain was deleted!',
+    nb: 'Domene ble slettet!'
   },
   WAS_EDITED: {
     en: 'You have unsaved changes',

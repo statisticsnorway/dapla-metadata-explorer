@@ -8,8 +8,23 @@ function FormKeyValueInput ({ configuration, register, setValue, value }) {
 
   const [defaultActiveIndex, setDefaultActiveIndex] = useState(1)
 
-  const handleChange = (e, { value }, key) => {
-    setValue(configuration.name, [{ languageCode: key, languageText: value }], { shouldDirty: true })
+  const handleChange = (e, data, key) => {
+    const keyName = configuration.configuration.options.key.name
+    const valueName = configuration.configuration.options.value.name
+
+    const objectIndex = value.findIndex((object => object[keyName] === key))
+
+    if (objectIndex === -1) {
+      value.push({ [keyName]: key, [valueName]: data.value })
+    } else {
+      if (data.value === '') {
+        value.splice(objectIndex, 1)
+      } else {
+        value[objectIndex][valueName] = data.value
+      }
+    }
+
+    setValue(configuration.name, value, { shouldDirty: true })
   }
 
   useEffect(() => {
@@ -32,8 +47,10 @@ function FormKeyValueInput ({ configuration, register, setValue, value }) {
         content: (
           <Form.TextArea
             defaultValue={
-              value ? value.filter(languageObject => languageObject.languageCode === keyValue).length !== 0 ?
-                value.filter(languageObject => languageObject.languageCode === keyValue)[0].languageText : '' : ''
+              value ?
+                value.filter(object => object[configuration.configuration.options.key.name] === keyValue).length !== 0 ?
+                  value.filter(object => object[configuration.configuration.options.key.name] === keyValue)[0].languageText
+                  : '' : ''
             }
             placeholder={configuration.configuration.options.value.name}
             onChange={(e, data) => handleChange(e, data, keyValue)}

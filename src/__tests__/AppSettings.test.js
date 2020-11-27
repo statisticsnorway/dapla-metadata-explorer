@@ -11,12 +11,13 @@ import { SETTINGS } from '../enums'
 const { language, apiContext, userContext } = TEST_CONFIGURATIONS
 const setUser = jest.fn()
 const setLdsApi = jest.fn()
+const setGraphqlApi = jest.fn()
 const setApiReadOnly = jest.fn()
 
 const setup = initialApi => {
   const { getByPlaceholderText, getByText } = render(
     <UserContext.Provider value={userContext(setUser)}>
-      <ApiContext.Provider value={apiContext(initialApi, setLdsApi, setApiReadOnly)}>
+      <ApiContext.Provider value={apiContext(initialApi, setLdsApi, setApiReadOnly, setGraphqlApi)}>
         <LanguageContext.Provider value={{ language: language }}>
           <MemoryRouter initialEntries={['/']}>
             <AppSettings error={undefined} loading={false} open={true} setOpen={jest.fn()} />
