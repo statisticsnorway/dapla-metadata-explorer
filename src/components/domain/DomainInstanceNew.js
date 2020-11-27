@@ -125,27 +125,6 @@ function DomainInstanceNew ({ isNew = true, data = {}, refetch = () => null }) {
         </Grid.Column>
       </Grid>
       {edited && <Message warning content={DOMAIN.WAS_EDITED[language]} />}
-      {error && <ErrorMessage error={error} language={language} />}
-      {saved &&
-      <Message icon success>
-        <Icon name='check' style={{ color: SSB_COLORS.GREEN }} />
-        <Message.Content>
-          <Message.Header>
-            {DOMAIN.SUCCESS[language]}
-          </Message.Header>
-          {`${DOMAIN.WAS_SAVED[language]} `}
-          {isNew &&
-          <>
-            <Link to={`${ROUTING.DOMAIN_BASE}${domain}/${id}`}>{`${DOMAIN.JUMP_TO_SAVED[language]}`}</Link>
-            <br />
-          </>
-          }
-          <Link to={`${ROUTING.DOMAIN_BASE}${domain}`}>{
-            `${DOMAIN.BACK_TO_LIST[language]} '${camelToTitle(domain)}'`}
-          </Link>
-        </Message.Content>
-      </Message>
-      }
       <Divider hidden />
       <Form size='large' onSubmit={handleSubmit(onSubmit)}>
         <Grid divided>
@@ -198,7 +177,7 @@ function DomainInstanceNew ({ isNew = true, data = {}, refetch = () => null }) {
               type='submit'
               disabled={loading || !edited || apiReadOnly}
               style={{ backgroundColor: SSB_COLORS.BLUE }}
-              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              onClick={() => window.scrollTo({ bottom: 0, behavior: 'smooth' })}
             >
               <Icon name='save' style={{ paddingRight: '0.5rem' }} />
               {DOMAIN.SAVE[language]}
@@ -206,6 +185,30 @@ function DomainInstanceNew ({ isNew = true, data = {}, refetch = () => null }) {
           </Grid.Column>
         </Grid>
       </Form>
+      <Divider hidden />
+      {edited && <Message warning content={DOMAIN.WAS_EDITED[language]} />}
+      {error && <ErrorMessage error={error} language={language} />}
+      {saved &&
+      <Message icon success>
+        <Icon name='check' style={{ color: SSB_COLORS.GREEN }} />
+        <Message.Content>
+          <Message.Header>
+            {DOMAIN.SUCCESS[language]}
+          </Message.Header>
+          {`${DOMAIN.WAS_SAVED[language]} `}
+          <br />
+          {isNew &&
+          <>
+            <Link to={`${ROUTING.DOMAIN_BASE}${domain}/${id}`}>{`${DOMAIN.JUMP_TO_SAVED[language]}`}</Link>
+            <br />
+          </>
+          }
+          <Link to={`${ROUTING.DOMAIN_BASE}${domain}`}>{
+            `${DOMAIN.BACK_TO_LIST[language]} '${camelToTitle(domain)}'`}
+          </Link>
+        </Message.Content>
+      </Message>
+      }
       <FormHelp open={formHelpOpen} setOpen={setFormHelpOpen} user={user} />
     </>
   )

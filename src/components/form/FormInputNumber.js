@@ -4,7 +4,7 @@ import { SSB_COLORS } from '@statisticsnorway/dapla-js-utilities'
 
 function FormInputNumber ({ configuration, register, setValue, value }) {
   const handleChange = (e, { value }) => {
-    setValue(configuration.name, value, { shouldDirty: true })
+    setValue(configuration.name, parseInt(value, 10), { shouldDirty: true })
   }
 
   useEffect(() => {
