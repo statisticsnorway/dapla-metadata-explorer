@@ -28,6 +28,7 @@ Run `yarn start` and navigate to `http://localhost:3000`.
 running to function locally (or at least a running instance of [linked-data-store](https://github.com/statisticsnorway/linked-data-store-documentation)).
 
 ### TODO
-* Show the number instances of a domain stored in LDS
 * Input validations
-* General refactoring (smaller functions)
+* General refactoring (smaller functions, code smells, etc.)
+* Table pagination (or table data based on which user is logged in)
+* Conveniently show the number of instances of a domain (requires updates to backend)

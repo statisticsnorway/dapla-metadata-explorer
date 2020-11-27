@@ -44,26 +44,23 @@ function DomainInstanceNew ({ isNew = true, data = {}, refetch = () => null }) {
     }
   }, [formState.isDirty])
 
-  const onSubmit = data => {
+  const onSubmit = submittedFormData => {
     if (!apiReadOnly) {
-      const filterData = Object.entries(data).filter(value => value[1] !== undefined)
+      const filterData = Object.entries(submittedFormData).filter(value => value[1] !== undefined)
+      const refetchIfNotNew = () => {
+        if (!isNew) {
+          refetch()
+        }
+      }
 
       if (filterData.length !== 0) {
         const filteredData = {}
 
         filterData.forEach(value => filteredData[value[0]] = value[1])
 
-        executePut({ data: { ...formData, ...filteredData } }).then(() => {
-          if (!isNew) {
-            refetch()
-          }
-        })
+        executePut({ data: { ...formData, ...filteredData } }).then(() => refetchIfNotNew())
       } else {
-        executePut({ data: formData }).then(() => {
-          if (!isNew) {
-            refetch()
-          }
-        })
+        executePut({ data: formData }).then(() => refetchIfNotNew())
       }
     }
   }
@@ -128,32 +125,11 @@ function DomainInstanceNew ({ isNew = true, data = {}, refetch = () => null }) {
         </Grid.Column>
       </Grid>
       {edited && <Message warning content={DOMAIN.WAS_EDITED[language]} />}
-      {error && <ErrorMessage error={error} language={language} />}
-      {saved &&
-      <Message icon success>
-        <Icon name='check' style={{ color: SSB_COLORS.GREEN }} />
-        <Message.Content>
-          <Message.Header>
-            {DOMAIN.SUCCESS[language]}
-          </Message.Header>
-          {`${DOMAIN.WAS_SAVED[language]} `}
-          {isNew &&
-          <>
-            <Link to={`${ROUTING.DOMAIN_BASE}${domain}/${id}`}>{`${DOMAIN.JUMP_TO_SAVED[language]}`}</Link>
-            <br />
-          </>
-          }
-          <Link to={`${ROUTING.DOMAIN_BASE}${domain}`}>{
-            `${DOMAIN.BACK_TO_LIST[language]} '${camelToTitle(domain)}'`}
-          </Link>
-        </Message.Content>
-      </Message>
-      }
       <Divider hidden />
       <Form size='large' onSubmit={handleSubmit(onSubmit)}>
         <Grid divided>
-          {DOMAIN_PROPERTY_GROUPING.filter(group => group.name !== 'AUTOFILLED').map(({ name, test }) =>
-            <Grid.Column key={name} width={6}>
+          {DOMAIN_PROPERTY_GROUPING.filter(group => group.id !== 'AUTOFILLED').map(({ id, test }) =>
+            <Grid.Column key={id} width={6}>
               {Object.entries(formConfiguration).filter(([item]) => test(item)).map(([item, value]) =>
                 <FormInputs
                   key={item}
@@ -165,8 +141,8 @@ function DomainInstanceNew ({ isNew = true, data = {}, refetch = () => null }) {
               )}
             </Grid.Column>
           )}
-          {DOMAIN_PROPERTY_GROUPING.filter(group => group.name === 'AUTOFILLED').map(({ name, test }) =>
-            <Grid.Column key={name} width={4}>
+          {DOMAIN_PROPERTY_GROUPING.filter(group => group.id === 'AUTOFILLED').map(({ id, test }) =>
+            <Grid.Column key={id} width={4}>
               {Object.entries(formConfiguration).filter(([item]) => test(item)).map(([item, value]) => {
                   return (
                     <Fragment key={item}>
@@ -201,7 +177,7 @@ function DomainInstanceNew ({ isNew = true, data = {}, refetch = () => null }) {
               type='submit'
               disabled={loading || !edited || apiReadOnly}
               style={{ backgroundColor: SSB_COLORS.BLUE }}
-              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              onClick={() => window.scrollTo({ bottom: 0, behavior: 'smooth' })}
             >
               <Icon name='save' style={{ paddingRight: '0.5rem' }} />
               {DOMAIN.SAVE[language]}
@@ -209,6 +185,30 @@ function DomainInstanceNew ({ isNew = true, data = {}, refetch = () => null }) {
           </Grid.Column>
         </Grid>
       </Form>
+      <Divider hidden />
+      {edited && <Message warning content={DOMAIN.WAS_EDITED[language]} />}
+      {error && <ErrorMessage error={error} language={language} />}
+      {saved &&
+      <Message icon success>
+        <Icon name='check' style={{ color: SSB_COLORS.GREEN }} />
+        <Message.Content>
+          <Message.Header>
+            {DOMAIN.SUCCESS[language]}
+          </Message.Header>
+          {`${DOMAIN.WAS_SAVED[language]} `}
+          <br />
+          {isNew &&
+          <>
+            <Link to={`${ROUTING.DOMAIN_BASE}${domain}/${id}`}>{`${DOMAIN.JUMP_TO_SAVED[language]}`}</Link>
+            <br />
+          </>
+          }
+          <Link to={`${ROUTING.DOMAIN_BASE}${domain}`}>{
+            `${DOMAIN.BACK_TO_LIST[language]} '${camelToTitle(domain)}'`}
+          </Link>
+        </Message.Content>
+      </Message>
+      }
       <FormHelp open={formHelpOpen} setOpen={setFormHelpOpen} user={user} />
     </>
   )

@@ -10,9 +10,9 @@ function AppSearch () {
   const { schemas } = useContext(SchemasContext)
   const { language } = useContext(LanguageContext)
 
-  const [value, setValue] = useState('')
   const [source, setSource] = useState({})
   const [results, setResults] = useState({})
+  const [searchValue, setSearchValue] = useState('')
 
   useEffect(() => {
     setSource(Object.entries(schemas.groups).reduce((accumulator, [group, schemasByGroup]) => {
@@ -30,7 +30,7 @@ function AppSearch () {
   }, [schemas])
 
   const handleSearchChange = (event, { value }) => {
-    setValue(value)
+    setSearchValue(value)
 
     if (value.length >= 1) {
       const filteredResults = Object.entries(source).reduce((accumulator, [group, entries]) => {
@@ -56,8 +56,8 @@ function AppSearch () {
     <Search
       category
       size='large'
-      value={value}
       results={results}
+      value={searchValue}
       placeholder={UI.SEARCH[language]}
       onSearchChange={handleSearchChange}
       resultRenderer={SEARCH_LAYOUT.resultRenderer}

@@ -16,6 +16,21 @@ import { camelToTitle, getDomainDescription, getDomainSchema, mapDataToTable } f
 import { API, GSIM, ROUTING, STORAGE } from '../../configurations'
 import { DOMAIN } from '../../enums'
 
+const headersByLocalStorage = domain => localStorage.hasOwnProperty(STORAGE.DOMAIN_TABLE_HEADERS(domain)) ?
+  localStorage.getItem(STORAGE.DOMAIN_TABLE_HEADERS(domain)).split(',') : GSIM.DEFAULT_TABLE_HEADERS
+const checkIncludes = (name, value) =>
+  getLocalizedGsimObjectText(LANGUAGE.LANGUAGES.NORWEGIAN.languageCode, name).toUpperCase()
+    .includes(value.toUpperCase())
+  ||
+  getLocalizedGsimObjectText(LANGUAGE.LANGUAGES.ENGLISH.languageCode, name).toUpperCase()
+    .includes(value.toUpperCase())
+const checkStartsWith = (name, value) =>
+  getLocalizedGsimObjectText(LANGUAGE.LANGUAGES.NORWEGIAN.languageCode, name).toUpperCase()
+    .startsWith(value.toUpperCase())
+  ||
+  getLocalizedGsimObjectText(LANGUAGE.LANGUAGES.ENGLISH.languageCode, name).toUpperCase()
+    .startsWith(value.toUpperCase())
+
 function Domain () {
   const { schemas } = useContext(SchemasContext)
   const { language } = useContext(LanguageContext)
@@ -26,19 +41,13 @@ function Domain () {
   const [tableData, setTableData] = useState([])
   const [tableFilterValue, setTableFilterValue] = useState('')
   const [schema, setSchema] = useState(getDomainSchema(domain, schemas))
-  const [tableHeaders, setTableHeaders] = useState(
-    localStorage.hasOwnProperty(STORAGE.DOMAIN_TABLE_HEADERS(domain)) ?
-      localStorage.getItem(STORAGE.DOMAIN_TABLE_HEADERS(domain)).split(',') : GSIM.DEFAULT_TABLE_HEADERS
-  )
+  const [tableHeaders, setTableHeaders] = useState(headersByLocalStorage(domain))
 
   const [{ data, loading, error }, refetch] = useAxios(`${ldsApi}${API.GET_DOMAIN_DATA(domain)}`, { useCache: false })
 
   useEffect(() => {
     try {
-      setTableHeaders(
-        localStorage.hasOwnProperty(STORAGE.DOMAIN_TABLE_HEADERS(domain)) ?
-          localStorage.getItem(STORAGE.DOMAIN_TABLE_HEADERS(domain)).split(',') : GSIM.DEFAULT_TABLE_HEADERS
-      )
+      setTableHeaders(headersByLocalStorage(domain))
       setSchema(getDomainSchema(domain, schemas))
       setTableFilterValue('')
     } catch (e) {
@@ -59,17 +68,9 @@ function Domain () {
 
   const handleTableFilter = (e, { value }) => {
     if (value.length >= 2) {
-      setTableData(mapDataToTable(data.filter(element =>
-        getLocalizedGsimObjectText(LANGUAGE.LANGUAGES.NORWEGIAN.languageCode, element.name).toUpperCase().includes(value.toUpperCase())
-        ||
-        getLocalizedGsimObjectText(LANGUAGE.LANGUAGES.ENGLISH.languageCode, element.name).toUpperCase().includes(value.toUpperCase())
-      ), schema))
+      setTableData(mapDataToTable(data.filter(({ name }) => checkIncludes(name, value)), schema))
     } else {
-      setTableData(mapDataToTable(data.filter(element =>
-        getLocalizedGsimObjectText(LANGUAGE.LANGUAGES.NORWEGIAN.languageCode, element.name).toUpperCase().startsWith(value.toUpperCase())
-        ||
-        getLocalizedGsimObjectText(LANGUAGE.LANGUAGES.ENGLISH.languageCode, element.name).toUpperCase().startsWith(value.toUpperCase())
-      ), schema))
+      setTableData(mapDataToTable(data.filter(({ name }) => checkStartsWith(name, value)), schema))
     }
 
     setTableFilterValue(value)
@@ -93,8 +94,8 @@ function Domain () {
               <Input
                 icon='search'
                 value={tableFilterValue}
-                placeholder={DOMAIN.SEARCH_TABLE[language]}
                 onChange={handleTableFilter}
+                placeholder={DOMAIN.SEARCH_TABLE[language]}
               />
             }
           />

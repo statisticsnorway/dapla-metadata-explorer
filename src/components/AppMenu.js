@@ -8,6 +8,19 @@ import { camelToTitle } from '../utilities'
 import { API, ROUTING, STORAGE } from '../configurations'
 import { TEST_IDS, UI } from '../enums'
 
+const isReadOnlyAPI = api => api ? API.LDS[0] : API.LDS[1]
+const iconSize = menuIsStuck => menuIsStuck ? 'large' : 'big'
+const menuSize = menuIsStuck => menuIsStuck ? 'large' : 'huge'
+const headerSize = menuIsStuck => menuIsStuck ? 'medium' : 'huge'
+const imageSize = menuIsStuck => menuIsStuck ? 'small' : 'medium'
+const headerContent = (menuIsStuck, whereAmI) => menuIsStuck && whereAmI !== '' ? ` (${whereAmI})` : ''
+const menuStyle = menuIsStuck => ({
+  padding: menuIsStuck ? 0 : '1rem',
+  border: !menuIsStuck ? 'none' : '1px solid rgba(34,36,38,.15)',
+  backgroundColor: menuIsStuck ? '#FFFFFF' : SSB_COLORS.BACKGROUND,
+  boxShadow: !menuIsStuck ? 'none' : '0 1px 2px 0 rgba(34,36,38,.15)'
+})
+
 function AppMenu ({ setSettingsOpen, context }) {
   const { user } = useContext(UserContext)
   const { ldsApi, apiReadOnly } = useContext(ApiContext)
@@ -15,8 +28,8 @@ function AppMenu ({ setSettingsOpen, context }) {
 
   const { pathname } = useLocation()
 
-  const [menuIsStuck, setMenuIsStuck] = useState(false)
   const [whereAmI, setWhereAmI] = useState('')
+  const [menuIsStuck, setMenuIsStuck] = useState(false)
 
   useEffect(() => {
     if (pathname.startsWith(ROUTING.DOMAIN_BASE)) {
@@ -28,23 +41,14 @@ function AppMenu ({ setSettingsOpen, context }) {
 
   return (
     <Sticky onUnstick={() => setMenuIsStuck(false)} onStick={() => setMenuIsStuck(true)} context={context}>
-      <Menu
-        secondary
-        size={menuIsStuck ? 'large' : 'huge'}
-        style={{
-          padding: menuIsStuck ? 0 : '1rem',
-          border: !menuIsStuck ? 'none' : '1px solid rgba(34,36,38,.15)',
-          backgroundColor: menuIsStuck ? '#FFFFFF' : SSB_COLORS.BACKGROUND,
-          boxShadow: !menuIsStuck ? 'none' : '0 1px 2px 0 rgba(34,36,38,.15)'
-        }}
-      >
+      <Menu secondary size={menuSize(menuIsStuck)} style={menuStyle(menuIsStuck)}>
         <Menu.Item>
-          <Image size={menuIsStuck ? 'small' : 'medium'} src={ssb_logo_rgb} />
+          <Image size={imageSize(menuIsStuck)} src={ssb_logo_rgb} />
         </Menu.Item>
         <Menu.Item>
           <Header
-            size={menuIsStuck ? 'medium' : 'huge'}
-            content={`${UI.HEADER[language]}${menuIsStuck && whereAmI !== '' ? ` (${whereAmI})` : ''}`}
+            size={headerSize(menuIsStuck)}
+            content={`${UI.HEADER[language]}${headerContent(menuIsStuck, whereAmI)}`}
           />
         </Menu.Item>
         <Menu.Menu position='right'>
@@ -54,21 +58,21 @@ function AppMenu ({ setSettingsOpen, context }) {
           </Menu.Item>
           <Menu.Item>
             <Icon style={{ color: SSB_COLORS.GREY }} name='plug' />
-            {API.LDS[window._env.REACT_APP_EXPLORATION_LDS === ldsApi ? 0 : 1]}
+            {isReadOnlyAPI(window._env.REACT_APP_EXPLORATION_LDS === ldsApi)}
           </Menu.Item>
           {!apiReadOnly &&
           <Menu.Item
             as={Link}
             to={ROUTING.IMPORT}
             style={{ color: SSB_COLORS.BLUE }}
-            icon={{ name: 'upload', size: menuIsStuck ? 'large' : 'big' }}
+            icon={{ name: 'upload', size: iconSize(menuIsStuck) }}
           />
           }
           <Menu.Item
             style={{ color: SSB_COLORS.GREEN }}
             onClick={() => setSettingsOpen(true)}
             data-testid={TEST_IDS.ACCESS_SETTINGS_BUTTON}
-            icon={{ name: 'setting', size: menuIsStuck ? 'large' : 'big' }}
+            icon={{ name: 'setting', size: iconSize(menuIsStuck) }}
           />
           <Dropdown item text={`${LANGUAGE.LANGUAGE[language]} (${LANGUAGE.LANGUAGE_CHOICE[language]})`}>
             <Dropdown.Menu>

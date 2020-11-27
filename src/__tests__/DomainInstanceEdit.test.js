@@ -35,7 +35,7 @@ const sortedSchemas = sortSchemas(Schemas)
 const modelObject = getNestedObject(Schemas[2], ['definitions', domain, 'description'])
 
 const setup = () => {
-  const { getByPlaceholderText, getByText } = render(
+  const { getAllByText, getByPlaceholderText, getByText } = render(
     <UserContext.Provider value={userContext(jest.fn())}>
       <ApiContext.Provider value={apiContext(window._env.REACT_APP_CONCEPT_LDS, jest.fn(), jest.fn(), false)}>
         <LanguageContext.Provider value={{ language: language }}>
@@ -49,7 +49,7 @@ const setup = () => {
     </UserContext.Provider>
   )
 
-  return { getByPlaceholderText, getByText }
+  return { getAllByText, getByPlaceholderText, getByText }
 }
 
 test('Renders basics', () => {
@@ -67,13 +67,13 @@ test('Informs user of success when saving edited data', () => {
   useAxios.mockReturnValue([{ loading: false, error: undefined, response: { status: 201 } }, executePut])
   executePut.mockResolvedValue(null)
 
-  const { getByPlaceholderText, getByText } = setup()
+  const { getAllByText, getByPlaceholderText, getByText } = setup()
 
   userEvent.click(getByText(DOMAIN.EDIT[language]))
 
   userEvent.type(getByPlaceholderText('minDecimals'), '2')
 
-  expect(getByText(DOMAIN.WAS_EDITED[language])).toBeInTheDocument()
+  expect(getAllByText(DOMAIN.WAS_EDITED[language])).toHaveLength(2)
 
   userEvent.click(getByText(DOMAIN.SAVE[language]))
 

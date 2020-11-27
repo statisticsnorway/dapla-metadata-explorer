@@ -60,39 +60,41 @@ function DomainInstance () {
 
   return (
     <>
-      <Header
-        size='large'
-        subheader={camelToTitle(domain)}
-        style={{ marginTop: '-.14285714em' }}
-        icon={{ name: 'file alternate outline', style: { color: SSB_COLORS.BLUE } }}
-        content={ready ? getLocalizedGsimObjectText(language, data[GSIM.NAME]) : id}
-      />
-      <Divider hidden />
       {loading ? <Loader active inline='centered' /> :
         error ? <ErrorMessage error={error} language={language} /> : ready &&
-          <Grid columns='equal' divided>
-            <Grid.Row>
-              {DOMAIN_PROPERTY_GROUPING.map(({ name, test }) =>
-                <Grid.Column key={name}>
-                  <Grid divided>
-                    {ready && properties.filter(([property]) => test(property)).map(([property]) => {
-                        const { description, name, value } = domainInstanceData[property]
+          <>
+            <Header
+              size='large'
+              subheader={camelToTitle(domain)}
+              style={{ marginTop: '-.14285714em' }}
+              content={getLocalizedGsimObjectText(language, data[GSIM.NAME])}
+              icon={{ name: 'file alternate outline', style: { color: SSB_COLORS.BLUE } }}
+            />
+            <Divider hidden />
+            <Grid columns='equal' divided>
+              <Grid.Row>
+                {DOMAIN_PROPERTY_GROUPING.map(({ id, test }) =>
+                  <Grid.Column key={id}>
+                    <Grid divided>
+                      {ready && properties.filter(([property]) => test(property)).map(([property]) => {
+                          const { description, name, value } = domainInstanceData[property]
 
-                        return (
-                          <Grid.Row key={property}>
-                            <Grid.Column textAlign='right' verticalAlign='middle' width={5}>
-                              <InfoPopup text={description} trigger={<b>{camelToTitle(name)}</b>} />
-                            </Grid.Column>
-                            <Grid.Column width={11} verticalAlign='middle'>{value}</Grid.Column>
-                          </Grid.Row>
-                        )
-                      }
-                    )}
-                  </Grid>
-                </Grid.Column>
-              )}
-            </Grid.Row>
-          </Grid>
+                          return (
+                            <Grid.Row key={property}>
+                              <Grid.Column textAlign='right' verticalAlign='middle' width={5}>
+                                <InfoPopup text={description} trigger={<b>{camelToTitle(name)}</b>} />
+                              </Grid.Column>
+                              <Grid.Column width={11} verticalAlign='middle'>{value}</Grid.Column>
+                            </Grid.Row>
+                          )
+                        }
+                      )}
+                    </Grid>
+                  </Grid.Column>
+                )}
+              </Grid.Row>
+            </Grid>
+          </>
       }
       {ready && !apiReadOnly &&
       <>

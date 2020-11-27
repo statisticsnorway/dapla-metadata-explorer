@@ -78,6 +78,7 @@ function FormHelp ({ open, setOpen, user }) {
               <InfoText text={FORM.BUTTON_SAVE[language]} />
             </Grid.Column>
           </Grid>
+          <Message style={{ opacity: '0.45' }} size='small' info content={FORM.EXAMPLE_MESSAGE[language]} />
         </Segment>
         <Header size='small' content={FORM.OTHER_INFO[language]} />
         <List relaxed='very' bulleted>

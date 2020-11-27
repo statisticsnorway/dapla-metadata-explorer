@@ -4,8 +4,8 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import 'semantic-ui-css/semantic.min.css'
 
 import './index.css'
+import ErrorWrapper from './ErrorWrapper'
 import { AppContextProvider } from './context/AppContext'
-import ErrorWrapper from './ErrorBoundary'
 
 ReactDOM.render(
   <React.StrictMode>

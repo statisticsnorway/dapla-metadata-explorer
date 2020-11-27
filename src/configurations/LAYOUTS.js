@@ -7,13 +7,13 @@ import { DOMAIN } from '../enums'
 
 export const DOMAIN_PROPERTY_GROUPING = [
   {
-    name: 'COMMON',
+    id: 'COMMON',
     getName: (language) => DOMAIN.COMMON_NAME[language],
     description: (language) => DOMAIN.COMMON_PROPERTIES[language],
     test: (property) => GSIM.PROPERTIES_GROUPING.COMMON.includes(property)
   },
   {
-    name: 'UNIQUE',
+    id: 'UNIQUE',
     getName: (language) => DOMAIN.UNIQUE_NAME[language],
     description: (language) => DOMAIN.UNIQUE_PROPERTIES[language],
     test: (property) => !GSIM.PROPERTIES_GROUPING.COMMON
@@ -21,7 +21,7 @@ export const DOMAIN_PROPERTY_GROUPING = [
       .includes(property) && !property.startsWith(GSIM.LINK_TYPE)
   },
   {
-    name: 'AUTOFILLED',
+    id: 'AUTOFILLED',
     getName: (language) => DOMAIN.AUTOFILLED_NAME[language],
     description: (language) => DOMAIN.AUTOFILLED_PROPERTIES[language],
     test: (property) => GSIM.PROPERTIES_GROUPING.AUTOFILLED.includes(property)

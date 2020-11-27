@@ -31,7 +31,9 @@ function FormInputDropdown ({ configuration, register, setValue, value }) {
 
         fetchedOptions = fetchedOptions.concat(response.data.map(item => ({
           key: `/${configuration.configuration.options.links[i]}/${item.id}`,
-          text: `${getLocalizedGsimObjectText(language, item.name)}${configuration.configuration.options.links.length > 1 ? ` (${configuration.configuration.options.links[i]})` : ''}`,
+          text: `${getLocalizedGsimObjectText(language, item.name)}${
+            configuration.configuration.options.links.length > 1 ? ` (${configuration.configuration.options.links[i]})` : ''
+          }`,
           value: `/${configuration.configuration.options.links[i]}/${item.id}`,
           content: (
             <Header

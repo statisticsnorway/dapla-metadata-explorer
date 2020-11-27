@@ -62,7 +62,7 @@
     "collectCoverageFrom": [
       "src/**",
       "!src/index.js",
-      "!src/ErrorBoundary.js",
+      "!src/ErrorWrapper.js",
       "!src/**/index.js",
       "!src/enums/**",
       "!src/__tests__/test-data/**",

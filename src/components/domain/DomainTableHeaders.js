@@ -37,14 +37,14 @@ function DomainTableHeaders ({ headers, schema, setHeaders }) {
       <Accordion.Content active={accordionOpen}>
         <Segment basic style={{ padding: 0, marginBottom: 0 }}>
           <Grid columns='equal' divided>
-            {DOMAIN_PROPERTY_GROUPING.map(({ name, getName, description, test }) => {
+            {DOMAIN_PROPERTY_GROUPING.map(({ id, getName, description, test }) => {
                 const filteredProperties = properties.filter(([property]) => test(property) && property !== GSIM.ID)
                 const indexToSplit = Math.ceil(filteredProperties.length / 2)
                 const firstColumn = filteredProperties.slice(0, indexToSplit)
                 const secondColumn = filteredProperties.slice(indexToSplit)
 
                 return (
-                  <Grid.Column key={name}>
+                  <Grid.Column key={id}>
                     <Header content={getName(language)} subheader={description(language)} />
                     <Divider hidden />
                     <Grid columns='equal'>
