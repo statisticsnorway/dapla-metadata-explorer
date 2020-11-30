@@ -175,6 +175,7 @@ function DomainInstanceNew ({ isNew = true, data = {}, refetch = () => null }) {
             <Button
               size='large'
               type='submit'
+              loading={loading}
               disabled={loading || !edited || apiReadOnly}
               style={{ backgroundColor: SSB_COLORS.BLUE }}
               onClick={() => window.scrollTo({ bottom: 0, behavior: 'smooth' })}
