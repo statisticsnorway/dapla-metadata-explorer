@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import useAxios from 'axios-hooks'
-import { Form, Header } from 'semantic-ui-react'
+import { Form, Header, Item } from 'semantic-ui-react'
 import { getLocalizedGsimObjectText } from '@statisticsnorway/dapla-js-utilities'
 
 import { ApiContext, LanguageContext } from '../../context/AppContext'
@@ -36,11 +36,21 @@ function FormInputDropdown ({ configuration, register, setValue, value }) {
           }`,
           value: `/${configuration.configuration.options.links[i]}/${item.id}`,
           content: (
-            <Header
-              size='small'
-              content={getLocalizedGsimObjectText(language, item.name)}
-              subheader={getLocalizedGsimObjectText(language, item.description)}
-            />
+            <Item.Group>
+              <Item>
+                <Item.Content>
+                  <Item.Header as={Header} size='small'>
+                    {getLocalizedGsimObjectText(language, item.name)}
+                  </Item.Header>
+                  <Item.Description>
+                    {getLocalizedGsimObjectText(language, item.description)}
+                  </Item.Description>
+                  <Item.Extra>
+                    {configuration.configuration.options.links[i]}
+                  </Item.Extra>
+                </Item.Content>
+              </Item>
+            </Item.Group>
           )
         })))
       }
