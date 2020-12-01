@@ -9,3 +9,7 @@ export const convertDateToView = value => {
 
   return date.toLocaleDateString()
 }
+
+export const capitalize = string => `${string.charAt(0).toUpperCase()}${string.slice(1)}`
+
+export const deCapitalize = string => `${string.charAt(0).toLowerCase()}${string.slice(1)}`

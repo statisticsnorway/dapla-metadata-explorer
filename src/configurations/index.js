@@ -1,4 +1,5 @@
 export { API, GSIM, GSIM_DEFINITIONS } from './API'
+export { GRAPH_CONFIG } from './GRAPH'
 export { DOMAIN_PROPERTY_GROUPING, SEARCH_LAYOUT } from './LAYOUTS'
 export { ROUTING } from './ROUTING'
 export { STORAGE } from './STORAGE'

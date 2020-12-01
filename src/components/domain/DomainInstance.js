@@ -99,6 +99,7 @@ function DomainInstance () {
             </Grid>
             <Grid columns='equal'>
               <Grid.Column>
+                {!apiReadOnly &&
                 <DomainInstanceDelete
                   id={id}
                   domain={domain}
@@ -106,9 +107,10 @@ function DomainInstance () {
                   setWasDeleted={setWasDeleted}
                   name={getLocalizedGsimObjectText(language, data[GSIM.NAME])}
                 />
+                }
               </Grid.Column>
               <Grid.Column textAlign='right'>
-                {!wasDeleted && <DomainInstanceGraph domain={domain} data={data} schema={schema} />}
+                {!wasDeleted && <DomainInstanceGraph domain={domain} instanceData={data} schema={schema} />}
               </Grid.Column>
             </Grid>
           </>

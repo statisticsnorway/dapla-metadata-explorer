@@ -18,8 +18,10 @@
     "@statisticsnorway/dapla-js-utilities": "^0.2.0",
     "axios": "^0.21.0",
     "axios-hooks": "^2.1.0",
+    "d3": "^5.5.0",
     "graphql-hooks": "^5.0.0",
     "react": "^17.0.1",
+    "react-d3-graph": "^2.5.0",
     "react-dom": "^17.0.1",
     "react-dropzone": "^11.2.3",
     "react-error-boundary": "^3.0.2",
@@ -66,9 +68,12 @@
       "!src/ErrorWrapper.js",
       "!src/**/index.js",
       "!src/enums/**",
+      "!src/queries/**",
       "!src/__tests__/test-data/**",
       "!src/components/domains/Import.js",
-      "!src/components/domains/Upload.js"
+      "!src/components/domains/Upload.js",
+      "!src/components/domain/DomainInstanceGraph.js",
+      "!src/configurations/GRAPH.js"
     ],
     "coverageThreshold": {
       "global": {
