@@ -103,6 +103,14 @@ export const DOMAIN = {
     en: 'Domain properties unique for this domain',
     nb: 'Domeneattributter som er unike for dette domene'
   },
+  USED_BY: {
+    en: 'Used by',
+    nb: 'Brukes av'
+  },
+  USES: {
+    en: 'Uses',
+    nb: 'Bruker'
+  },
   WAS_DELETED: {
     en: 'Domain was deleted!',
     nb: 'Domene ble slettet!'
