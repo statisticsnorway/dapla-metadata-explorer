@@ -252,3 +252,42 @@ export const mapDataToTable = (data, schema) => {
     }, {})
   })
 }
+
+export const iconBasedOnType = (configuration, property) => {
+  let icon
+
+  if (property === GSIM.PROPERTIES_GROUPING.AUTOFILLED[2] || property === GSIM.PROPERTIES_GROUPING.AUTOFILLED[6]) {
+    icon = 'user'
+  } else {
+    switch (configuration.inputType) {
+      case 'dropdown':
+        if (configuration.options.isLink) {
+          icon = 'linkify'
+        } else {
+          if (configuration.options.multiple) {
+            icon = 'tags'
+          } else {
+            icon = 'tag'
+          }
+        }
+        break
+
+      case 'number':
+        icon = 'hashtag'
+        break
+
+      case 'date':
+        icon = 'calendar alternate outline'
+        break
+
+      default:
+        icon = false
+    }
+  }
+
+  if (icon !== false) {
+    return <Icon name={icon} style={{ marginLeft: '0.25rem', marginRight: 0, color: SSB_COLORS.GREY }} />
+  } else {
+    return null
+  }
+}

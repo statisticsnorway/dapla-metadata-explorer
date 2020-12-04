@@ -12,7 +12,13 @@ import {
 
 import { DomainTable, DomainTableHeaders } from './'
 import { ApiContext, LanguageContext, SchemasContext } from '../../context/AppContext'
-import { camelToTitle, getDomainDescription, getDomainSchema, mapDataToTable } from '../../utilities'
+import {
+  camelToTitle,
+  convertSchemaToEdit,
+  getDomainDescription,
+  getDomainSchema,
+  mapDataToTable
+} from '../../utilities'
 import { API, GSIM, ROUTING, STORAGE } from '../../configurations'
 import { DOMAIN } from '../../enums'
 
@@ -41,15 +47,20 @@ function Domain () {
   const [tableData, setTableData] = useState([])
   const [tableFilterValue, setTableFilterValue] = useState('')
   const [schema, setSchema] = useState(getDomainSchema(domain, schemas))
+  const [formConfiguration, setFormConfiguration] = useState(convertSchemaToEdit({}, schema))
+
   const [tableHeaders, setTableHeaders] = useState(headersByLocalStorage(domain))
 
   const [{ data, loading, error }, refetch] = useAxios(`${ldsApi}${API.GET_DOMAIN_DATA(domain)}`, { useCache: false })
 
   useEffect(() => {
     try {
+      const newSchema = getDomainSchema(domain, schemas)
+
       setTableHeaders(headersByLocalStorage(domain))
-      setSchema(getDomainSchema(domain, schemas))
+      setSchema(newSchema)
       setTableFilterValue('')
+      setFormConfiguration(convertSchemaToEdit({}, newSchema))
     } catch (e) {
       console.log(e)
     }
@@ -92,6 +103,7 @@ function Domain () {
             text={DOMAIN.SEARCH_TABLE_INFO[language]}
             trigger={
               <Input
+                size='large'
                 icon='search'
                 value={tableFilterValue}
                 onChange={handleTableFilter}
@@ -142,6 +154,7 @@ function Domain () {
         schema={schema}
         headers={tableHeaders}
         setHeaders={setTableHeaders}
+        formConfiguration={formConfiguration}
       />
       {loading ? <Loader active inline='centered' /> :
         error ? <ErrorMessage error={error} language={language} /> :

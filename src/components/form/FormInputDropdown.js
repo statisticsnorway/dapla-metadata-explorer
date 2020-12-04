@@ -4,6 +4,7 @@ import { Form, Header, Item } from 'semantic-ui-react'
 import { getLocalizedGsimObjectText } from '@statisticsnorway/dapla-js-utilities'
 
 import { ApiContext, LanguageContext } from '../../context/AppContext'
+import { camelToTitle } from '../../utilities'
 
 function FormInputDropdown ({ configuration, register, setValue, value }) {
   const { ldsApi } = useContext(ApiContext)
@@ -46,7 +47,7 @@ function FormInputDropdown ({ configuration, register, setValue, value }) {
                     {getLocalizedGsimObjectText(language, item.description)}
                   </Item.Description>
                   <Item.Extra>
-                    {configuration.configuration.options.links[i]}
+                    {camelToTitle(configuration.configuration.options.links[i])}
                   </Item.Extra>
                 </Item.Content>
               </Item>
