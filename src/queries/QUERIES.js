@@ -5,7 +5,7 @@ export const query = (domain, linkPropertiesParsed = false, reverseLinkPropertie
     ${domain}(filter: {id: $id}) {
       ${!linkPropertiesParsed ? 'id' : linkPropertiesParsed.map((link, index) => {
   if (link.length === 1) {
-    return `${link[0]} {id name {languageCode languageText} description {languageCode languageText}}`
+    return `${linkPropertiesParsedHelpers[0]} {id name {languageCode languageText} description {languageCode languageText}}`
   } else {
     return `${linkPropertiesParsedHelpers[index]} { ${link.map(innerLink =>
       `... on ${capitalize(innerLink)} {id name {languageCode languageText} description {languageCode languageText}}`
