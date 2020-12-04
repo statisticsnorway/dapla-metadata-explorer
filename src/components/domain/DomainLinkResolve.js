@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import useAxios from 'axios-hooks'
 import { Link } from 'react-router-dom'
 import { Icon, Loader } from 'semantic-ui-react'
-import { SSB_COLORS } from '@statisticsnorway/dapla-js-utilities'
+import { SSB_COLORS, truncateString } from '@statisticsnorway/dapla-js-utilities'
 
 import { ApiContext, LanguageContext } from '../../context/AppContext'
 import { API, GSIM_DEFINITIONS, ROUTING } from '../../configurations'
@@ -31,7 +31,7 @@ function DomainLinkResolve ({ link }) {
   } else {
     if (error) {
       return (
-        <>{`${resolvedName} (`}<Icon fitted name='unlink' style={{ color: SSB_COLORS.RED, paddingRight: 0 }} />{`)`}</>
+        <>{`${truncateString(resolvedName)} (`}<Icon fitted name='unlink' style={{ color: SSB_COLORS.RED, paddingRight: 0 }} />{`)`}</>
       )
     } else {
       return <Link to={`${ROUTING.DOMAIN_BASE}${link.substr(1)}`}>{camelToTitle(resolvedName)}</Link>

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useManualQuery } from 'graphql-hooks'
 import { Graph } from 'react-d3-graph'
 import { Button, Divider, Grid, Header, Icon, List, Loader, Modal, Segment } from 'semantic-ui-react'
@@ -72,7 +72,7 @@ function DomainInstanceGraph ({ domain, instanceData, schema }) {
     }
   }, [domain, instanceData, schema, schemas.groups])
 
-  useMemo(() => {
+  useEffect(() => {
     if (!loading && !error && data !== undefined) {
       const dependencyGraph = {
         nodes: [
