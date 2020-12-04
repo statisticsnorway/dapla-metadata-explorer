@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
-import { Button, Divider, Grid, Header, Icon, List, Segment, Transition } from 'semantic-ui-react'
+import { Button, Divider, Grid, Icon, List, Segment, Transition } from 'semantic-ui-react'
 import { InfoText } from '@statisticsnorway/dapla-js-utilities'
 
 import AppSearch from './AppSearch'
-import { DomainsList } from './domains'
+import { DomainsGraph, DomainsList } from './domains'
 import { LanguageContext, SchemasContext } from '../context/AppContext'
 import { HOME, TEST_IDS } from '../enums'
 
@@ -49,20 +49,26 @@ function AppHome () {
                   <InfoText text={HOME.CHOOSE_OR_SEARCH[language]} />
                 </Grid.Column>
                 <Grid.Column>
-                  <List relaxed>
-                    {informationRows.map(({ text, value }) =>
-                      <List.Item key={text}>
-                        <b>{`${text}: `}</b>
-                        {value(schemas)}
-                      </List.Item>
-                    )}
-                  </List>
+                  <Grid columns='equal'>
+                    <Grid.Column>
+                      <List relaxed>
+                        {informationRows.map(({ text, value }) =>
+                          <List.Item key={text}>
+                            <b>{`${text}: `}</b>
+                            {value(schemas)}
+                          </List.Item>
+                        )}
+                      </List>
+                    </Grid.Column>
+                    <Grid.Column verticalAlign='middle' textAlign='right'>
+                      <DomainsGraph />
+                    </Grid.Column>
+                  </Grid>
                 </Grid.Column>
               </Grid.Row>
               <Divider />
               <Grid.Row>
                 <Grid.Column>
-                  <Header size='large' content={HOME.GSIM_GROUPS[language]} />
                   <DomainsList />
                 </Grid.Column>
               </Grid.Row>
@@ -91,7 +97,7 @@ function AppHome () {
         }}
       />
       }
-      <Divider hidden />
+      <Divider hidden={!visible} />
     </>
   )
 }

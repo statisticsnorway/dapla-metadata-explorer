@@ -29,7 +29,7 @@ const setup = () => {
 test('Renders basics', () => {
   const { getByText } = setup()
 
-  Object.keys(GSIM.GROUPS).forEach(group => {
+  Object.keys(GSIM.GROUPS).filter(group => group === 'CONCEPT').forEach(group => {
     const lsGroup = group.toLowerCase()
 
     expect(getByText(lsGroup.charAt(0).toUpperCase() + lsGroup.slice(1))).toBeInTheDocument()

@@ -5,9 +5,9 @@ import { getNestedObject, InfoPopup, InfoText, SSB_COLORS } from '@statisticsnor
 import { LanguageContext } from '../../context/AppContext'
 import { DOMAIN_PROPERTY_GROUPING, GSIM, STORAGE } from '../../configurations'
 import { DOMAIN, TEST_IDS } from '../../enums'
-import { camelToTitle, getDomainRef } from '../../utilities'
+import { camelToTitle, getDomainRef, iconBasedOnType } from '../../utilities'
 
-function DomainTableHeaders ({ headers, schema, setHeaders }) {
+function DomainTableHeaders ({ headers, schema, setHeaders, formConfiguration }) {
   const { language } = useContext(LanguageContext)
 
   const [accordionOpen, setAccordionOpen] = useState(false)
@@ -63,7 +63,14 @@ function DomainTableHeaders ({ headers, schema, setHeaders }) {
                                         <Checkbox
                                           key={property}
                                           checked={includes}
-                                          label={camelToTitle(property)}
+                                          label={
+                                            <label>
+                                              {camelToTitle(property)}
+                                              {formConfiguration[property].required &&
+                                              <span style={{ color: '#db2828' }}>*</span>
+                                              }
+                                              {iconBasedOnType(formConfiguration[property].configuration, property)}
+                                            </label>}
                                           style={{ marginRight: '1rem' }}
                                           onClick={() => handleCheckbox(includes, property)}
                                         />

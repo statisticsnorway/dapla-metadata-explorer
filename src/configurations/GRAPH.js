@@ -19,13 +19,12 @@ export const GRAPH_CONFIG = (width, height) => ({
     fontSize: 12,
     markerWidth: 12,
     markerHeight: 12,
-    color: SSB_COLORS.GREY
+    color: SSB_COLORS.GREY,
+    strokeWidth: 2
   },
   d3: {
-    linkStrength: 1,
-    gravity: -100,
-    linkLength: 400
+    linkLength: 500
   },
-  width: ((width * 0.6145)),
-  height: ((height * 0.55)).toFixed(0)
+  width: ((width * 0.5559)),
+  height: ((height * 0.54)).toFixed(0)
 })

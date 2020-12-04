@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useMemo, useState } from 'react'
 import { useManualQuery } from 'graphql-hooks'
 import { Graph } from 'react-d3-graph'
 import { Button, Divider, Grid, Header, Icon, List, Loader, Modal, Segment } from 'semantic-ui-react'
@@ -34,6 +34,8 @@ function DomainInstanceGraph ({ domain, instanceData, schema }) {
   useEffect(() => {
     const schemaProperties = getNestedObject(schema, [GSIM.DEFINITIONS, getDomainRef(schema), GSIM.PROPERTIES_ELEMENT])
     const linkProperties = Object.keys(schemaProperties).filter(propertyKey => propertyKey.startsWith(GSIM.LINK_TYPE))
+    const linkPropertiesFull = Object.entries(schemaProperties).filter(([key, value]) => key.startsWith(GSIM.LINK_TYPE))
+      .map(([key, value]) => Object.keys(value.properties).map(key => deCapitalize(key)))
     const reverseLinkProperties = Object.entries(schemas.groups).reduce((acc, [curKey, curValue]) => {
       if (curValue.length !== 0) {
         curValue.forEach(curDomain => {
@@ -61,16 +63,16 @@ function DomainInstanceGraph ({ domain, instanceData, schema }) {
       const linkPropertiesParsed = linkProperties.map(linkProperty => linkProperty.replace(GSIM.LINK_TYPE, ''))
 
       if (reverseLinkProperties.length !== 0) {
-        console.log(query(deCapitalize(domain), linkPropertiesParsed, reverseLinkProperties))
-        setBuiltQuery(query(deCapitalize(domain), linkPropertiesParsed, reverseLinkProperties))
+        console.log(query(deCapitalize(domain), linkPropertiesFull, reverseLinkProperties, linkPropertiesParsed))
+        setBuiltQuery(query(deCapitalize(domain), linkPropertiesFull, reverseLinkProperties, linkPropertiesParsed))
       } else {
-        console.log(query(deCapitalize(domain), linkPropertiesParsed))
-        setBuiltQuery(query(deCapitalize(domain), linkPropertiesParsed))
+        console.log(query(deCapitalize(domain), linkPropertiesFull, false, linkPropertiesParsed))
+        setBuiltQuery(query(deCapitalize(domain), linkPropertiesFull, false, linkPropertiesParsed))
       }
     }
   }, [domain, instanceData, schema, schemas.groups])
 
-  useEffect(() => {
+  useMemo(() => {
     if (!loading && !error && data !== undefined) {
       const dependencyGraph = {
         nodes: [
@@ -99,21 +101,21 @@ function DomainInstanceGraph ({ domain, instanceData, schema }) {
 
                 dependencyGraph.links.push({
                   linkTo: false,
-                  source: instanceData[GSIM.ID],
-                  target: innerEntry[GSIM.ID],
+                  source: innerEntry[GSIM.ID],
+                  target: instanceData[GSIM.ID],
                   linkLabelName: DOMAIN.USED_BY[language]
                 })
               } else {
                 dependencyGraph.links.push({
                   linkTo: true,
-                  source: innerEntry[GSIM.ID],
-                  target: instanceData[GSIM.ID],
+                  source: instanceData[GSIM.ID],
+                  target: innerEntry[GSIM.ID],
                   linkLabelName: DOMAIN.USES[language]
                 })
               }
 
               dependencyGraph.nodes.push({
-                size: 400,
+                size: 200,
                 id: innerEntry[GSIM.ID],
                 nodeLabelName: `${getLocalizedGsimObjectText(language, innerEntry[GSIM.NAME])} (${from})`,
                 nodeLabelDescription: getLocalizedGsimObjectText(language, innerEntry[GSIM.PROPERTY_DESCRIPTION]),
@@ -130,21 +132,21 @@ function DomainInstanceGraph ({ domain, instanceData, schema }) {
 
                 dependencyGraph.links.push({
                   linkTo: false,
-                  source: instanceData[GSIM.ID],
-                  target: entry[1][GSIM.ID],
+                  source: entry[1][GSIM.ID],
+                  target: instanceData[GSIM.ID],
                   linkLabelName: DOMAIN.USED_BY[language]
                 })
               } else {
                 dependencyGraph.links.push({
                   linkTo: true,
-                  source: entry[1][GSIM.ID],
-                  target: instanceData[GSIM.ID],
+                  source: instanceData[GSIM.ID],
+                  target: entry[1][GSIM.ID],
                   linkLabelName: DOMAIN.USES[language]
                 })
               }
 
               dependencyGraph.nodes.push({
-                size: 600,
+                size: 200,
                 id: entry[1][GSIM.ID],
                 nodeLabelName: `${getLocalizedGsimObjectText(language, entry[1][GSIM.NAME])} (${from})`,
                 nodeLabelDescription: getLocalizedGsimObjectText(language, entry[1][GSIM.PROPERTY_DESCRIPTION]),
@@ -187,12 +189,12 @@ function DomainInstanceGraph ({ domain, instanceData, schema }) {
           content={`${DOMAIN.CONNECTIONS_HEADER[language]} '${getLocalizedGsimObjectText(language, instanceData[GSIM.NAME])}'`}
         />
       </Modal.Header>
-      <Modal.Content>
+      <Modal.Content scrolling>
         {loading && <Segment basic><Loader active inline='centered' /></Segment>}
         {error && <ErrorMessage error={error} language={language} />}
         {dependencyGraph &&
         <Grid>
-          <Grid.Column width={11}>
+          <Grid.Column width={10}>
             <Segment>
               <Graph
                 id='graph-id'
@@ -203,35 +205,10 @@ function DomainInstanceGraph ({ domain, instanceData, schema }) {
               />
             </Segment>
           </Grid.Column>
-          <Grid.Column width={5}>
-            {dependencyGraph &&
-            <Grid columns='equal'>
-              <Grid.Column>
-                <Header size='small' content={DOMAIN.USED_BY[language]} />
-                <List relaxed='very' bulleted>
-                  {dependencyGraph.links.filter(filterableNode => filterableNode.linkTo === false).map(node =>
-                    <List.Item style={{ fontWeight: hoveredNode.id === node.target ? 'bold' : 'normal' }}>
-                      {dependencyGraph.nodes.filter(filterableNode => filterableNode.id === node.target)[0].nodeLabelName}
-                    </List.Item>
-                  )}
-                </List>
-              </Grid.Column>
-              <Grid.Column>
-                <Header size='small' content={DOMAIN.USES[language]} />
-                <List relaxed='very' bulleted>
-                  {dependencyGraph.links.filter(filterableNode => filterableNode.linkTo === true).map(node =>
-                    <List.Item style={{ fontWeight: hoveredNode.id === node.source ? 'bold' : 'normal' }}>
-                      {dependencyGraph.nodes.filter(filterableNode => filterableNode.id === node.source)[0].nodeLabelName}
-                    </List.Item>
-                  )}
-                </List>
-              </Grid.Column>
-            </Grid>
-            }
-            <Divider hidden />
+          <Grid.Column width={6}>
             {hoveredNode &&
             <Segment raised>
-              <List relaxed='very'>
+              <List relaxed>
                 <List.Item
                   header='Id'
                   description={hoveredNode.id}
@@ -247,6 +224,31 @@ function DomainInstanceGraph ({ domain, instanceData, schema }) {
               </List>
             </Segment>
             }
+            <Divider hidden />
+            <Grid columns='equal'>
+              <Grid.Column>
+                <Header size='small' content={DOMAIN.USED_BY[language]} />
+                <List bulleted>
+                  {dependencyGraph.links.filter(filterableNode => filterableNode.linkTo === false).map(node =>
+                    <List.Item key={node.source}
+                               style={{ fontWeight: hoveredNode.id === node.source ? 'bold' : 'normal' }}>
+                      {dependencyGraph.nodes.filter(filterableNode => filterableNode.id === node.source)[0].nodeLabelName}
+                    </List.Item>
+                  )}
+                </List>
+              </Grid.Column>
+              <Grid.Column>
+                <Header size='small' content={DOMAIN.USES[language]} />
+                <List bulleted>
+                  {dependencyGraph.links.filter(filterableNode => filterableNode.linkTo === true).map(node =>
+                    <List.Item key={node.target}
+                               style={{ fontWeight: hoveredNode.id === node.target ? 'bold' : 'normal' }}>
+                      {dependencyGraph.nodes.filter(filterableNode => filterableNode.id === node.target)[0].nodeLabelName}
+                    </List.Item>
+                  )}
+                </List>
+              </Grid.Column>
+            </Grid>
           </Grid.Column>
         </Grid>
         }

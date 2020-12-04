@@ -32,8 +32,8 @@ export const DOMAIN = {
     nb: 'Domeneattributter felles for alle domeneobjekter'
   },
   CONNECTIONS: {
-    en: 'Connections',
-    nb: 'Koblinger'
+    en: 'Check connections',
+    nb: 'Se koblinger'
   },
   CONNECTIONS_HEADER: {
     en: 'Connections for',
@@ -104,12 +104,12 @@ export const DOMAIN = {
     nb: 'Domeneattributter som er unike for dette domene'
   },
   USED_BY: {
-    en: 'Used by',
-    nb: 'Brukes av'
+    en: 'Connected to by',
+    nb: 'Koblet seg til fra'
   },
   USES: {
-    en: 'Uses',
-    nb: 'Bruker'
+    en: 'Connects to',
+    nb: 'Kobler seg mot'
   },
   WAS_DELETED: {
     en: 'Domain was deleted!',
