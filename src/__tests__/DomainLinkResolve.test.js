@@ -2,7 +2,7 @@ import React from 'react'
 import useAxios from 'axios-hooks'
 import { render } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
-import { getLocalizedGsimObjectText } from '@statisticsnorway/dapla-js-utilities'
+import { getLocalizedGsimObjectText, truncateString } from '@statisticsnorway/dapla-js-utilities'
 
 import { DomainLinkResolve } from '../components/domain'
 import { ApiContext, LanguageContext } from '../context/AppContext'
@@ -49,5 +49,5 @@ test('Shows error on error', () => {
   useAxios.mockReturnValue([{ data: undefined, loading: false, error: errorString }])
   const { getByText } = setup()
 
-  expect(getByText(testLink, { exact: false })).toBeInTheDocument()
+  expect(getByText(truncateString(testLink), { exact: false })).toBeInTheDocument()
 })
