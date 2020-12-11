@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Dropdown, Header, Icon, Image, Menu, Sticky } from 'semantic-ui-react'
-import { LANGUAGE, SSB_COLORS, ssb_logo_rgb } from '@statisticsnorway/dapla-js-utilities'
+import { LANGUAGE, SSB_COLORS, ssb_logo_no_text_rgb, ssb_logo_rgb } from '@statisticsnorway/dapla-js-utilities'
 
 import { ApiContext, LanguageContext, UserContext } from '../context/AppContext'
 import { camelToTitle } from '../utilities'
@@ -12,7 +12,8 @@ const isReadOnlyAPI = api => api ? API.LDS[0] : API.LDS[1]
 const iconSize = menuIsStuck => menuIsStuck ? 'large' : 'big'
 const menuSize = menuIsStuck => menuIsStuck ? 'large' : 'huge'
 const headerSize = menuIsStuck => menuIsStuck ? 'medium' : 'huge'
-const imageSize = menuIsStuck => menuIsStuck ? 'small' : 'medium'
+const imageSize = menuIsStuck => menuIsStuck ? 'mini' : 'medium'
+const imageType = menuIsStuck => menuIsStuck ? ssb_logo_no_text_rgb : ssb_logo_rgb
 const headerContent = (menuIsStuck, whereAmI) => menuIsStuck && whereAmI !== '' ? ` (${whereAmI})` : ''
 const menuStyle = menuIsStuck => ({
   padding: menuIsStuck ? 0 : '1rem',
@@ -43,7 +44,7 @@ function AppMenu ({ setSettingsOpen, context }) {
     <Sticky onUnstick={() => setMenuIsStuck(false)} onStick={() => setMenuIsStuck(true)} context={context}>
       <Menu secondary size={menuSize(menuIsStuck)} style={menuStyle(menuIsStuck)}>
         <Menu.Item>
-          <Image size={imageSize(menuIsStuck)} src={ssb_logo_rgb} />
+          <Image size={imageSize(menuIsStuck)} src={imageType(menuIsStuck)} />
         </Menu.Item>
         <Menu.Item>
           <Header
