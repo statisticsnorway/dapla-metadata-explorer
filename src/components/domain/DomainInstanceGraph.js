@@ -22,6 +22,7 @@ function DomainInstanceGraph ({ domain, instanceData, schema }) {
   const [modalOpen, setModalOpen] = useState(false)
   const [hoveredNode, setHoveredNode] = useState(false)
   const [dependencyGraph, setDependencyGraph] = useState(false)
+  const [queryHasBeenRun, setQueryHasBeenRun] = useState(false)
   const [builtQuery, setBuiltQuery] = useState(query(deCapitalize(domain)))
   const [graphConfig] = useState(GRAPH_CONFIG(window.screen.width, window.screen.height))
 
@@ -62,6 +63,10 @@ function DomainInstanceGraph ({ domain, instanceData, schema }) {
     if (linkProperties.length !== 0) {
       const linkPropertiesParsed = linkProperties.map(linkProperty => linkProperty.replace(GSIM.LINK_TYPE, ''))
 
+      console.log(linkProperties)
+      console.log(linkPropertiesFull)
+      console.log(linkPropertiesParsed)
+
       if (reverseLinkProperties.length !== 0) {
         console.log(query(deCapitalize(domain), linkPropertiesFull, reverseLinkProperties, linkPropertiesParsed))
         setBuiltQuery(query(deCapitalize(domain), linkPropertiesFull, reverseLinkProperties, linkPropertiesParsed))
@@ -73,7 +78,7 @@ function DomainInstanceGraph ({ domain, instanceData, schema }) {
   }, [domain, instanceData, schema, schemas.groups])
 
   useEffect(() => {
-    if (!loading && !error && data !== undefined) {
+    if (!loading && !error && data !== undefined && queryHasBeenRun) {
       const dependencyGraph = {
         nodes: [
           {
@@ -159,7 +164,7 @@ function DomainInstanceGraph ({ domain, instanceData, schema }) {
       setDependencyGraph(dependencyGraph)
       console.log(dependencyGraph)
     }
-  }, [loading, error, data, domain, instanceData, language])
+  }, [loading, error, data, domain, instanceData, language, queryHasBeenRun])
 
   const onMouseOverNode = nodeId => setHoveredNode(dependencyGraph.nodes.filter(node => node.id === nodeId)[0])
   const onMouseOutNode = () => setHoveredNode(false)
@@ -173,8 +178,12 @@ function DomainInstanceGraph ({ domain, instanceData, schema }) {
       onOpen={() => {
         executeQuery()
         setModalOpen(true)
+        setQueryHasBeenRun(true)
       }}
-      onClose={() => setModalOpen(false)}
+      onClose={() => {
+        setModalOpen(false)
+        setQueryHasBeenRun(false)
+      }}
       trigger={
         <Button size='large' style={{ backgroundColor: SSB_COLORS.BLUE }}>
           <Icon name='share alternate' style={{ paddingRight: '0.5rem' }} />
