@@ -63,10 +63,6 @@ function DomainInstanceGraph ({ domain, instanceData, schema }) {
     if (linkProperties.length !== 0) {
       const linkPropertiesParsed = linkProperties.map(linkProperty => linkProperty.replace(GSIM.LINK_TYPE, ''))
 
-      console.log(linkProperties)
-      console.log(linkPropertiesFull)
-      console.log(linkPropertiesParsed)
-
       if (reverseLinkProperties.length !== 0) {
         console.log(query(deCapitalize(domain), linkPropertiesFull, reverseLinkProperties, linkPropertiesParsed))
         setBuiltQuery(query(deCapitalize(domain), linkPropertiesFull, reverseLinkProperties, linkPropertiesParsed))
