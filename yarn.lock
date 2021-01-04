@@ -1499,9 +1499,9 @@
     "@sinonjs/commons" "^1.7.0"
 
 "@statisticsnorway/dapla-js-utilities@^0.2.0":
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/@statisticsnorway/dapla-js-utilities/-/dapla-js-utilities-0.2.1.tgz#08c64db560056ad29ddd22dbbd8155784d9caf40"
-  integrity sha512-vayuNLbEWM7466wHyswZwXiWfkEfPX3z4nIzsRU7E5aTNNsaR5TMHnoL989zH5tI8+u4vLkBnyYjzV5w24rM5A==
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/@statisticsnorway/dapla-js-utilities/-/dapla-js-utilities-0.2.2.tgz#c5eb88e00c9df62c6709431e7db4449aa2e2455f"
+  integrity sha512-WUEIsgjCr2K5b19pUdFASoBv36hqidnJ1FIo8Q8C7Lj/8tKVeOfVRBPptHZYFUbUOmOKNknVmDwqoc/eqhQGWQ==
   dependencies:
     react "^17.0.1"
     react-dom "^17.0.1"
