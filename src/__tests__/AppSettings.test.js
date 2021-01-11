@@ -6,18 +6,19 @@ import { MemoryRouter } from 'react-router-dom'
 import { AppSettings } from '../components'
 import { ApiContext, LanguageContext, UserContext } from '../context/AppContext'
 import { TEST_CONFIGURATIONS } from '../configurations'
-import { SETTINGS } from '../enums'
+import { SETTINGS, TEST_IDS } from '../enums'
 
 const { language, apiContext, userContext } = TEST_CONFIGURATIONS
 const setUser = jest.fn()
 const setLdsApi = jest.fn()
 const setGraphqlApi = jest.fn()
 const setApiReadOnly = jest.fn()
+const setShowUnnamed = jest.fn()
 
 const setup = initialApi => {
-  const { getByPlaceholderText, getByText } = render(
+  const { getByPlaceholderText, getByTestId, getByText } = render(
     <UserContext.Provider value={userContext(setUser)}>
-      <ApiContext.Provider value={apiContext(initialApi, setLdsApi, setApiReadOnly, setGraphqlApi)}>
+      <ApiContext.Provider value={apiContext(initialApi, setLdsApi, setApiReadOnly, setGraphqlApi, setShowUnnamed)}>
         <LanguageContext.Provider value={{ language: language }}>
           <MemoryRouter initialEntries={['/']}>
             <AppSettings error={undefined} loading={false} open={true} setOpen={jest.fn()} />
@@ -27,7 +28,7 @@ const setup = initialApi => {
     </UserContext.Provider>
   )
 
-  return { getByPlaceholderText, getByText }
+  return { getByPlaceholderText, getByTestId, getByText }
 }
 
 test('Renders basics', () => {
@@ -61,4 +62,12 @@ test('Changing API to EXPLORATION_LDS works correctly', () => {
 
   expect(setLdsApi).toHaveBeenCalledWith(window._env.REACT_APP_EXPLORATION_LDS)
   expect(setApiReadOnly).toHaveBeenCalledWith(true)
+})
+
+test('Changing show unnamed works correctly', () => {
+  const { getByTestId } = setup(window._env.REACT_APP_CONCEPT_LDS)
+
+  userEvent.click(getByTestId(TEST_IDS.SHOW_UNNAMED_RESOURCES_TOGGLE))
+
+  expect(setShowUnnamed).toHaveBeenCalledWith(true)
 })
