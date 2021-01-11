@@ -40,7 +40,7 @@ const checkStartsWith = (name, value) =>
 function Domain () {
   const { schemas } = useContext(SchemasContext)
   const { language } = useContext(LanguageContext)
-  const { ldsApi, apiReadOnly } = useContext(ApiContext)
+  const { ldsApi, apiReadOnly, showUnnamed } = useContext(ApiContext)
 
   const { domain } = useParams()
 
@@ -69,7 +69,7 @@ function Domain () {
   useEffect(() => {
     if (!loading && !error && data !== undefined) {
       try {
-        setTableData(mapDataToTable(data, schema))
+        setTableData(mapDataToTable(data, schema, showUnnamed))
         setTableFilterValue('')
       } catch (e) {
         console.log(e)

@@ -18,7 +18,8 @@ const domainId = 'dfb6eecf-c4f4-4fa6-82a1-8b8684d560f4c'
 
 const setup = () => {
   const { getAllByText, getByText } = render(
-    <ApiContext.Provider value={apiContext(window._env.REACT_APP_EXPLORATION_LDS, jest.fn(), jest.fn(), jest.fn())}>
+    <ApiContext.Provider
+      value={apiContext(window._env.REACT_APP_EXPLORATION_LDS, jest.fn(), jest.fn(), jest.fn(), jest.fn())}>
       <LanguageContext.Provider value={{ language: language }}>
         <DomainInstanceDelete domain={domain} id={domainId} wasDeleted={false} setWasDeleted={setWasDeleted} />
       </LanguageContext.Provider>

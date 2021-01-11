@@ -4,12 +4,14 @@ const errorString = 'A problem occured'
 
 export const TEST_CONFIGURATIONS = {
   alternativeApi: 'http://localhost:29999',
-  apiContext: (initialApi, fn1, fn2, fn3, readOnly = true) => ({
+  apiContext: (initialApi, fn1, fn2, fn3, fn4, readOnly = true, showUnnamed = false) => ({
     ldsApi: initialApi,
     setLdsApi: fn1,
     apiReadOnly: readOnly,
     setApiReadOnly: fn2,
-    setGraphqlApi: fn3
+    setGraphqlApi: fn3,
+    showUnnamed: showUnnamed,
+    setShowUnnamed: fn4
   }),
   userContext: fn => ({
     user: 'Test',

@@ -6,7 +6,8 @@ import { API, STORAGE } from '../configurations'
 
 export const ApiContext = React.createContext({
   graphqlApi: `${window._env.REACT_APP_EXPLORATION_LDS}${API.GRAPHQL}`,
-  ldsApi: window._env.REACT_APP_EXPLORATION_LDS
+  ldsApi: window._env.REACT_APP_EXPLORATION_LDS,
+  showUnnamed: false
 })
 
 export const LanguageContext = React.createContext(LANGUAGE.LANGUAGES.NORWEGIAN.languageCode)
@@ -22,13 +23,23 @@ export const AppContextProvider = (props) => {
   const [language, setLanguage] = useState(localStorage.hasOwnProperty(STORAGE.LANGUAGE) ? localStorage.getItem(STORAGE.LANGUAGE) : LANGUAGE.LANGUAGES.NORWEGIAN.languageCode)
   const [graphqlApi, setGraphqlApi] = useState(`${localStorage.hasOwnProperty(STORAGE.LDS) ? localStorage.getItem(STORAGE.LDS) : window._env.REACT_APP_EXPLORATION_LDS}${API.GRAPHQL}`)
   const [apiReadOnly, setApiReadOnly] = useState(ldsApi === window._env.REACT_APP_EXPLORATION_LDS)
+  const [showUnnamed, setShowUnnamed] = useState(localStorage.hasOwnProperty(STORAGE.SHOW_UNNAMED) ? localStorage.getItem(STORAGE.SHOW_UNNAMED) !== 'false' : false)
 
   const graphqlClient = new GraphQLClient({ url: `${graphqlApi}` })
 
   return (
     <UserContext.Provider value={{ user, setUser }}>
       <ClientContext.Provider value={graphqlClient}>
-        <ApiContext.Provider value={{ ldsApi, setLdsApi, graphqlApi, setGraphqlApi, apiReadOnly, setApiReadOnly }}>
+        <ApiContext.Provider value={{
+          ldsApi,
+          setLdsApi,
+          graphqlApi,
+          setGraphqlApi,
+          apiReadOnly,
+          setApiReadOnly,
+          showUnnamed,
+          setShowUnnamed
+        }}>
           <LanguageContext.Provider value={{ language, setLanguage }}>
             <SchemasContext.Provider value={{ schemas, setSchemas }}>
               {props.children}

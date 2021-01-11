@@ -1,16 +1,16 @@
 import React, { useContext } from 'react'
 import { useHistory } from 'react-router-dom'
-import { Form, Header, Icon, Modal, Segment } from 'semantic-ui-react'
-import { ErrorMessage, SimpleFooter, SSB_COLORS, SSB_STYLE } from '@statisticsnorway/dapla-js-utilities'
+import { Checkbox, Divider, Form, Header, Icon, Modal, Segment } from 'semantic-ui-react'
+import { ErrorMessage, InfoPopup, SimpleFooter, SSB_COLORS, SSB_STYLE } from '@statisticsnorway/dapla-js-utilities'
 
 import { ApiContext, LanguageContext, UserContext } from '../context/AppContext'
 import { API, STORAGE } from '../configurations'
-import { SETTINGS } from '../enums'
+import { SETTINGS, TEST_IDS } from '../enums'
 
 function AppSettings ({ error, loading, open, setOpen }) {
   const { language } = useContext(LanguageContext)
   const { user, setUser } = useContext(UserContext)
-  const { ldsApi, setLdsApi, setGraphqlApi, setApiReadOnly } = useContext(ApiContext)
+  const { ldsApi, setLdsApi, setGraphqlApi, setApiReadOnly, showUnnamed, setShowUnnamed } = useContext(ApiContext)
 
   let history = useHistory()
 
@@ -64,6 +64,22 @@ function AppSettings ({ error, loading, open, setOpen }) {
               }}
             />
           </Form.Group>
+          <Divider hidden />
+          <Form.Field>
+            <InfoPopup
+              text={SETTINGS.SHOW_UNNAMED_DESCRIPTION[language]}
+              trigger={<label>{SETTINGS.SHOW_UNNAMED[language]}</label>}
+            />
+            <Checkbox
+              toggle
+              defaultChecked={showUnnamed}
+              data-testid={TEST_IDS.SHOW_UNNAMED_RESOURCES_TOGGLE}
+              onChange={() => {
+                localStorage.setItem(STORAGE.SHOW_UNNAMED, showUnnamed ? 'false' : 'true')
+                setShowUnnamed(!showUnnamed)
+              }}
+            />
+          </Form.Field>
         </Form>
         {!loading && error && <ErrorMessage error={error} language={language} />}
       </Modal.Content>

@@ -72,7 +72,8 @@ export const setConfiguration = (baseRef, itemsRef, property, schema) => {
     format: false,
     enumerated: false,
     refName: false,
-    refProperty: false
+    refProperty: false,
+    isLink: false
   }
 
   if (baseRef !== undefined) {

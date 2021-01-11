@@ -45,7 +45,7 @@ const handleStringForView = (data, configuration) => {
     return data.toString()
   }
 
-  if (data.startsWith('/')) {
+  if (configuration.isLink) {
     return <DomainLinkResolve link={data} />
   }
 
@@ -223,6 +223,10 @@ export const convertDataToView = (data, schema) => {
               break
 
             case GSIM_PROPERTY_TYPES.TYPES.STRING:
+              if (properties.hasOwnProperty(`${GSIM.LINK_TYPE}${property}`)) {
+                configuration.isLink = true
+              }
+
               newProperty.value = handleStringForView(data[property], configuration)
               break
 
@@ -241,8 +245,16 @@ export const convertDataToView = (data, schema) => {
   }, {})
 }
 
-export const mapDataToTable = (data, schema) => {
-  return data.map(element => {
+export const mapDataToTable = (data, schema, showUnnamed) => {
+  let filteredData = data
+
+  if (!showUnnamed) {
+    filteredData = data.filter(element =>
+      element[GSIM.NAME].filter(multilingual => multilingual[GSIM.LOCALIZED.TEXT] !== '').length !== 0
+    )
+  }
+
+  return filteredData.map(element => {
     const values = convertDataToView(element, schema)
 
     return Object.entries(values).reduce((accumulator, [property, item]) => {
