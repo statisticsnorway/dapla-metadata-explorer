@@ -12,8 +12,8 @@ export const SETTINGS = {
     nb: 'Vis ukjente ressurser?'
   },
   SHOW_UNNAMED_DESCRIPTION: {
-    en: 'This means showing instances of domains even if they are without a name (if you change this, please refresh the page)',
-    nb: 'Dette betyr å vise instanser av domener selv om de ikke har et navn (hvis denne endres, må du laste siden på nytt)'
+    en: 'This means showing instances of domains even if they are without a name',
+    nb: 'Dette betyr å vise instanser av domener selv om de ikke har et navn'
   },
   USER: {
     en: 'User',

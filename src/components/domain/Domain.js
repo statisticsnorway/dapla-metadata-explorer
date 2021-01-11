@@ -75,7 +75,7 @@ function Domain () {
         console.log(e)
       }
     }
-  }, [data, error, loading, schema])
+  }, [data, error, loading, schema, showUnnamed])
 
   const handleTableFilter = (e, { value }) => {
     if (value.length >= 2) {
