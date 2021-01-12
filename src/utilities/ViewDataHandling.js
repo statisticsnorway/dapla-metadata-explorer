@@ -205,6 +205,10 @@ export const convertDataToView = (data, schema) => {
           const itemsRef = getNestedObject(properties, [property, GSIM.ITEMS, GSIM.SCHEMA.REF])
           const configuration = setConfiguration(baseRef, itemsRef, properties[property], schema)
 
+          if (properties.hasOwnProperty(`${GSIM.LINK_TYPE}${property}`)) {
+            configuration.isLink = true
+          }
+
           switch (configuration.type) {
             case GSIM_PROPERTY_TYPES.TYPES.ARRAY:
               newProperty.value = handleArrayForView(data[property], configuration)
@@ -223,10 +227,6 @@ export const convertDataToView = (data, schema) => {
               break
 
             case GSIM_PROPERTY_TYPES.TYPES.STRING:
-              if (properties.hasOwnProperty(`${GSIM.LINK_TYPE}${property}`)) {
-                configuration.isLink = true
-              }
-
               newProperty.value = handleStringForView(data[property], configuration)
               break
 
