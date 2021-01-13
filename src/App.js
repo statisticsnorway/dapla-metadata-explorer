@@ -4,7 +4,16 @@ import { Route, Switch } from 'react-router-dom'
 import { Loader, Ref, Segment } from 'semantic-ui-react'
 import { ErrorMessage } from '@statisticsnorway/dapla-js-utilities'
 
-import { AppHome, AppMenu, AppSettings, Domain, DomainInstance, DomainInstanceNew, Import } from './components'
+import {
+  AppHome,
+  AppMenu,
+  AppSettings,
+  Domain,
+  DomainInstance,
+  DomainInstanceNew,
+  DomainInstances,
+  Import
+} from './components'
 import { ApiContext, LanguageContext, SchemasContext } from './context/AppContext'
 import { sortSchemas } from './utilities'
 import { API, ROUTING } from './configurations'
@@ -45,6 +54,9 @@ function App () {
             <Segment basic style={{ paddingBottom: '5rem' }}>
               <AppHome />
               <Switch>
+                <Route path={ROUTING.DOMAIN_INSTANCES}>
+                  <DomainInstances />
+                </Route>
                 <Route path={ROUTING.DOMAIN_INSTANCE_NEW}>
                   <DomainInstanceNew />
                 </Route>
