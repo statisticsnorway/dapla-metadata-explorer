@@ -3,13 +3,15 @@ import { Form } from 'semantic-ui-react'
 import { SSB_COLORS } from '@statisticsnorway/dapla-js-utilities'
 
 function FormInputDate ({ configuration, register, setValue, value }) {
+  const name = configuration.partOfMultiple ? `${configuration.partOfMultiple}.${configuration.name}` : configuration.name
+
   const handleChange = (e, { value }) => {
-    setValue(configuration.name, new Date(value).toISOString(), { shouldDirty: true })
+    setValue(name, new Date(value).toISOString(), { shouldDirty: true })
   }
 
   useEffect(() => {
-    register(configuration.name)
-  }, [register, configuration.name])
+    register(name)
+  }, [register, name])
 
   return (
     <Form.Input

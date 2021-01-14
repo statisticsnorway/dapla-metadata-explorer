@@ -8,6 +8,8 @@ function FormKeyValueInput ({ configuration, register, setValue, value }) {
 
   const [defaultActiveIndex, setDefaultActiveIndex] = useState(1)
 
+  const name = configuration.partOfMultiple ? `${configuration.partOfMultiple}.${configuration.name}` : configuration.name
+
   const handleChange = (e, data, key) => {
     const keyName = configuration.configuration.options.key.name
     const valueName = configuration.configuration.options.value.name
@@ -28,7 +30,7 @@ function FormKeyValueInput ({ configuration, register, setValue, value }) {
       }
     }
 
-    setValue(configuration.name, value, { shouldDirty: true })
+    setValue(name, value, { shouldDirty: true })
   }
 
   useEffect(() => {
@@ -40,8 +42,8 @@ function FormKeyValueInput ({ configuration, register, setValue, value }) {
   }, [language, configuration.configuration.options.key.values])
 
   useEffect(() => {
-    register(configuration.name)
-  }, [register, configuration.name])
+    register(name)
+  }, [register, name])
 
   const panes = configuration.configuration.options.key.values.map(keyValue =>
     ({

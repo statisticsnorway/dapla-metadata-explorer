@@ -14,13 +14,15 @@ function FormInputDropdown ({ configuration, register, setValue, value }) {
 
   const [{ loading }, refetch] = useAxios('', { manual: true, useCache: false })
 
+  const name = configuration.partOfMultiple ? `${configuration.partOfMultiple}.${configuration.name}` : configuration.name
+
   const handleChange = (e, { value }) => {
-    setValue(configuration.name, value, { shouldDirty: true })
+    setValue(name, value, { shouldDirty: true })
   }
 
   useEffect(() => {
-    register(configuration.name)
-  }, [register, configuration.name])
+    register(name)
+  }, [register, name])
 
   useEffect(() => {
     if (configuration.configuration.options.isLink) {

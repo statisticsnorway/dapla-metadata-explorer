@@ -153,7 +153,7 @@ const handleUnkownForEdit = () => ({
   value: null
 })
 
-export const convertSchemaToEdit = (data, schema) => {
+export const convertSchemaToEdit = (data, schema, partOfMultiple = false) => {
   const properties = getNestedObject(schema, GSIM.PROPERTIES(schema))
   const required = getNestedObject(schema, GSIM.REQUIRED(schema))
 
@@ -163,7 +163,8 @@ export const convertSchemaToEdit = (data, schema) => {
         name: property,
         description: properties[property][GSIM.PROPERTY_DESCRIPTION],
         configuration: null,
-        required: required.includes(property)
+        required: required.includes(property),
+        partOfMultiple: partOfMultiple
       }
 
       const baseRef = getNestedObject(properties, [property, GSIM.SCHEMA.REF])
