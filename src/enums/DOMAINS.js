@@ -3,6 +3,10 @@ export const DOMAINS = {
     en: 'Links found in this gathering of domains',
     nb: 'Lenker funnet i denne samlingen av domener'
   },
+  NO_CONNECTIONS: {
+    en: 'None',
+    nb: 'Ingen'
+  },
   START: {
     en: 'Go',
     nb: 'Start'

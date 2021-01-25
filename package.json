@@ -74,6 +74,8 @@
       "!src/components/domains/Import.js",
       "!src/components/domains/Upload.js",
       "!src/components/domains/DomainsGraph.js",
+      "!src/components/domains/DomainInstances.js",
+      "!src/components/domains/DomainInstancesNew.js",
       "!src/components/domain/DomainInstanceGraph.js",
       "!src/configurations/GRAPH.js"
     ],

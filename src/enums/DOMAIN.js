@@ -122,5 +122,9 @@ export const DOMAIN = {
   WAS_SAVED: {
     en: 'Domain was saved!',
     nb: 'Domene ble lagret!'
+  },
+  WAS_SAVED_MULTI: {
+    en: 'Domains were saved!',
+    nb: 'Domenene ble lagret!'
   }
 }

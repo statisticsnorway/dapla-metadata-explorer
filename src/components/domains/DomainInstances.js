@@ -72,7 +72,7 @@ function DomainInstances () {
         </Grid.Row>
       </Grid>
       }
-      {ready && <DomainInstancesNew domains={selectedDomains} />}
+      {ready && <DomainInstancesNew domains={selectedDomains} setReady={setReady} />}
     </Container>
   )
 }
