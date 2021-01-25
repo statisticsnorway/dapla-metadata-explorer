@@ -1,4 +1,18 @@
 export const DOMAINS = {
+  CONNECT_DESCRIPTION: [
+    {
+      en: 'Connect the ',
+      nb: 'Koble den '
+    },
+    {
+      en: ' you create to the ',
+      nb: ' du oppretter til den '
+    },
+    {
+      en: ' you create?',
+      nb: ' du oppretter?'
+    }
+  ],
   LINKS: {
     en: 'Links found in this gathering of domains',
     nb: 'Lenker funnet i denne samlingen av domener'

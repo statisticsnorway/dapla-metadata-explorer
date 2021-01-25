@@ -2,7 +2,7 @@ import React, { Fragment, useContext, useEffect, useState } from 'react'
 import useAxios from 'axios-hooks'
 import { v4 as uuidv4 } from 'uuid'
 import { useForm } from 'react-hook-form'
-import { Button, Divider, Form, Grid, Header, Icon, List, Message, Segment } from 'semantic-ui-react'
+import { Button, Checkbox, Divider, Form, Grid, Header, Icon, List, Message, Segment } from 'semantic-ui-react'
 import { ErrorMessage, getNestedObject, SSB_COLORS } from '@statisticsnorway/dapla-js-utilities'
 
 import { ApiContext, LanguageContext, SchemasContext, UserContext } from '../../context/AppContext'
@@ -26,6 +26,7 @@ function DomainInstancesNew ({ domains, setReady }) {
   const [saved, setSaved] = useState(false)
   const [edited, setEdited] = useState(false)
   const [formConnections, setFormConnections] = useState(false)
+  const [connectionsWhenSaving, setConnectionsWhenSaving] = useState([])
   const [formData] = useState(domains.reduce((accumulator, current) => ({
     ...accumulator, [current]: createEmptyDataObject(uuidv4(), user)
   }), {}))
@@ -45,11 +46,12 @@ function DomainInstancesNew ({ domains, setReady }) {
       Object.entries(domainSchema).forEach(([entry, entryData]) => {
         if (getNestedObject(entryData, ['configuration', 'options', 'isLink']) !== undefined) {
           if (entryData.configuration.options.links.some(link => domains.includes(link))) {
-            const theLink = entryData.configuration.options.links.filter(link => domains.includes(link))
+            const link = entryData.configuration.options.links.filter(link => domains.includes(link))
+            const theLink = [link.concat(entryData.name)]
 
             if (entryData.required) {
               if (formConnections[domain] !== undefined) {
-                formConnections[domain] = formConnections[domain].concat(theLink)
+                formConnections[domain].push(theLink.flat())
               } else {
                 formConnections[domain] = theLink
               }
@@ -76,12 +78,40 @@ function DomainInstancesNew ({ domains, setReady }) {
       filterDomainData.forEach(value => filteredDomainData[value[0]] = value[1])
     }
 
+    if (connectionsWhenSaving.length !== 0) {
+      const connections = connectionsWhenSaving.filter(connection => connection.split('_').shift() === domain)
+
+      if (connections.length !== 0) {
+        connections.forEach(connection => {
+          const linkFrom = connection.split('_').shift()
+          const linkTo = connection.split('_').pop()
+
+          if (formConfiguration[linkFrom][linkTo].configuration.options.multiple) {
+            formConfiguration[linkFrom][linkTo].configuration.options.links.forEach(link => {
+              if (formData[link] !== undefined) {
+                if (filteredDomainData[linkTo] !== undefined) {
+                  filteredDomainData[linkTo].push(`/${link}/${formData[link].id}`)
+                } else {
+                  filteredDomainData[linkTo] = [`/${link}/${formData[link].id}`]
+                }
+              }
+            })
+          } else {
+            const linkToCapitalized = formConfiguration[linkFrom][linkTo].configuration.options.links[0]
+            filteredDomainData[linkTo] = `/${linkToCapitalized}/${formData[linkToCapitalized].id}`
+          }
+        })
+      }
+    }
+
     return ({
       operation: 'put',
       type: domain,
       entries: [{
         id: formData[domain].id,
-        data: filterDomainData.length !== 0 ? { ...formData[domain], ...filteredDomainData } : formData[domain]
+        data: filterDomainData.length !== 0 ? { ...formData[domain], ...filteredDomainData } :
+          Object.keys(filteredDomainData).length !== 0 ? { ...formData[domain], ...filteredDomainData } :
+            formData[domain]
       }]
     })
   })
@@ -105,6 +135,18 @@ function DomainInstancesNew ({ domains, setReady }) {
     document.body.appendChild(link)
     link.click()
     document.body.removeChild(link)
+  }
+
+  const handleCheckbox = (includes, key) => {
+    if (includes) {
+      const filteredConnections = connectionsWhenSaving.filter(element => element !== key)
+
+      setConnectionsWhenSaving(filteredConnections)
+    } else {
+      const newConnections = connectionsWhenSaving.concat([key])
+
+      setConnectionsWhenSaving(newConnections)
+    }
   }
 
   useEffect(() => {
@@ -146,7 +188,7 @@ function DomainInstancesNew ({ domains, setReady }) {
                         <Icon name='linkify' />
                         <Icon corner name='arrow right' />
                       </Icon.Group>
-                      {connection.join(', ')}
+                      {connection.map(connect => connect[0]).join(', ')}
                     </List.Item>
                   )}
                 </List>
@@ -157,8 +199,28 @@ function DomainInstancesNew ({ domains, setReady }) {
           <Grid.Column>
             {Object.entries(formConnections).length !== 0 &&
             <Segment>
-              <i>TODO: Muligheter her for å velge hvilke av de man lager her man vil koble til de andre man lager
-                her?</i>
+              <List size='large' relaxed>
+                {Object.entries(formConnections).map(([domain, connection]) => connection.map(connect => {
+                  const key = `${domain}_${connect[1]}`
+                  const includes = connectionsWhenSaving.includes(key)
+
+                  return (
+                    <List.Item key={key}>
+                      <Checkbox
+                        checked={includes}
+                        onClick={() => handleCheckbox(includes, key)}
+                        label={
+                          <label>
+                            {DOMAINS.CONNECT_DESCRIPTION[0][language]}<b>{connect[0]}</b>
+                            {DOMAINS.CONNECT_DESCRIPTION[1][language]}<b>{camelToTitle(domain)}</b>
+                            {DOMAINS.CONNECT_DESCRIPTION[2][language]}
+                          </label>
+                        }
+                      />
+                    </List.Item>
+                  )
+                }))}
+              </List>
             </Segment>
             }
           </Grid.Column>

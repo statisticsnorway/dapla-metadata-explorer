@@ -74,6 +74,7 @@ function FormInputDropdown ({ configuration, register, setValue, value }) {
 
   return (
     <Form.Select
+      search
       clearable
       options={options}
       loading={loading}
