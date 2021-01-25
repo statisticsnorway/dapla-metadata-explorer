@@ -6,6 +6,7 @@ export const API = {
   GET_DOMAIN_DATA: (domain) => `/${NAMESPACE}/${domain}`,
   GET_DOMAIN_INSTANCE_DATA: (domain, id) => `/${NAMESPACE}/${domain}/${id}`,
   PUT_DOMAIN_INSTANCE_DATA: (domain, id) => `/${NAMESPACE}/${domain}/${id}`,
+  PUT_DOMAIN_INSTANCES_DATA: `/batch/${NAMESPACE}`,
   DELETE_DOMAIN_INSTANCE_DATA: (domain, id) => `/${NAMESPACE}/${domain}/${id}`,
   GET_DOMAIN_INSTANCE_NAME: (link) => `/${NAMESPACE}${link}/name`,
   GET_HEALTH: '/health/ready',

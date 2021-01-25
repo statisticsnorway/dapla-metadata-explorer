@@ -15,6 +15,10 @@ export const HOME = {
     en: 'GSIM groups',
     nb: 'GSIM grupper'
   },
+  MULTI_CREATE_DOMAIN_INSTANCES: {
+    en: 'Create instances of multiple domains',
+    nb: 'Opprett instanser av sammensatte domener'
+  },
   VERSION: {
     en: 'Domain model version',
     nb: 'Domenemodellversjon'

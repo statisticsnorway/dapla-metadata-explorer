@@ -249,9 +249,13 @@ export const mapDataToTable = (data, schema, showUnnamed) => {
   let filteredData = data
 
   if (!showUnnamed) {
-    filteredData = data.filter(element =>
-      element[GSIM.NAME].filter(multilingual => multilingual[GSIM.LOCALIZED.TEXT] !== '').length !== 0
-    )
+    filteredData = data.filter(element => {
+      if (!element.hasOwnProperty(GSIM.NAME)) {
+        return false
+      } else {
+        return element[GSIM.NAME].filter(multilingual => multilingual[GSIM.LOCALIZED.TEXT] !== '').length !== 0
+      }
+    })
   }
 
   return filteredData.map(element => {

@@ -110,9 +110,7 @@ function DomainInstance () {
                 }
               </Grid.Column>
               <Grid.Column textAlign='right'>
-                {!wasDeleted && !apiReadOnly &&
-                <DomainInstanceGraph domain={domain} instanceData={data} schema={schema} />
-                }
+                {!wasDeleted && <DomainInstanceGraph domain={domain} instanceData={data} schema={schema} />}
               </Grid.Column>
             </Grid>
           </>

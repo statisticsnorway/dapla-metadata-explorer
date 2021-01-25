@@ -1,4 +1,5 @@
 export { DOMAIN } from './DOMAIN'
+export { DOMAINS } from './DOMAINS'
 export { ERROR_BOUNDARY } from './ERROR_BOUNDARY'
 export { FORM } from './FORM'
 export { HOME } from './HOME'

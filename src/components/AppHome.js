@@ -1,14 +1,16 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { Button, Divider, Grid, Icon, List, Segment, Transition } from 'semantic-ui-react'
-import { InfoText } from '@statisticsnorway/dapla-js-utilities'
+import { InfoText, SSB_COLORS } from '@statisticsnorway/dapla-js-utilities'
 
 import AppSearch from './AppSearch'
 import { DomainsGraph, DomainsList } from './domains'
-import { LanguageContext, SchemasContext } from '../context/AppContext'
+import { ApiContext, LanguageContext, SchemasContext } from '../context/AppContext'
+import { ROUTING } from '../configurations'
 import { HOME, TEST_IDS } from '../enums'
 
 function AppHome () {
+  const { apiReadOnly } = useContext(ApiContext)
   const { schemas } = useContext(SchemasContext)
   const { language } = useContext(LanguageContext)
 
@@ -72,6 +74,21 @@ function AppHome () {
                   <DomainsList />
                 </Grid.Column>
               </Grid.Row>
+              {!apiReadOnly &&
+              <Grid.Row>
+                <Grid.Column textAlign='right'>
+                  <Button
+                    size='large'
+                    as={Link}
+                    to={ROUTING.DOMAIN_INSTANCES}
+                    style={{ backgroundColor: SSB_COLORS.BLUE }}
+                  >
+                    <Icon name='pencil alternate' style={{ paddingRight: '0.5rem' }} />
+                    {HOME.MULTI_CREATE_DOMAIN_INSTANCES[language]}
+                  </Button>
+                </Grid.Column>
+              </Grid.Row>
+              }
             </Grid>
           </Segment>
           <Button
