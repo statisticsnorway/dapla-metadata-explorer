@@ -17,13 +17,13 @@ export const GRAPH_CONFIG = (width, height) => ({
     labelProperty: link => link.linkLabelName,
     renderLabel: true,
     fontSize: 12,
-    markerWidth: 12,
-    markerHeight: 12,
+    markerWidth: 16,
+    markerHeight: 16,
     color: SSB_COLORS.GREY,
-    strokeWidth: 2
+    strokeWidth: 1
   },
   d3: {
-    linkLength: 500
+    linkLength: 400
   },
   width: ((width * 0.5559)),
   height: ((height * 0.54)).toFixed(0)

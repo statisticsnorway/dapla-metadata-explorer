@@ -2,6 +2,10 @@ body {
   background: #f0f8f9
 }
 
+text[dy="-1"] {
+  text-anchor: middle;
+}
+
 .ui.loading.segment:before {
   background: transparent;
 }
