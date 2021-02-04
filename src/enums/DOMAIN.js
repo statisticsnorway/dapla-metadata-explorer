@@ -67,6 +67,14 @@ export const DOMAIN = {
     en: 'Edit',
     nb: 'Endre'
   },
+  EXTENDED_CONNECTIONS: {
+    en: 'Check extended connections',
+    nb: 'Se utvidede koblinger'
+  },
+  EXTENDED_CONNECTIONS_HEADER: {
+    en: 'Extended connections for',
+    nb: 'Utvidede koblinger for'
+  },
   JUMP_TO_SAVED: {
     en: 'Click here to view what you just saved',
     nb: 'Klikk her for å se det du akkurat lagret'
@@ -104,12 +112,20 @@ export const DOMAIN = {
     nb: 'Domeneattributter som er unike for dette domene'
   },
   USED_BY: {
-    en: 'Connected to by',
+    en: 'Connected too by',
     nb: 'Koblet seg til fra'
   },
   USES: {
-    en: 'Connects to',
+    en: 'Connects too',
     nb: 'Kobler seg mot'
+  },
+  USES_DIRECT: {
+    en: 'Connects directly too',
+    nb: 'Kobler seg direkte mot'
+  },
+  USES_INDIRECT: {
+    en: 'Connects indirectly too',
+    nb: 'Kobler seg indirekte mot'
   },
   WAS_DELETED: {
     en: 'Domain was deleted!',

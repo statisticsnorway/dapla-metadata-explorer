@@ -25,6 +25,7 @@ jest.mock('../components/domain/DomainLinkResolve', () => () => null)
 jest.mock('../components/domain/DomainInstanceEdit', () => () => null)
 jest.mock('../components/domain/DomainInstanceGraph', () => () => null)
 jest.mock('../components/domain/DomainInstanceDelete', () => () => null)
+jest.mock('../components/domain/DomainInstanceExtendedGraph', () => () => null)
 
 const { language, apiContext } = TEST_CONFIGURATIONS
 

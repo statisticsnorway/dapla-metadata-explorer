@@ -10,7 +10,7 @@ import {
   SSB_COLORS
 } from '@statisticsnorway/dapla-js-utilities'
 
-import { DomainInstanceDelete, DomainInstanceEdit, DomainInstanceGraph } from './'
+import { DomainInstanceDelete, DomainInstanceEdit, DomainInstanceExtendedGraph, DomainInstanceGraph } from './'
 import { ApiContext, LanguageContext, SchemasContext } from '../../context/AppContext'
 import { camelToTitle, convertDataToView, getDomainSchema } from '../../utilities'
 import { API, DOMAIN_PROPERTY_GROUPING, GSIM } from '../../configurations'
@@ -111,6 +111,12 @@ function DomainInstance () {
               </Grid.Column>
               <Grid.Column textAlign='right'>
                 {!wasDeleted && <DomainInstanceGraph domain={domain} instanceData={data} schema={schema} />}
+                {!wasDeleted &&
+                <>
+                  <Divider hidden />
+                  <DomainInstanceExtendedGraph domain={domain} instanceData={data} />
+                </>
+                }
               </Grid.Column>
             </Grid>
           </>
