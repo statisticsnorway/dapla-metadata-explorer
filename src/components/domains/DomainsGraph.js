@@ -36,10 +36,21 @@ function DomainsGraph () {
 
         Object.entries(domainProperties).forEach(([key, property]) => {
           if (key.startsWith(GSIM.LINK_TYPE)) {
-            Object.keys(property.properties).forEach(linkKey => links.push({
-              source: domainName,
-              target: linkKey
-            }))
+            Object.keys(property.properties).forEach(linkKey => {
+              if (domainName === linkKey) {
+                links.push({
+                  source: domainName,
+                  target: linkKey,
+                  strokeWidth: 1.5,
+                  opacity: 0.5
+                })
+              } else {
+                links.push({
+                  source: domainName,
+                  target: linkKey
+                })
+              }
+            })
           }
         })
       })
