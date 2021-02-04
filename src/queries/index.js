@@ -1,1 +1,1 @@
-export { query } from './QUERIES'
+export { extendedConnectionsQueries, queriesShouldIgnore, query } from './QUERIES'

@@ -1,6 +1,9 @@
 import { capitalize } from '../utilities'
 
-export const query = (domain, linkPropertiesParsed = false, reverseLinkProperties = false, linkPropertiesParsedHelpers = false) => `
+export const queriesShouldIgnore = ['id', 'name', 'description']
+
+export const query = (domain, linkPropertiesParsed = false, reverseLinkProperties = false, linkPropertiesParsedHelpers = false) =>
+`
   {
     ${domain}(filter: {id: $id}) {
       ${!linkPropertiesParsed ? 'id' : linkPropertiesParsed.map((link, index) => {
@@ -18,3 +21,92 @@ export const query = (domain, linkPropertiesParsed = false, reverseLinkPropertie
     }
   }
 `
+
+export const extendedConnectionsQueries = {
+  representedVariable:
+    `
+      {
+        representedVariable(filter: {id: $id}) {
+          universe {
+            id
+            name {
+              languageCode
+              languageText
+            }
+            description {
+              languageCode
+              languageText
+            }
+            reversePopulationUniverses {
+              id
+              name {
+                languageCode
+                languageText
+              }
+              description {
+                languageCode
+                languageText
+              }
+            }
+          }
+          substantiveValueDomain {
+            ... on DescribedValueDomain {
+              id
+              name {
+                languageCode
+                languageText
+              }
+              description {
+                languageCode
+                languageText
+              }
+            }
+            ... on EnumeratedValueDomain {
+              id
+              name {
+                languageCode
+                languageText
+              }
+              description {
+                languageCode
+                languageText
+              }
+            }
+          }
+          variable {
+            id
+            name {
+              languageCode
+              languageText
+            }
+            description {
+              languageCode
+              languageText
+            }
+            subjectFields {
+              id
+              name {
+                languageCode
+                languageText
+              }
+              description {
+                languageCode
+                languageText
+              }
+            }
+            unitType {
+              id
+              name {
+                languageCode
+                languageText
+              }
+              description {
+                languageCode
+                languageText
+              }
+            }
+          }
+        }
+      }
+    `
+}
