@@ -13,3 +13,18 @@ export const convertDateToView = value => {
 export const capitalize = string => `${string.charAt(0).toUpperCase()}${string.slice(1)}`
 
 export const deCapitalize = string => `${string.charAt(0).toLowerCase()}${string.slice(1)}`
+
+export const formatFilename = (date, time, language) => {
+  const formatFixer = {
+    date: {
+      en: (filenameDate) => filenameDate.replace(/\//g, '-'),
+      nb: (filenameDate) => filenameDate.replace(/\./g, '-')
+    },
+    time: {
+      en: (filenameTime) => filenameTime.split(':').slice(0, 2).join('-'),
+      nb: (filenameTime) => filenameTime.split(':').slice(0, 2).join('-')
+    }
+  }
+
+  return formatFixer.date[language](date) + '_' + formatFixer.time[language](time)
+}
