@@ -2,12 +2,14 @@ import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { Header, Table } from 'semantic-ui-react'
 
-import { LanguageContext } from '../../context/AppContext'
+import DomainJsonData from './DomainJsonData'
+import { ApiContext, LanguageContext } from '../../context/AppContext'
 import { camelToTitle } from '../../utilities'
 import { GSIM, ROUTING } from '../../configurations'
 import { UI } from '../../enums'
 
-function DomainTable ({ data, domain, tableHeaders }) {
+function DomainTable ({ data, rawData, domain, tableHeaders }) {
+  const { apiReadOnly } = useContext(ApiContext)
   const { language } = useContext(LanguageContext)
 
   const filteredTableHeaders = tableHeaders.filter(header => header !== GSIM.ID)
@@ -24,33 +26,36 @@ function DomainTable ({ data, domain, tableHeaders }) {
     <>
       {data.length === 0 && <Header textAlign='center' content={UI.NOTHING_FOUND[language]} />}
       {data.length !== 0 &&
-      <Table celled selectable>
-        <Table.Header>
-          <Table.Row>
-            {filteredTableHeaders.map(header =>
-              <Table.HeaderCell key={header}>{camelToTitle(header)}</Table.HeaderCell>
-            )}
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>
-          {data.length !== 0 && data.map(row =>
-            <Table.Row key={row[GSIM.ID]}>
-              {Object.entries(row).filter(([key]) => filteredTableHeaders.includes(key)).sort(sorter)
-                .map(([key, value]) =>
-                  <Table.Cell key={key}>
-                    {key === GSIM.NAME || key === GSIM.PROPERTY_DESCRIPTION ?
-                      <Link to={`${ROUTING.DOMAIN_BASE}${domain}/${row.id}`} style={{ color: 'inherit' }}>
-                        {value}
-                      </Link>
-                      : value
-                    }
-                  </Table.Cell>
-                )
-              }
+      <>
+        <Table celled selectable>
+          <Table.Header>
+            <Table.Row>
+              {filteredTableHeaders.map(header =>
+                <Table.HeaderCell key={header}>{camelToTitle(header)}</Table.HeaderCell>
+              )}
             </Table.Row>
-          )}
-        </Table.Body>
-      </Table>
+          </Table.Header>
+          <Table.Body>
+            {data.length !== 0 && data.map(row =>
+              <Table.Row key={row[GSIM.ID]}>
+                {Object.entries(row).filter(([key]) => filteredTableHeaders.includes(key)).sort(sorter)
+                  .map(([key, value]) =>
+                    <Table.Cell key={key}>
+                      {key === GSIM.NAME || key === GSIM.PROPERTY_DESCRIPTION ?
+                        <Link to={`${ROUTING.DOMAIN_BASE}${domain}/${row.id}`} style={{ color: 'inherit' }}>
+                          {value}
+                        </Link>
+                        : value
+                      }
+                    </Table.Cell>
+                  )
+                }
+              </Table.Row>
+            )}
+          </Table.Body>
+        </Table>
+        {!apiReadOnly && <DomainJsonData domain={domain} rawData={rawData} />}
+      </>
       }
     </>
   )

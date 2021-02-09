@@ -158,7 +158,7 @@ function Domain () {
       />
       {loading ? <Loader active inline='centered' /> :
         error ? <ErrorMessage error={error} language={language} /> :
-          <DomainTable data={tableData} domain={domain} tableHeaders={tableHeaders} />
+          <DomainTable data={tableData} rawData={data} domain={domain} tableHeaders={tableHeaders} />
       }
     </>
   )

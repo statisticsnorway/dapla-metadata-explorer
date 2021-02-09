@@ -23,6 +23,7 @@ jest.mock('react-router-dom', () => ({
 }))
 
 jest.mock('../components/domain/DomainLinkResolve', () => () => null)
+jest.mock('../components/domain/DomainJsonData', () => () => null)
 
 const { language, apiContext } = TEST_CONFIGURATIONS
 
