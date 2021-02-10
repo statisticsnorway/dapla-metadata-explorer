@@ -1,6 +1,6 @@
 {
   "name": "dapla-metadata-explorer",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Metadata exploration through GSIM for Statistics Norway Dataplatform",
   "repository": {
     "type": "git",
@@ -20,6 +20,7 @@
     "axios-hooks": "^2.1.0",
     "d3": "^5.5.0",
     "graphql-hooks": "^5.0.0",
+    "jszip": "^3.6.0",
     "react": "^17.0.1",
     "react-d3-graph": "^2.5.0",
     "react-dom": "^17.0.1",
@@ -76,6 +77,7 @@
       "!src/components/domains/DomainsGraph.js",
       "!src/components/domains/DomainInstances.js",
       "!src/components/domains/DomainInstancesNew.js",
+      "!src/components/domains/DomainsJsonData.js",
       "!src/components/domain/DomainInstanceGraph.js",
       "!src/components/domain/DomainInstanceExtendedGraph.js",
       "!src/configurations/GRAPH.js"

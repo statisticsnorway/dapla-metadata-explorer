@@ -4,7 +4,7 @@ import { Button, Divider, Grid, Icon, List, Segment, Transition } from 'semantic
 import { InfoText, SSB_COLORS } from '@statisticsnorway/dapla-js-utilities'
 
 import AppSearch from './AppSearch'
-import { DomainsGraph, DomainsList } from './domains'
+import { DomainsGraph, DomainsJsonData, DomainsList } from './domains'
 import { ApiContext, LanguageContext, SchemasContext } from '../context/AppContext'
 import { ROUTING } from '../configurations'
 import { HOME, TEST_IDS } from '../enums'
@@ -76,6 +76,9 @@ function AppHome () {
               </Grid.Row>
               {!apiReadOnly &&
               <Grid.Row>
+                <Grid.Column>
+                  <DomainsJsonData />
+                </Grid.Column>
                 <Grid.Column textAlign='right'>
                   <Button
                     size='large'

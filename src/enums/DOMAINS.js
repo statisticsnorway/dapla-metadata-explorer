@@ -28,5 +28,9 @@ export const DOMAINS = {
   SUB_HEADER: {
     en: 'Ability to create instances of multiple domains at the same time, with connections',
     nb: 'Mulighet til å opprette instanser av flere domener samtidig, med eventuelle koblinger'
+  },
+  GET_ZIP: {
+    en: 'Download all as zip',
+    nb: 'Last ned alle som zip'
   }
 }
