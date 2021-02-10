@@ -4,7 +4,6 @@ require('jest-localstorage-mock')
 
 jest.mock('axios-hooks')
 jest.mock('graphql-hooks')
-jest.mock('jszip')
 
 window._env = {
   REACT_APP_CONCEPT_LDS: process.env.REACT_APP_CONCEPT_LDS,

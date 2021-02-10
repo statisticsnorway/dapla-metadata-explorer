@@ -15,6 +15,7 @@ import Schemas from './test-data/Schemas.json'
 jest.mock('../components/AppSearch', () => () => null)
 jest.mock('../components/domains/DomainsList', () => () => null)
 jest.mock('../components/domains/DomainsGraph', () => () => null)
+jest.mock('../components/domains/DomainsJsonData', () => () => null)
 
 const { language, modelDescriptionPath } = TEST_CONFIGURATIONS
 
