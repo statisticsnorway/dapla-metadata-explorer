@@ -16,7 +16,7 @@ const convertMultilingualToView = value =>
     {value.map((element, index) =>
       <List.Item key={index}>
         <List.Content>
-          <List.Header style={{ lineHeight: '1.4285em', fontStyle: 'italic' }}>
+          <List.Header style={{ lineHeight: '1.4285em', fontStyle: 'italic', fontWeight: 'normal' }}>
             {element[GSIM_DEFINITIONS.MULTILINGUAL_TEXT.PROPERTIES.LANGUAGE_CODE]}
           </List.Header>
           <List.Description>

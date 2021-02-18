@@ -34,7 +34,7 @@ const objectProperty = camelToTitle('typeOfStatisticalUnit')
 const modelObject = getNestedObject(Schemas[9], ['definitions', domain, 'description'])
 
 const setup = () => {
-  const { getAllByText, getByPlaceholderText, getByTestId, getByText, queryAllByText } = render(
+  const { container, getAllByText, getByPlaceholderText, getByTestId, getByText, queryAllByText } = render(
     <ApiContext.Provider
       value={apiContext(window._env.REACT_APP_EXPLORATION_LDS, jest.fn(), jest.fn(), jest.fn(), jest.fn())}>
       <LanguageContext.Provider value={{ language: language }}>
@@ -47,7 +47,7 @@ const setup = () => {
     </ApiContext.Provider>
   )
 
-  return { getAllByText, getByPlaceholderText, getByTestId, getByText, queryAllByText }
+  return { container, getAllByText, getByPlaceholderText, getByTestId, getByText, queryAllByText }
 }
 
 describe('Common mock', () => {
@@ -105,5 +105,36 @@ describe('Common mock', () => {
     userEvent.type(getByPlaceholderText(DOMAIN.SEARCH_TABLE[language]), 'Kommune')
 
     expect(queryAllByText('Person')).toHaveLength(0)
+  })
+
+  test('Sorts table correctly', () => {
+    const { getByText, getAllByText } = setup()
+
+    userEvent.click(getAllByText('Name')[1])
+
+    userEvent.click(getByText(DOMAIN.ADJUST_TABLE_HEADERS[language]))
+    userEvent.click(getAllByText('Created By')[0])
+    userEvent.click(getAllByText('Created By')[1])
+
+    expect(getAllByText(/^(BNJ|OHV)$/)[0].innerHTML).toEqual('BNJ')
+
+    userEvent.click(getAllByText('Created By')[1])
+
+    expect(getAllByText(/^(BNJ|OHV)$/)[0].innerHTML).toEqual('OHV')
+  })
+
+  test('Sorts table correctly with missing value', () => {
+    const { container, getByText, getAllByText } = setup()
+
+    userEvent.click(getByText(DOMAIN.ADJUST_TABLE_HEADERS[language]))
+    userEvent.click(getAllByText('Created By')[0])
+    userEvent.click(getAllByText('Version')[0])
+    userEvent.click(getAllByText('Version')[1])
+
+    expect(container.querySelector('tbody').firstChild.lastChild.innerHTML).toEqual('')
+
+    userEvent.click(getAllByText('Version')[1])
+
+    expect(container.querySelector('tbody').firstChild.lastChild.innerHTML).toEqual('1.0.0')
   })
 })
