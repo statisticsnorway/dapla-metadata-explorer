@@ -23,6 +23,10 @@ export const DOMAIN = {
     en: 'Table header choices are remembered between sessions and is set for each domain individually',
     nb: 'Tabellkolonnevalg huskes mellom sesjoner og settes individuelt for hvert domene'
   },
+  COLUMN_SORT: {
+    en: 'Shows which column the data is sorted by',
+    nb: 'Viser hvilken kolonne dataene er sorter etter'
+  },
   COMMON_NAME: {
     en: 'Common',
     nb: 'Felles'

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
-import { Header, Table } from 'semantic-ui-react'
+import { Header, Icon, Table } from 'semantic-ui-react'
 
 import DomainJsonData from './DomainJsonData'
 import { ApiContext, LanguageContext } from '../../context/AppContext'
@@ -8,7 +8,7 @@ import { camelToTitle } from '../../utilities'
 import { GSIM, ROUTING } from '../../configurations'
 import { UI } from '../../enums'
 
-function DomainTable ({ data, rawData, domain, tableHeaders }) {
+function DomainTable ({ data, rawData, domain, tableHeaders, sortColumn, sortDirection, sortTable, dispatchSorting }) {
   const { apiReadOnly } = useContext(ApiContext)
   const { language } = useContext(LanguageContext)
 
@@ -27,16 +27,31 @@ function DomainTable ({ data, rawData, domain, tableHeaders }) {
       {data.length === 0 && <Header textAlign='center' content={UI.NOTHING_FOUND[language]} />}
       {data.length !== 0 &&
       <>
-        <Table celled selectable>
+        <Table celled selectable sortable>
           <Table.Header>
             <Table.Row>
               {filteredTableHeaders.map(header =>
-                <Table.HeaderCell key={header}>{camelToTitle(header)}</Table.HeaderCell>
+                <Table.HeaderCell
+                  key={header}
+                  style={{
+                    cursor:
+                      (GSIM.PROPERTIES_GROUPING.AUTOFILLED.includes(header) || header === 'shortName') ?
+                        'pointer' : 'default'
+                  }}
+                  sorted={sortColumn === header ? sortDirection : null}
+                  onClick={() => dispatchSorting({ sortColumn: header })}
+                >
+                  {camelToTitle(header)}
+                  {sortColumn === header ? null :
+                    (GSIM.PROPERTIES_GROUPING.AUTOFILLED.includes(header) || header === 'shortName') ?
+                      <Icon name='sort' /> : null
+                  }
+                </Table.HeaderCell>
               )}
             </Table.Row>
           </Table.Header>
           <Table.Body>
-            {data.length !== 0 && data.map(row =>
+            {data.length !== 0 && data.sort((a, b) => sortTable(a, b)).map(row =>
               <Table.Row key={row[GSIM.ID]}>
                 {Object.entries(row).filter(([key]) => filteredTableHeaders.includes(key)).sort(sorter)
                   .map(([key, value]) =>
