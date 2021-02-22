@@ -83,16 +83,20 @@ function Domain () {
       let elementA
       let elementB
 
-      if (a[sortColumn] === undefined || a[sortColumn] === null) {
-        elementA = '&#0'
+      if (formConfiguration[sortColumn].configuration.inputType === 'date') {
+        elementA = new Date(a[sortColumn]).getTime()
+        elementB = new Date(b[sortColumn]).getTime()
       } else {
-        elementA = a[sortColumn].toUpperCase()
-      }
-
-      if (b[sortColumn] === undefined || b[sortColumn] === null) {
-        elementB = '&#0'
-      } else {
-        elementB = b[sortColumn].toUpperCase()
+        if (a[sortColumn] === undefined || a[sortColumn] === null) {
+          elementA = '&#0'
+        } else {
+          elementA = a[sortColumn].toUpperCase()
+        }
+        if (b[sortColumn] === undefined || b[sortColumn] === null) {
+          elementB = '&#0'
+        } else {
+          elementB = b[sortColumn].toUpperCase()
+        }
       }
 
       if (sortDirection === 'ascending') {
@@ -163,20 +167,6 @@ function Domain () {
             subheader={getDomainDescription(schema)}
             icon={{ name: 'list alternate outline', style: { color: SSB_COLORS.BLUE } }}
           />
-          <Divider hidden />
-          <InfoPopup
-            position='right center'
-            text={DOMAIN.SEARCH_TABLE_INFO[language]}
-            trigger={
-              <Input
-                size='large'
-                icon='search'
-                value={tableFilterValue}
-                onChange={handleTableFilter}
-                placeholder={DOMAIN.SEARCH_TABLE[language]}
-              />
-            }
-          />
         </Grid.Column>
         <Grid.Column textAlign='right'>
           {!apiReadOnly &&
@@ -223,6 +213,20 @@ function Domain () {
         formConfiguration={formConfiguration}
         sortColumn={sortColumn}
       />
+      <Divider hidden />
+      <InfoPopup
+        position='right center'
+        text={DOMAIN.SEARCH_TABLE_INFO[language]}
+        trigger={
+          <Input
+            size='huge'
+            icon='search'
+            value={tableFilterValue}
+            onChange={handleTableFilter}
+            placeholder={DOMAIN.SEARCH_TABLE[language]}
+          />
+        }
+      />
       {loading ? <Loader active inline='centered' /> :
         error ? <ErrorMessage error={error} language={language} /> :
           <DomainTable
@@ -230,6 +234,7 @@ function Domain () {
             rawData={data}
             domain={domain}
             tableHeaders={tableHeaders}
+            formConfiguration={formConfiguration}
             sortColumn={sortColumn}
             sortDirection={sortDirection}
             sortTable={sortTable}

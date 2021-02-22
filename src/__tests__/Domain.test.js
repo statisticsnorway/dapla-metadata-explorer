@@ -137,4 +137,19 @@ describe('Common mock', () => {
 
     expect(container.querySelector('tbody').firstChild.lastChild.innerHTML).toEqual('1.0.0')
   })
+
+  test('Sorts table correctly with dates', () => {
+    const { getByText, getAllByText } = setup()
+
+    userEvent.click(getByText(DOMAIN.ADJUST_TABLE_HEADERS[language]))
+    userEvent.click(getAllByText('Created Date')[0])
+    userEvent.click(getAllByText('Created Date')[1])
+
+    //  Jest uses american date format, which removes leading zeroes
+    expect(getAllByText(/^(1\/1\/1985)|(1\/1\/2000)$/)[0].innerHTML).toEqual('1/1/1985')
+
+    userEvent.click(getAllByText('Created Date')[1])
+
+    expect(getAllByText(/^(1\/1\/1985)|(1\/1\/2000)$/)[0].innerHTML).toEqual('1/1/2000')
+  })
 })

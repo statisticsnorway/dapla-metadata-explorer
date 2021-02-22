@@ -12,7 +12,13 @@ import {
 
 import { DomainInstanceDelete, DomainInstanceEdit, DomainInstanceExtendedGraph, DomainInstanceGraph } from './'
 import { ApiContext, LanguageContext, SchemasContext } from '../../context/AppContext'
-import { camelToTitle, convertDataToView, getDomainSchema } from '../../utilities'
+import {
+  camelToTitle,
+  convertDataToView,
+  convertDateToView,
+  convertSchemaToEdit,
+  getDomainSchema
+} from '../../utilities'
 import { API, DOMAIN_PROPERTY_GROUPING, GSIM } from '../../configurations'
 
 function DomainInstance () {
@@ -26,6 +32,7 @@ function DomainInstance () {
   const [wasDeleted, setWasDeleted] = useState(false)
   const [schema, setSchema] = useState(getDomainSchema(domain, schemas))
   const [domainInstanceData, setDomainInstanceData] = useState(null)
+  const [formConfiguration] = useState(convertSchemaToEdit({}, schema))
 
   const [{ data, loading, error }, refetch] =
     useAxios(`${ldsApi}${API.GET_DOMAIN_INSTANCE_DATA(domain, id)}`, { manual: true, useCache: false })
@@ -88,7 +95,12 @@ function DomainInstance () {
                             <Grid.Column textAlign='right' verticalAlign='middle' width={5}>
                               <InfoPopup text={description} trigger={<b>{camelToTitle(name)}</b>} />
                             </Grid.Column>
-                            <Grid.Column width={11} verticalAlign='middle'>{value}</Grid.Column>
+                            <Grid.Column width={11} verticalAlign='middle'>
+                              {
+                                formConfiguration[property].configuration.inputType === 'date' ?
+                                  convertDateToView(value) : value
+                              }
+                            </Grid.Column>
                           </Grid.Row>
                         )
                       }
