@@ -32,7 +32,7 @@ function DomainInstance () {
   const [wasDeleted, setWasDeleted] = useState(false)
   const [schema, setSchema] = useState(getDomainSchema(domain, schemas))
   const [domainInstanceData, setDomainInstanceData] = useState(null)
-  const [formConfiguration] = useState(convertSchemaToEdit({}, schema))
+  const [formConfiguration, setFormConfiguration] = useState(convertSchemaToEdit({}, schema))
 
   const [{ data, loading, error }, refetch] =
     useAxios(`${ldsApi}${API.GET_DOMAIN_INSTANCE_DATA(domain, id)}`, { manual: true, useCache: false })
@@ -46,7 +46,10 @@ function DomainInstance () {
 
   useEffect(() => {
     try {
-      setSchema(getDomainSchema(domain, schemas))
+      const schema = getDomainSchema(domain, schemas)
+
+      setSchema(schema)
+      setFormConfiguration(convertSchemaToEdit({}, schema))
       setReady(false)
     } catch (e) {
       setReady(false)
