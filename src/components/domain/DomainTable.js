@@ -4,11 +4,21 @@ import { Header, Icon, Table } from 'semantic-ui-react'
 
 import DomainJsonData from './DomainJsonData'
 import { ApiContext, LanguageContext } from '../../context/AppContext'
-import { camelToTitle } from '../../utilities'
+import { camelToTitle, convertDateToView } from '../../utilities'
 import { GSIM, ROUTING } from '../../configurations'
 import { UI } from '../../enums'
 
-function DomainTable ({ data, rawData, domain, tableHeaders, sortColumn, sortDirection, sortTable, dispatchSorting }) {
+function DomainTable ({
+  data,
+  rawData,
+  domain,
+  tableHeaders,
+  formConfiguration,
+  sortColumn,
+  sortDirection,
+  sortTable,
+  dispatchSorting
+}) {
   const { apiReadOnly } = useContext(ApiContext)
   const { language } = useContext(LanguageContext)
 
@@ -56,11 +66,13 @@ function DomainTable ({ data, rawData, domain, tableHeaders, sortColumn, sortDir
                 {Object.entries(row).filter(([key]) => filteredTableHeaders.includes(key)).sort(sorter)
                   .map(([key, value]) =>
                     <Table.Cell key={key}>
-                      {key === GSIM.NAME || key === GSIM.PROPERTY_DESCRIPTION ?
-                        <Link to={`${ROUTING.DOMAIN_BASE}${domain}/${row.id}`} style={{ color: 'inherit' }}>
-                          {value}
-                        </Link>
-                        : value
+                      {
+                        key === GSIM.NAME || key === GSIM.PROPERTY_DESCRIPTION ?
+                          <Link to={`${ROUTING.DOMAIN_BASE}${domain}/${row.id}`} style={{ color: 'inherit' }}>
+                            {value}
+                          </Link>
+                          : formConfiguration[key].configuration.inputType === 'date' ?
+                            convertDateToView(value) : value
                       }
                     </Table.Cell>
                   )

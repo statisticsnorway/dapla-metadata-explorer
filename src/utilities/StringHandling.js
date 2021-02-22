@@ -5,9 +5,13 @@ export const camelToTitle = string => {
 }
 
 export const convertDateToView = value => {
-  const date = new Date(value)
+  if (value === null || value === undefined) {
+    return value
+  } else {
+    const date = new Date(value)
 
-  return date.toLocaleDateString()
+    return date.toLocaleDateString()
+  }
 }
 
 export const capitalize = string => `${string.charAt(0).toUpperCase()}${string.slice(1)}`

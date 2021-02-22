@@ -30,7 +30,7 @@ const convertMultilingualToView = value =>
 const handleStringForView = (data, configuration) => {
   if (configuration.format) {
     if (configuration.format === 'date-time') {
-      return convertDateToView(data)
+      return data
     } else {
       console.log(`Format not handled: ${configuration.format}`)
       return data.toString()
