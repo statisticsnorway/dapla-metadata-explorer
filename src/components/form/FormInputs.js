@@ -12,7 +12,7 @@ import FormKeyValuesInput from './FormKeyValuesInput'
 import FormInputDate from './FormInputDate'
 import { camelToTitle } from '../../utilities'
 
-function FormInputs ({ configuration, register, setValue, value, hasDefault }) {
+function FormInputs ({ configuration, register, setValue, value }) {
   let input
 
   switch (configuration.configuration.inputType) {
