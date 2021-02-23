@@ -194,8 +194,8 @@ export const GSIM = {
   PROPERTIES_ELEMENT: 'properties',
   PROPERTIES: (schema) => ['definitions', getDomainRef(schema), 'properties'],
   PROPERTIES_GROUPING: {
-    AUTOFILLED: ['id', 'createdDate', 'createdBy', 'version', 'versionValidFrom', 'lastUpdatedDate', 'lastUpdatedBy', 'validFrom', 'validUntil'],
-    COMMON: ['name', 'description', 'shortName', 'administrativeStatus', 'versionRationale', 'administrativeDetails', 'agentInRoles']
+    AUTOFILLED: ['id', 'createdDate', 'createdBy', 'version', 'versionValidFrom', 'lastUpdatedDate', 'lastUpdatedBy'],
+    COMMON: ['name', 'description', 'shortName', 'administrativeStatus', 'versionRationale', 'administrativeDetails', 'agentInRoles','validFrom', 'validUntil']
   },
   PROPERTY_DESCRIPTION: 'description',
   REQUIRED: (schema) => ['definitions', getDomainRef(schema), 'required'],
