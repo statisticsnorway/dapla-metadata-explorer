@@ -136,7 +136,7 @@ function DomainInstanceNew ({ isNew = true, data = {}, refetch = () => null }) {
                   register={register}
                   setValue={setValue}
                   configuration={value}
-                  value={isNew ? false : formData[item]}
+                  value={isNew ? formData.hasOwnProperty(item) ? formData[item] : false : formData[item]}
                 />
               )}
             </Grid.Column>
