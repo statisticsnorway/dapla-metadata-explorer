@@ -7,7 +7,7 @@ import { DOMAIN_PROPERTY_GROUPING, GSIM, STORAGE } from '../../configurations'
 import { DOMAIN, TEST_IDS } from '../../enums'
 import { camelToTitle, getDomainRef, iconBasedOnType } from '../../utilities'
 
-function DomainTableHeaders ({ headers, schema, setHeaders, formConfiguration }) {
+function DomainTableHeaders ({ headers, schema, setHeaders, formConfiguration, sortColumn }) {
   const { language } = useContext(LanguageContext)
 
   const [accordionOpen, setAccordionOpen] = useState(false)
@@ -65,6 +65,7 @@ function DomainTableHeaders ({ headers, schema, setHeaders, formConfiguration })
                                           checked={includes}
                                           label={
                                             <label>
+                                              {sortColumn === property && <Icon name='sort' />}
                                               {camelToTitle(property)}
                                               {formConfiguration[property].required &&
                                               <span style={{ color: '#db2828' }}>*</span>
@@ -90,11 +91,13 @@ function DomainTableHeaders ({ headers, schema, setHeaders, formConfiguration })
             )}
           </Grid>
         </Segment>
+        <Divider hidden />
         <Grid columns='equal'>
           <Grid.Column>
             <InfoText text={DOMAIN.COLUMN_CHOICE[language]} />
+            <p style={{ marginTop: '0.5rem' }}><Icon name='sort' />{DOMAIN.COLUMN_SORT[language]}</p>
           </Grid.Column>
-          <Grid.Column textAlign='right'>
+          <Grid.Column textAlign='right' verticalAlign='bottom'>
             <InfoPopup
               position='left center'
               text={DOMAIN.RESET_HEADERS[language]}
