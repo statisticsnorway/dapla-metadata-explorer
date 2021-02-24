@@ -9,7 +9,7 @@ export const createEmptyDataObject = (id, user) => {
   const data = {}
   const dateNow = new Date(Date.now()).toISOString()
   const autofilledDates = GSIM.PROPERTIES_GROUPING.AUTOFILLED.filter((value, index) => [1, 4, 5].includes(index))
-  const defaultFilledDates = GSIM.PROPERTIES_GROUPING.COMMON.filter((value, index) => [7, 8].includes(index))
+  const defaultFilledDates = GSIM.PROPERTIES_GROUPING.COMMON.filter((value, index) => [7].includes(index))
 
   data[GSIM.PROPERTIES_GROUPING.AUTOFILLED[0]] = id
   data[GSIM.PROPERTIES_GROUPING.AUTOFILLED[2]] = user
