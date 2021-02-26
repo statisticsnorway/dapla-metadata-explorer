@@ -1,6 +1,6 @@
 {
   "name": "dapla-metadata-explorer",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "description": "Metadata exploration through GSIM for Statistics Norway Dataplatform",
   "repository": {
     "type": "git",
@@ -28,7 +28,7 @@
     "react-error-boundary": "^3.0.2",
     "react-hook-form": "^6.10.1",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "4.0.2",
+    "react-scripts": "4.0.3",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^2.0.0",
     "uuid": "^8.3.0"
