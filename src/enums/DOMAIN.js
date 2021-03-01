@@ -116,19 +116,19 @@ export const DOMAIN = {
     nb: 'Domeneattributter som er unike for dette domene'
   },
   USED_BY: {
-    en: 'Connected too by',
+    en: 'Connected to by',
     nb: 'Koblet seg til fra'
   },
   USES: {
-    en: 'Connects too',
+    en: 'Connects to',
     nb: 'Kobler seg mot'
   },
   USES_DIRECT: {
-    en: 'Connects directly too',
+    en: 'Connects directly to',
     nb: 'Kobler seg direkte mot'
   },
   USES_INDIRECT: {
-    en: 'Connects indirectly too',
+    en: 'Connects indirectly to',
     nb: 'Kobler seg indirekte mot'
   },
   WAS_DELETED: {
