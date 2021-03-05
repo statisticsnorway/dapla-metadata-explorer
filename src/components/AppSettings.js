@@ -14,7 +14,7 @@ function AppSettings ({ error, loading, open, setOpen }) {
 
   let history = useHistory()
 
-  const options = [window._env.REACT_APP_EXPLORATION_LDS, window._env.REACT_APP_CONCEPT_LDS].map((lds, index) => ({
+  const options = [window.__ENV.REACT_APP_EXPLORATION_LDS, window.__ENV.REACT_APP_CONCEPT_LDS].map((lds, index) => ({
     key: index,
     text: API.LDS[index],
     value: lds,
@@ -56,7 +56,7 @@ function AppSettings ({ error, loading, open, setOpen }) {
                 setLdsApi(value)
                 setGraphqlApi(`${value}${API.GRAPHQL}`)
 
-                if (value === window._env.REACT_APP_EXPLORATION_LDS) {
+                if (value === window.__ENV.REACT_APP_EXPLORATION_LDS) {
                   setApiReadOnly(true)
                 } else {
                   setApiReadOnly(false)

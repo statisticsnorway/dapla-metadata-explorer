@@ -32,13 +32,13 @@ const setup = initialApi => {
 }
 
 test('Renders basics', () => {
-  const { getByText } = setup(window._env.REACT_APP_EXPLORATION_LDS)
+  const { getByText } = setup(window.__ENV.REACT_APP_EXPLORATION_LDS)
 
   expect(getByText(SETTINGS.HEADER[language])).toBeInTheDocument()
 })
 
 test('Changing user works correctly', () => {
-  const { getByPlaceholderText } = setup(window._env.REACT_APP_EXPLORATION_LDS)
+  const { getByPlaceholderText } = setup(window.__ENV.REACT_APP_EXPLORATION_LDS)
 
   userEvent.clear(getByPlaceholderText(SETTINGS.USER[language])) // 1 call
   userEvent.type(getByPlaceholderText(SETTINGS.USER[language]), 'MMJ') // 1 call per character
@@ -47,25 +47,25 @@ test('Changing user works correctly', () => {
 })
 
 test('Changing API to CONCEPT_LDS works correctly', () => {
-  const { getByText } = setup(window._env.REACT_APP_EXPLORATION_LDS)
+  const { getByText } = setup(window.__ENV.REACT_APP_EXPLORATION_LDS)
 
-  userEvent.click(getByText(window._env.REACT_APP_CONCEPT_LDS))
+  userEvent.click(getByText(window.__ENV.REACT_APP_CONCEPT_LDS))
 
-  expect(setLdsApi).toHaveBeenCalledWith(window._env.REACT_APP_CONCEPT_LDS)
+  expect(setLdsApi).toHaveBeenCalledWith(window.__ENV.REACT_APP_CONCEPT_LDS)
   expect(setApiReadOnly).toHaveBeenCalledWith(false)
 })
 
 test('Changing API to EXPLORATION_LDS works correctly', () => {
-  const { getByText } = setup(window._env.REACT_APP_CONCEPT_LDS)
+  const { getByText } = setup(window.__ENV.REACT_APP_CONCEPT_LDS)
 
-  userEvent.click(getByText(window._env.REACT_APP_EXPLORATION_LDS))
+  userEvent.click(getByText(window.__ENV.REACT_APP_EXPLORATION_LDS))
 
-  expect(setLdsApi).toHaveBeenCalledWith(window._env.REACT_APP_EXPLORATION_LDS)
+  expect(setLdsApi).toHaveBeenCalledWith(window.__ENV.REACT_APP_EXPLORATION_LDS)
   expect(setApiReadOnly).toHaveBeenCalledWith(true)
 })
 
 test('Changing show unnamed works correctly', () => {
-  const { getByTestId } = setup(window._env.REACT_APP_CONCEPT_LDS)
+  const { getByTestId } = setup(window.__ENV.REACT_APP_CONCEPT_LDS)
 
   userEvent.click(getByTestId(TEST_IDS.SHOW_UNNAMED_RESOURCES_TOGGLE))
 

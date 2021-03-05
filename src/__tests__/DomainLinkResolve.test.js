@@ -15,7 +15,7 @@ const { errorString, language, apiContext } = TEST_CONFIGURATIONS
 const domain = 'UnitType'
 const domainName = UnitTypeAllData[2].name
 const testLink = `${domain}/${UnitTypeAllData[2].id}`
-const context = apiContext(window._env.REACT_APP_EXPLORATION_LDS, jest.fn(), jest.fn(), jest.fn(), jest.fn())
+const context = apiContext(window.__ENV.REACT_APP_EXPLORATION_LDS, jest.fn(), jest.fn(), jest.fn(), jest.fn())
 
 const setup = () => {
   const { getByText } = render(

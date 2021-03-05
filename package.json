@@ -1,6 +1,6 @@
 {
   "name": "dapla-metadata-explorer",
-  "version": "0.3.8",
+  "version": "0.3.9",
   "description": "Metadata exploration through GSIM for Statistics Norway Dataplatform",
   "repository": {
     "type": "git",
@@ -57,7 +57,7 @@
   },
   "devDependencies": {
     "@babel/helper-builder-react-jsx-experimental": "^7.12.11",
-    "@beam-australia/react-env": "^2.1.2",
+    "@beam-australia/react-env": "^3.0.8",
     "@testing-library/jest-dom": "^5.9.0",
     "@testing-library/react": "^11.0.1",
     "@testing-library/user-event": "^12.0.11",

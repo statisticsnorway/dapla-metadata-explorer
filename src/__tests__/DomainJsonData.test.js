@@ -17,7 +17,7 @@ const domain = 'UnitType'
 const setup = (setLanguage, setApiReadOnly) => {
   const { getAllByText, getByPlaceholderText, getByTestId, getByText, queryAllByText } = render(
     <ApiContext.Provider
-      value={apiContext(window._env.REACT_APP_CONCEPT_LDS, jest.fn(), jest.fn(), jest.fn(), jest.fn(), setApiReadOnly)}>
+      value={apiContext(window.__ENV.REACT_APP_CONCEPT_LDS, jest.fn(), jest.fn(), jest.fn(), jest.fn(), setApiReadOnly)}>
       <LanguageContext.Provider value={{ language: setLanguage }}>
         <DomainJsonData domain={domain} rawData={UnitTypeAllData} />
       </LanguageContext.Provider>

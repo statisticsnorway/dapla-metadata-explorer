@@ -59,7 +59,7 @@ function AppMenu ({ setSettingsOpen, context }) {
           </Menu.Item>
           <Menu.Item>
             <Icon style={{ color: SSB_COLORS.GREY }} name='plug' />
-            {isReadOnlyAPI(window._env.REACT_APP_EXPLORATION_LDS === ldsApi)}
+            {isReadOnlyAPI(window.__ENV.REACT_APP_EXPLORATION_LDS === ldsApi)}
           </Menu.Item>
           {!apiReadOnly &&
           <Menu.Item

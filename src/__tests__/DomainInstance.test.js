@@ -37,7 +37,7 @@ const sortedSchemas = sortSchemas(Schemas)
 const setup = () => {
   const { getAllByText, getByText } = render(
     <ApiContext.Provider
-      value={apiContext(window._env.REACT_APP_EXPLORATION_LDS, jest.fn(), jest.fn(), jest.fn(), jest.fn())}>
+      value={apiContext(window.__ENV.REACT_APP_EXPLORATION_LDS, jest.fn(), jest.fn(), jest.fn(), jest.fn())}>
       <LanguageContext.Provider value={{ language: language }}>
         <SchemasContext.Provider value={{ schemas: sortedSchemas }}>
           <MemoryRouter initialEntries={[`${ROUTING.DOMAIN_BASE}${domain}/${domainId}`]}>
