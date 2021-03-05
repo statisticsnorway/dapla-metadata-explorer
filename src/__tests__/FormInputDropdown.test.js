@@ -11,7 +11,7 @@ import EnumeratedValueDomainAllData from './test-data/EnumeratedValueDomainAllDa
 
 const { language, apiContext } = TEST_CONFIGURATIONS
 
-const context = apiContext(window._env.REACT_APP_CONCEPT_LDS, jest.fn(), jest.fn(), jest.fn(), jest.fn(), false)
+const context = apiContext(window.__ENV.REACT_APP_CONCEPT_LDS, jest.fn(), jest.fn(), jest.fn(), jest.fn(), false)
 
 const configuration = {
   register: jest.fn(),

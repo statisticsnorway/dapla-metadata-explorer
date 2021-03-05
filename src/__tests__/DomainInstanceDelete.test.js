@@ -19,7 +19,7 @@ const domainId = 'dfb6eecf-c4f4-4fa6-82a1-8b8684d560f4c'
 const setup = () => {
   const { getAllByText, getByText } = render(
     <ApiContext.Provider
-      value={apiContext(window._env.REACT_APP_EXPLORATION_LDS, jest.fn(), jest.fn(), jest.fn(), jest.fn())}>
+      value={apiContext(window.__ENV.REACT_APP_EXPLORATION_LDS, jest.fn(), jest.fn(), jest.fn(), jest.fn())}>
       <LanguageContext.Provider value={{ language: language }}>
         <DomainInstanceDelete domain={domain} id={domainId} wasDeleted={false} setWasDeleted={setWasDeleted} />
       </LanguageContext.Provider>
@@ -53,7 +53,7 @@ test('Shows delete confirmation on successful deletion', () => {
   userEvent.click(getByText(DOMAIN.CONFIRM_DELETE[language]))
   expect(useAxios).toHaveBeenCalledWith(
     {
-      url: `${window._env.REACT_APP_EXPLORATION_LDS}${API.DELETE_DOMAIN_INSTANCE_DATA(domain, domainId)}`,
+      url: `${window.__ENV.REACT_APP_EXPLORATION_LDS}${API.DELETE_DOMAIN_INSTANCE_DATA(domain, domainId)}`,
       method: 'DELETE'
     },
     {

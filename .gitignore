@@ -11,4 +11,4 @@
 .DS_Store
 .eslintcache
 /.idea
-/public/env.js
+/public/__ENV.js

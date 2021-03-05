@@ -5,7 +5,7 @@ require('jest-localstorage-mock')
 jest.mock('axios-hooks')
 jest.mock('graphql-hooks')
 
-window._env = {
+window.__ENV = {
   REACT_APP_CONCEPT_LDS: process.env.REACT_APP_CONCEPT_LDS,
   REACT_APP_EXPLORATION_LDS: process.env.REACT_APP_EXPLORATION_LDS
 }

@@ -88,7 +88,7 @@ function DomainsGraph () {
         <Header
           content={`${UI.CONNECTIONS_HEADER[language]}`}
           icon={{ name: 'share alternate', style: { color: SSB_COLORS.BLUE } }}
-          subheader={isReadOnlyAPI(window._env.REACT_APP_EXPLORATION_LDS === ldsApi)}
+          subheader={isReadOnlyAPI(window.__ENV.REACT_APP_EXPLORATION_LDS === ldsApi)}
         />
       </Modal.Header>
       <Modal.Content>
