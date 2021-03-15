@@ -43,18 +43,19 @@ function Import () {
       reader.onerror = () => console.log('file reading has failed')
       reader.onload = () => {
         const parseResult = JSON.parse(reader.result)
+
         if (Array.isArray(parseResult)) {
-          console.log('her må vi gjøre noe')
           const parseBatch = {
             operation: 'put',
-            type: file.name.substr(0,file.name.indexOf('_')),
+            type: file.name.substr(0, file.name.indexOf('_')),
             entries: parseResult.map(element => ({
-              id: element.id,
-              data: element
+                id: element.id,
+                data: element
               })
             )
           }
-          filesAsJson.push([file.name.substr(0,file.name.indexOf('_')), parseBatch, 'batch'])
+
+          filesAsJson.push([file.name.substr(0, file.name.indexOf('_')), parseBatch, 'batch'])
         } else {
           filesAsJson.push([file.name.substr(0, file.name.indexOf('_')), parseResult, 'single'])
         }
