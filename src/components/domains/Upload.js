@@ -19,6 +19,7 @@ function Upload ({ name, file }) {
 
   useEffect(() => {
     retry({ data: file[1] }).then()
+    // eslint-disable-next-line
   }, [])
 
   return (
