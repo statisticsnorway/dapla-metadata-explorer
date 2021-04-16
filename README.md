@@ -4,7 +4,9 @@
 
 This application is built for in-house use in Statistics Norway and it aims to create a user interface against various
 metadata exploration services such as
-[exploration-lds](https://github.com/statisticsnorway/dapla-project/blob/master/localstack/docker-compose-exploration.yml).
+[exploration-lds](https://github.com/statisticsnorway/dapla-project/blob/master/localstack/docker-compose-exploration.yml)
+and
+[concept-lds](https://github.com/statisticsnorway/dapla-project/blob/master/localstack/docker-compose-concept.yml).
 
 Functionality includes:
 
@@ -39,4 +41,4 @@ of [linked-data-store](https://github.com/statisticsnorway/linked-data-store-doc
 * General refactoring (smaller functions, code smells, etc.)
 * Table pagination (or table data based on which user is logged in)
 * Conveniently show the number of instances of a domain (requires updates to backend)
-* Horizontal scrolling of the table
+* Horizontal scrolling of the domain tables

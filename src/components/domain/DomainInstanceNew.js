@@ -106,89 +106,92 @@ function DomainInstanceNew ({ isNew = true, data = {}, refetch = () => null }) {
 
   return (
     <>
-      <Grid columns='equal' style={{ marginBottom: '2rem' }}>
-        <Grid.Column>
-          <Header
-            size='large'
-            subheader={getDomainDescription(schema)}
-            icon={{ name: 'edit outline', style: { color: SSB_COLORS.BLUE } }}
-            content={`${isNew ? DOMAIN.CREATE_NEW[language] : DOMAIN.EDIT[language]} '${camelToTitle(domain)}'`}
-          />
-        </Grid.Column>
-        <Grid.Column textAlign='right'>
-          <Button
-            basic
-            content={FORM.HEADER[language]}
-            onClick={() => setFormHelpOpen(true)}
-            icon={{ name: 'help circle', style: { color: SSB_COLORS.BLUE } }}
-          />
-        </Grid.Column>
-      </Grid>
-      {edited && <Message warning content={DOMAIN.WAS_EDITED[language]} />}
-      <Divider hidden />
-      <Form size='large' onSubmit={handleSubmit(onSubmit)}>
-        <Grid divided>
-          {DOMAIN_PROPERTY_GROUPING.filter(group => group.id !== 'AUTOFILLED').map(({ id, test }) =>
-            <Grid.Column key={id} width={6}>
-              {Object.entries(formConfiguration).filter(([item]) => test(item)).map(([item, value]) =>
-                <FormInputs
-                  key={item}
-                  register={register}
-                  setValue={setValue}
-                  configuration={value}
-                  value={isNew ? formData.hasOwnProperty(item) ? formData[item] : false : formData[item]}
-                />
-              )}
-            </Grid.Column>
-          )}
-          {DOMAIN_PROPERTY_GROUPING.filter(group => group.id === 'AUTOFILLED').map(({ id, test }) =>
-            <Grid.Column key={id} width={4}>
-              {Object.entries(formConfiguration).filter(([item]) => test(item)).map(([item, value]) => {
-                  return (
-                    <Fragment key={item}>
-                      <InfoPopup
-                        text={value.description}
-                        trigger={<Header size='tiny'>{camelToTitle(value.name)}</Header>}
-                      />
-                      {convertAutofilledToView(item, formData[item])}
-                    </Fragment>
-                  )
-                }
-              )}
-            </Grid.Column>
-          )}
-        </Grid>
-        <Divider hidden />
-        <Grid columns='equal'>
+      {!saved &&
+      <>
+        <Grid columns='equal' style={{ marginBottom: '2rem' }}>
           <Grid.Column>
-            <Button
+            <Header
               size='large'
-              type='button'
-              onClick={() => downloadJson()}
-              style={{ backgroundColor: SSB_COLORS.PURPLE }}
-            >
-              <Icon name='download' style={{ paddingRight: '0.5rem' }} />
-              {DOMAIN.GET_JSON[language]}
-            </Button>
+              subheader={getDomainDescription(schema)}
+              icon={{ name: 'edit outline', style: { color: SSB_COLORS.BLUE } }}
+              content={`${isNew ? DOMAIN.CREATE_NEW[language] : DOMAIN.EDIT[language]} '${camelToTitle(domain)}'`}
+            />
           </Grid.Column>
           <Grid.Column textAlign='right'>
             <Button
-              size='large'
-              type='submit'
-              loading={loading}
-              disabled={loading || !edited || apiReadOnly}
-              style={{ backgroundColor: SSB_COLORS.BLUE }}
-              onClick={() => window.scrollTo({ bottom: 0, behavior: 'smooth' })}
-            >
-              <Icon name='save' style={{ paddingRight: '0.5rem' }} />
-              {DOMAIN.SAVE[language]}
-            </Button>
+              basic
+              content={FORM.HEADER[language]}
+              onClick={() => setFormHelpOpen(true)}
+              icon={{ name: 'help circle', style: { color: SSB_COLORS.BLUE } }}
+            />
           </Grid.Column>
         </Grid>
-      </Form>
-      <Divider hidden />
-      {edited && <Message warning content={DOMAIN.WAS_EDITED[language]} />}
-      {error && <ErrorMessage error={error} language={language} />}
+        {edited && <Message warning content={DOMAIN.WAS_EDITED[language]} />}
+        <Divider hidden />
+        <Form size='large' onSubmit={handleSubmit(onSubmit)}>
+          <Grid divided>
+            {DOMAIN_PROPERTY_GROUPING.filter(group => group.id !== 'AUTOFILLED').map(({ id, test }) =>
+              <Grid.Column key={id} width={6}>
+                {Object.entries(formConfiguration).filter(([item]) => test(item)).map(([item, value]) =>
+                  <FormInputs
+                    key={item}
+                    register={register}
+                    setValue={setValue}
+                    configuration={value}
+                    value={isNew ? formData.hasOwnProperty(item) ? formData[item] : false : formData[item]}
+                  />
+                )}
+              </Grid.Column>
+            )}
+            {DOMAIN_PROPERTY_GROUPING.filter(group => group.id === 'AUTOFILLED').map(({ id, test }) =>
+              <Grid.Column key={id} width={4}>
+                {Object.entries(formConfiguration).filter(([item]) => test(item)).map(([item, value]) => {
+                    return (
+                      <Fragment key={item}>
+                        <InfoPopup
+                          text={value.description}
+                          trigger={<Header size='tiny'>{camelToTitle(value.name)}</Header>}
+                        />
+                        {convertAutofilledToView(item, formData[item])}
+                      </Fragment>
+                    )
+                  }
+                )}
+              </Grid.Column>
+            )}
+          </Grid>
+          <Divider hidden />
+          <Grid columns='equal'>
+            <Grid.Column>
+              <Button
+                size='large'
+                type='button'
+                onClick={() => downloadJson()}
+                style={{ backgroundColor: SSB_COLORS.PURPLE }}
+              >
+                <Icon name='download' style={{ paddingRight: '0.5rem' }} />
+                {DOMAIN.GET_JSON[language]}
+              </Button>
+            </Grid.Column>
+            <Grid.Column textAlign='right'>
+              <Button
+                size='large'
+                type='submit'
+                loading={loading}
+                disabled={loading || !edited || apiReadOnly}
+                style={{ backgroundColor: SSB_COLORS.BLUE }}
+              >
+                <Icon name='save' style={{ paddingRight: '0.5rem' }} />
+                {DOMAIN.SAVE[language]}
+              </Button>
+            </Grid.Column>
+          </Grid>
+        </Form>
+        <Divider hidden />
+        {edited && <Message warning content={DOMAIN.WAS_EDITED[language]} />}
+        {error && <ErrorMessage error={error} language={language} />}
+      </>
+      }
       {saved &&
       <Message icon success>
         <Icon name='check' style={{ color: SSB_COLORS.GREEN }} />

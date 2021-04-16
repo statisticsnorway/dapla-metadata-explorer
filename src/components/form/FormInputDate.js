@@ -6,7 +6,15 @@ function FormInputDate ({ configuration, register, setValue, value }) {
   const name = configuration.partOfMultiple ? `${configuration.partOfMultiple}.${configuration.name}` : configuration.name
 
   const handleChange = (e, { value }) => {
-    setValue(name, new Date(value).toISOString(), { shouldDirty: true })
+    let tempDate = null
+
+    try {
+      tempDate = new Date(value).toISOString()
+    } catch (e) {
+
+    }
+
+    setValue(name, tempDate, { shouldDirty: true })
   }
 
   useEffect(() => {
