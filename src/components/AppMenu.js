@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Dropdown, Header, Icon, Image, Menu, Sticky } from 'semantic-ui-react'
-import { LANGUAGE, SSB_COLORS, ssb_logo_no_text_rgb, ssb_logo_rgb } from '@statisticsnorway/dapla-js-utilities'
+import { dapla_long_rgb, dapla_short_rgb, LANGUAGE, SSB_COLORS, ssb_logo_no_text_rgb, ssb_logo_rgb } from '@statisticsnorway/dapla-js-utilities'
 
 import { ApiContext, LanguageContext, UserContext } from '../context/AppContext'
 import { camelToTitle } from '../utilities'
@@ -12,6 +12,8 @@ const isReadOnlyAPI = api => api ? API.LDS[0] : API.LDS[1]
 const iconSize = menuIsStuck => menuIsStuck ? 'large' : 'big'
 const menuSize = menuIsStuck => menuIsStuck ? 'large' : 'huge'
 const headerSize = menuIsStuck => menuIsStuck ? 'medium' : 'huge'
+const daplaSize = menuIsStuck => menuIsStuck ? 'mini' : 'tiny'
+const daplaType = menuIsStuck => menuIsStuck ? dapla_short_rgb : dapla_long_rgb
 const imageSize = menuIsStuck => menuIsStuck ? 'mini' : 'medium'
 const imageType = menuIsStuck => menuIsStuck ? ssb_logo_no_text_rgb : ssb_logo_rgb
 const headerContent = (menuIsStuck, whereAmI) => menuIsStuck && whereAmI !== '' ? ` (${whereAmI})` : ''
@@ -45,6 +47,9 @@ function AppMenu ({ setSettingsOpen, context }) {
       <Menu secondary size={menuSize(menuIsStuck)} style={menuStyle(menuIsStuck)}>
         <Menu.Item>
           <Image size={imageSize(menuIsStuck)} src={imageType(menuIsStuck)} />
+        </Menu.Item>
+        <Menu.Item>
+          <Image size={daplaSize(menuIsStuck)} src={daplaType(menuIsStuck)} />
         </Menu.Item>
         <Menu.Item>
           <Header

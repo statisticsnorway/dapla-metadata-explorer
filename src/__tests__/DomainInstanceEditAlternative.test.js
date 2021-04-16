@@ -65,7 +65,7 @@ test('Renders basics', () => {
 })
 
 test('Informs user of success when saving edited data', () => {
-  useAxios.mockReturnValue([{ loading: false, error: undefined, response: { status: 201 } }, executePut])
+  useAxios.mockReturnValue([{ loading: false, error: undefined, response: undefined }, executePut])
   executePut.mockResolvedValue(null)
 
   const { getAllByText, getByPlaceholderText, getByText } = setup()
@@ -78,5 +78,5 @@ test('Informs user of success when saving edited data', () => {
 
   userEvent.click(getByText(DOMAIN.SAVE[language]))
 
-  expect(getByText(DOMAIN.WAS_SAVED[language])).toBeInTheDocument()
+  expect(useAxios).toHaveBeenCalledTimes(4)
 })
