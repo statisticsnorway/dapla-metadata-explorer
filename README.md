@@ -2,10 +2,10 @@
 
 [![Build Status](https://dev.azure.com/statisticsnorway/Dapla/_apis/build/status/Frontends/statisticsnorway.dapla-metadata-explorer?branchName=master)](https://dev.azure.com/statisticsnorway/Dapla/_build/latest?definitionId=21&branchName=master)
 
-This application is built for in-house use in Statistics Norway and it aims to create a user interface against various
+This application is built for in-house use in Statistics Norway, and it aims to create a user interface against various
 metadata exploration services such as
 [exploration-lds](https://github.com/statisticsnorway/dapla-project/blob/master/localstack/docker-compose-exploration.yml)
-and
+or
 [concept-lds](https://github.com/statisticsnorway/dapla-project/blob/master/localstack/docker-compose-concept.yml).
 
 Functionality includes:
