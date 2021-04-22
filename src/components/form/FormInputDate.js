@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Form } from 'semantic-ui-react'
-import { SSB_COLORS } from '@statisticsnorway/dapla-js-utilities'
 
 function FormInputDate ({ configuration, register, setValue, value }) {
+  const [date, setDate] = useState(value ? value.split('T')[0] : '')
+
   const name = configuration.partOfMultiple ? `${configuration.partOfMultiple}.${configuration.name}` : configuration.name
 
   const handleChange = (e, { value }) => {
@@ -14,6 +15,7 @@ function FormInputDate ({ configuration, register, setValue, value }) {
 
     }
 
+    setDate(value)
     setValue(name, tempDate, { shouldDirty: true })
   }
 
@@ -23,13 +25,20 @@ function FormInputDate ({ configuration, register, setValue, value }) {
 
   return (
     <Form.Input
+      inline
       type='date'
-      iconPosition='left'
+      value={date}
       onChange={handleChange}
       placeholder={configuration.name}
-      defaultValue={value ? value.split('T')[0] : ''}
       disabled={configuration.configuration.options.multiple}
-      icon={{ name: 'calendar alternate outline', style: { color: SSB_COLORS.BLUE } }}
+      action={{
+        basic: true,
+        icon: 'close',
+        type: 'button',
+        onClick: () => {
+          handleChange(null, { value: '' })
+        }
+      }}
     />
   )
 }
