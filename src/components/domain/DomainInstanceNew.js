@@ -20,6 +20,11 @@ import {
 import { API, DOMAIN_PROPERTY_GROUPING, ROUTING } from '../../configurations'
 import { DOMAIN, FORM } from '../../enums'
 
+const checkNull = data => Object.entries(data)
+    .filter(value => value[1] === null || value[1] === '')
+    .flat()
+    .filter(value => value !== null && value !== '')
+
 function DomainInstanceNew ({ isNew = true, data = {}, refetch = () => null }) {
   const { user } = useContext(UserContext)
   const { schemas } = useContext(SchemasContext)
@@ -58,7 +63,14 @@ function DomainInstanceNew ({ isNew = true, data = {}, refetch = () => null }) {
 
         filterData.forEach(value => filteredData[value[0]] = value[1])
 
-        executePut({ data: { ...formData, ...filteredData } }).then(() => refetchIfNotNew())
+        const dataToPut = { ...formData, ...filteredData }
+        const checkForNull = checkNull(dataToPut)
+
+        if (checkForNull.length !== 0) {
+          checkForNull.forEach(element => delete dataToPut[element])
+        }
+
+        executePut({ data: dataToPut }).then(() => refetchIfNotNew())
       } else {
         executePut({ data: formData }).then(() => refetchIfNotNew())
       }
@@ -87,6 +99,12 @@ function DomainInstanceNew ({ isNew = true, data = {}, refetch = () => null }) {
       filterData.forEach(value => filteredData[value[0]] = value[1])
 
       json = { ...formData, ...filteredData }
+
+      const checkForNull = checkNull(json)
+
+      if (checkForNull.length !== 0) {
+        checkForNull.forEach(element => delete json[element])
+      }
     } else {
       json = formData
     }
