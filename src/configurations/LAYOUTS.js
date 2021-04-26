@@ -28,6 +28,25 @@ export const DOMAIN_PROPERTY_GROUPING = [
   }
 ]
 
+export const DOMAIN_PROPERTIES_SORT = (id, a, b) => {
+  if (id !== 'UNIQUE') {
+    const aIndex = GSIM.PROPERTIES_GROUPING[id].indexOf(a)
+    const bIndex = GSIM.PROPERTIES_GROUPING[id].indexOf(b)
+
+    if (aIndex < bIndex) {
+      return -1
+    }
+
+    if (aIndex > bIndex) {
+      return 1
+    }
+
+    return 0
+  } else {
+    return 0
+  }
+}
+
 export const SEARCH_LAYOUT = {
   categoryLayoutRenderer: ({ categoryContent, resultsContent }) => {
     let color = '#999'

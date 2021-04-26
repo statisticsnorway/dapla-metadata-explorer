@@ -17,7 +17,7 @@ import {
   getDomainSchema,
   updateDataObject
 } from '../../utilities'
-import { API, DOMAIN_PROPERTY_GROUPING, ROUTING } from '../../configurations'
+import { API, DOMAIN_PROPERTIES_SORT, DOMAIN_PROPERTY_GROUPING, ROUTING } from '../../configurations'
 import { DOMAIN, FORM } from '../../enums'
 
 const checkNull = data => Object.entries(data)
@@ -150,7 +150,9 @@ function DomainInstanceNew ({ isNew = true, data = {}, refetch = () => null }) {
           <Grid divided>
             {DOMAIN_PROPERTY_GROUPING.filter(group => group.id !== 'AUTOFILLED').map(({ id, test }) =>
               <Grid.Column key={id} width={6}>
-                {Object.entries(formConfiguration).filter(([item]) => test(item)).map(([item, value]) =>
+                {Object.entries(formConfiguration).filter(([item]) => test(item))
+                  .sort(([a], [b]) => DOMAIN_PROPERTIES_SORT(id, a, b))
+                  .map(([item, value]) =>
                   <FormInputs
                     key={item}
                     register={register}
@@ -163,7 +165,9 @@ function DomainInstanceNew ({ isNew = true, data = {}, refetch = () => null }) {
             )}
             {DOMAIN_PROPERTY_GROUPING.filter(group => group.id === 'AUTOFILLED').map(({ id, test }) =>
               <Grid.Column key={id} width={4}>
-                {Object.entries(formConfiguration).filter(([item]) => test(item)).map(([item, value]) => {
+                {Object.entries(formConfiguration).filter(([item]) => test(item))
+                  .sort(([a], [b]) => DOMAIN_PROPERTIES_SORT(id, a, b))
+                  .map(([item, value]) => {
                     return (
                       <Fragment key={item}>
                         <InfoPopup
