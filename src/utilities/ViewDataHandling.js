@@ -4,8 +4,7 @@ import { getNestedObject, SSB_COLORS } from '@statisticsnorway/dapla-js-utilitie
 
 import { DomainLinkResolve } from '../components/domain'
 import { convertDateToView, setConfiguration } from './'
-import { GSIM, GSIM_DEFINITIONS } from '../configurations'
-import { GSIM_PROPERTY_TYPES } from '../configurations/API'
+import { GSIM, GSIM_DEFINITIONS, GSIM_PROPERTY_TYPES } from '../configurations'
 
 const NOT_FINISHED = '...'
 

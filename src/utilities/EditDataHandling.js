@@ -1,8 +1,7 @@
 import { getNestedObject } from '@statisticsnorway/dapla-js-utilities'
 
 import { setConfiguration } from './'
-import { GSIM, GSIM_DEFINITIONS } from '../configurations'
-import { GSIM_PROPERTY_TYPES } from '../configurations/API'
+import { GSIM, GSIM_DEFINITIONS, GSIM_PROPERTY_TYPES } from '../configurations'
 
 const handleBooleanForEdit = boolean => ({
   inputType: 'boolean',

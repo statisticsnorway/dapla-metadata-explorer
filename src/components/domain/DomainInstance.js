@@ -19,7 +19,7 @@ import {
   convertSchemaToEdit,
   getDomainSchema
 } from '../../utilities'
-import { API, DOMAIN_PROPERTY_GROUPING, GSIM } from '../../configurations'
+import { API, DOMAIN_PROPERTIES_SORT, DOMAIN_PROPERTY_GROUPING, GSIM } from '../../configurations'
 
 function DomainInstance () {
   const { schemas } = useContext(SchemasContext)
@@ -90,24 +90,26 @@ function DomainInstance () {
               {DOMAIN_PROPERTY_GROUPING.map(({ id, test }) =>
                 <Grid.Column key={id}>
                   <Grid divided>
-                    {ready && properties.filter(([property]) => test(property)).map(([property]) => {
-                        const { description, name, value } = domainInstanceData[property]
+                    {ready && properties.filter(([property]) => test(property))
+                      .sort(([a], [b]) => DOMAIN_PROPERTIES_SORT(id, a, b))
+                      .map(([property]) => {
+                          const { description, name, value } = domainInstanceData[property]
 
-                        return (
-                          <Grid.Row key={property}>
-                            <Grid.Column textAlign='right' verticalAlign='middle' width={5}>
-                              <InfoPopup text={description} trigger={<b>{camelToTitle(name)}</b>} />
-                            </Grid.Column>
-                            <Grid.Column width={11} verticalAlign='middle'>
-                              {
-                                formConfiguration[property].configuration.inputType === 'date' ?
-                                  convertDateToView(value) : value
-                              }
-                            </Grid.Column>
-                          </Grid.Row>
-                        )
-                      }
-                    )}
+                          return (
+                            <Grid.Row key={property}>
+                              <Grid.Column textAlign='right' verticalAlign='middle' width={5}>
+                                <InfoPopup text={description} trigger={<b>{camelToTitle(name)}</b>} />
+                              </Grid.Column>
+                              <Grid.Column width={11} verticalAlign='middle'>
+                                {
+                                  formConfiguration[property].configuration.inputType === 'date' ?
+                                    convertDateToView(value) : value
+                                }
+                              </Grid.Column>
+                            </Grid.Row>
+                          )
+                        }
+                      )}
                   </Grid>
                 </Grid.Column>
               )}

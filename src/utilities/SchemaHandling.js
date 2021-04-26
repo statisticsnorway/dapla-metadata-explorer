@@ -1,15 +1,14 @@
 import { getNestedObject } from '@statisticsnorway/dapla-js-utilities'
 
 import { getDomainRef } from './'
-import { GSIM } from '../configurations'
+import { GSIM, GSIM_PROPERTY_TYPES } from '../configurations'
 import { UI } from '../enums'
-import { GSIM_PROPERTY_TYPES } from '../configurations/API'
 
 export const createEmptyDataObject = (id, user) => {
   const data = {}
   const dateNow = new Date(Date.now()).toISOString()
   const autofilledDates = GSIM.PROPERTIES_GROUPING.AUTOFILLED.filter((value, index) => [1, 4, 5].includes(index))
-  const defaultFilledDates = GSIM.PROPERTIES_GROUPING.COMMON.filter((value, index) => [7].includes(index))
+  const defaultFilledDates = GSIM.PROPERTIES_GROUPING.COMMON.filter((value, index) => [6].includes(index))
 
   data[GSIM.PROPERTIES_GROUPING.AUTOFILLED[0]] = id
   data[GSIM.PROPERTIES_GROUPING.AUTOFILLED[2]] = user
